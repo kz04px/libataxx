@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <ostream>
+#include <string>
 #include "file.hpp"
 #include "rank.hpp"
 
@@ -32,12 +33,17 @@ class Square {
         return data_;
     }
 
+    [[nodiscard]] explicit operator std::string() const noexcept {
+        return std::string() + static_cast<char>(file()) +
+               static_cast<char>(rank());
+    }
+
    private:
     std::uint8_t data_;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Square &sq) noexcept {
-    os << sq.file() << sq.rank();
+    os << static_cast<std::string>(sq);
     return os;
 }
 

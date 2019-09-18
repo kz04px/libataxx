@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <ostream>
+#include <string>
 #include "square.hpp"
 
 namespace libataxx {
@@ -58,20 +59,24 @@ class Move {
         return from_ == rhs.from_ && to_ == rhs.to_;
     }
 
+    [[nodiscard]] explicit operator std::string() const noexcept {
+        if (*this == Move::nullmove()) {
+            return "0000";
+        } else if (type() == Move::Type::Single) {
+            return static_cast<std::string>(from());
+        } else {
+            return static_cast<std::string>(from()) +
+                   static_cast<std::string>(to());
+        }
+    }
+
    private:
     Square from_;
     Square to_;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Move &m) {
-    if (m == Move::nullmove()) {
-        os << "0000";
-    } else if (m.type() == Move::Type::Single) {
-        os << m.from();
-    } else {
-        os << m.from() << m.to();
-    }
-
+    os << static_cast<std::string>(m);
     return os;
 }
 
