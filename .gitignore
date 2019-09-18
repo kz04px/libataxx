@@ -6,3 +6,5 @@ build/
 examples/dynamic/main
 
 examples/static/main
+
+examples/perft/main
