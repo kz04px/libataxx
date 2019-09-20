@@ -1,5 +1,5 @@
-#include "include/move.hpp"
-#include "include/position.hpp"
+#include "libataxx/move.hpp"
+#include "libataxx/position.hpp"
 
 namespace libataxx {
 

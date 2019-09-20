@@ -1,6 +1,6 @@
 #include <string>
-#include "include/bitboard.hpp"
-#include "include/position.hpp"
+#include "libataxx/bitboard.hpp"
+#include "libataxx/position.hpp"
 
 namespace libataxx {
 

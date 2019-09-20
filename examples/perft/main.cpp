@@ -1,7 +1,7 @@
 #include <chrono>
 #include <cstdint>
 #include <iostream>
-#include <libataxx.hpp>
+#include <libataxx/libataxx.hpp>
 
 using namespace std::chrono;
 using namespace libataxx;
