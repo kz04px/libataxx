@@ -10,3 +10,7 @@ examples/static/main
 examples/perft/main
 
 examples/play/main
+
+examples/pgn/main
+
+*.pgn

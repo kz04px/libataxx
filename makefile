@@ -14,7 +14,7 @@ DNAME     :=  $(NAME).so
 DDIR      :=  $(BINDIR)/shared
 DOBJ      :=  $(SRC:src/%.cpp=$(DDIR)/%.o)
 
-CXXFLAGS  :=  -Wall -Wextra -Wshadow
+CXXFLAGS  :=  -std=c++17 -Wall -Wextra -Wshadow
 CXXRFLAGS :=  -O2 -DNDEBUG
 LDFLAGS   :=  -L.
 ARFLAGS   :=  crf
