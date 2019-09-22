@@ -137,7 +137,7 @@ class Bitboard {
         return *this;
     }
 
-    constexpr explicit operator bool() const noexcept {
+    constexpr operator bool() const noexcept {
         return data_;
     }
 

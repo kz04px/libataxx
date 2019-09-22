@@ -36,6 +36,8 @@ class Position {
 
     [[nodiscard]] int legal_moves(Move *movelist) const noexcept;
 
+    [[nodiscard]] bool legal_move(const Move &move) const noexcept;
+
     [[nodiscard]] bool gameover() const noexcept;
 
     [[nodiscard]] constexpr Bitboard black() const noexcept {
@@ -44,6 +46,22 @@ class Position {
 
     [[nodiscard]] constexpr Bitboard white() const noexcept {
         return pieces_[static_cast<int>(Side::White)];
+    }
+
+    [[nodiscard]] constexpr Bitboard gaps() const noexcept {
+        return gaps_;
+    }
+
+    [[nodiscard]] constexpr Bitboard us() const noexcept {
+        return pieces_[static_cast<int>(turn_)];
+    }
+
+    [[nodiscard]] constexpr Bitboard them() const noexcept {
+        return pieces_[static_cast<int>(!turn_)];
+    }
+
+    [[nodiscard]] constexpr bool must_pass() const noexcept {
+        return !(empty() & (us().singles() | us().doubles()));
     }
 
     void makemove(const Move &move) noexcept;
