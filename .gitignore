@@ -14,3 +14,7 @@ examples/play/main
 examples/pgn/main
 
 *.pgn
+
+examples/engine/main
+
+examples/engine/engine
