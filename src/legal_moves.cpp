@@ -1,31 +1,43 @@
+#include "libataxx/libataxx.hpp"
 #include "libataxx/move.hpp"
-#include "libataxx/position.hpp"
 
 namespace libataxx {
 
-void Position::makemove(const Move &move) noexcept {
-    if (move == Move::nullmove()) {
-        turn_ = static_cast<Side>(!turn_);
-        return;
+[[nodiscard]] int Position::legal_moves(Move *movelist) const noexcept {
+    assert(movelist);
+
+    if (gameover()) {
+        return 0;
     }
 
-    const Side us = turn_;
-    const Side them = static_cast<Side>(!us);
-    const Square to = move.to();
-    const Square from = move.from();
-    const Bitboard to_bb = Bitboard(to);
-    const Bitboard from_bb = Bitboard(from);
-    const Bitboard neighbours = to_bb.singles();
-    const Bitboard captured = neighbours & pieces_[static_cast<int>(them)];
+    int num_moves = 0;
 
-    // Remove and replace our stone
-    pieces_[static_cast<int>(us)] ^= from_bb | to_bb;
+    // Single moves
+    Bitboard singles = pieces_[static_cast<int>(turn_)].singles() & empty();
+    for (const auto &bb : singles) {
+        const Square to{bb.lsbll()};
+        movelist[num_moves] = Move(to);
+        num_moves++;
+    }
 
-    // Flip any captured stones
-    pieces_[static_cast<int>(them)] ^= captured;
-    pieces_[static_cast<int>(us)] ^= captured;
+    // Double moves
+    Bitboard copy = pieces_[static_cast<int>(turn_)];
+    for (const auto &from : copy) {
+        Bitboard destinations = from.doubles() & empty();
+        const Square fromsq{from.lsbll()};
+        for (const auto &to : destinations) {
+            const Square tosq{to.lsbll()};
+            movelist[num_moves] = Move(fromsq, tosq);
+            num_moves++;
+        }
+    }
 
-    turn_ = them;
+    if (num_moves == 0) {
+        movelist[0] = Move::nullmove();
+        num_moves++;
+    }
+
+    return num_moves;
 }
 
 }  // namespace libataxx
