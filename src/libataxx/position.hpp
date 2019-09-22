@@ -11,6 +11,14 @@ namespace libataxx {
 
 class Move;
 
+enum class Result
+{
+    None = 0,
+    BlackWin,
+    WhiteWin,
+    Draw
+};
+
 class Position {
    public:
     constexpr Position()
@@ -62,6 +70,24 @@ class Position {
 
     [[nodiscard]] constexpr bool must_pass() const noexcept {
         return !(empty() & (us().singles() | us().doubles()));
+    }
+
+    [[nodiscard]] constexpr int score() const noexcept {
+        return black().count() - white().count();
+    }
+
+    [[nodiscard]] Result result() const noexcept {
+        if (!gameover()) {
+            return Result::None;
+        }
+        const int s = score();
+        if (s > 0) {
+            return Result::BlackWin;
+        } else if (s < 0) {
+            return Result::WhiteWin;
+        } else {
+            return Result::Draw;
+        }
     }
 
     void makemove(const Move &move) noexcept;
