@@ -69,6 +69,11 @@ void Position::set_fen(const std::string &fen) noexcept {
             turn_ = Side::White;
         }
     }
+
+    // Halfmove clock
+    if (ss >> word) {
+        halfmoves_ = std::stoul(word);
+    }
 }
 
 }  // namespace libataxx

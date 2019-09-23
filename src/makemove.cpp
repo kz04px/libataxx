@@ -4,6 +4,10 @@
 namespace libataxx {
 
 void Position::makemove(const Move &move) noexcept {
+    // Increment halfmove clock
+    halfmoves_++;
+
+    // Handle nullmove
     if (move == Move::nullmove()) {
         turn_ = static_cast<Side>(!turn_);
         return;
@@ -24,6 +28,11 @@ void Position::makemove(const Move &move) noexcept {
     // Flip any captured stones
     pieces_[static_cast<int>(them)] ^= captured;
     pieces_[static_cast<int>(us)] ^= captured;
+
+    // Reset halfmove clock on single moves or captures
+    if (move.type() == Move::Type::Single || captured) {
+        halfmoves_ = 0;
+    }
 
     turn_ = them;
 }

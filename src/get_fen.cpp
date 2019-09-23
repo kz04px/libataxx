@@ -56,6 +56,9 @@ namespace libataxx {
         fen += " o";
     }
 
+    // Halfmove clock
+    fen += " " + std::to_string(halfmoves_);
+
     return fen;
 }
 

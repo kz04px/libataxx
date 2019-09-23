@@ -17,6 +17,11 @@ namespace libataxx {
         return true;
     }
 
+    // Halfmove clock
+    if (halfmoves_ >= 100) {
+        return true;
+    }
+
     // Legal moves left
     if (moves & empty()) {
         return false;
