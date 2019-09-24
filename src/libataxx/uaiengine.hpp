@@ -87,6 +87,10 @@ class UAIEngine : public Engine {
         send("position fen " + pos.get_fen());
     }
 
+    void quit() noexcept override {
+        send("quit");
+    }
+
    private:
     void recv(const std::string &line) override {
         std::stringstream ss{line};

@@ -46,8 +46,8 @@ class Engine {
           child_{path,
                  boost::process::std_out > out_,
                  boost::process::std_in < in_} {
-        ios_thread_ = std::thread([&]() { ios_.run(); });
         start();
+        ios_thread_ = std::thread([&]() { ios_.run(); });
     }
 
     ~Engine() {
@@ -80,6 +80,8 @@ class Engine {
     [[nodiscard]] virtual std::uint64_t perft(const int depth) noexcept = 0;
 
     virtual void position(const Position &pos) noexcept = 0;
+
+    virtual void quit() noexcept = 0;
 
    private:
     void handle_recv(const boost::system::error_code &ec,
