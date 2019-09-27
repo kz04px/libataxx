@@ -14,8 +14,7 @@ namespace libataxx {
 
     // Single moves
     Bitboard singles = pieces_[static_cast<int>(turn_)].singles() & empty();
-    for (const auto &bb : singles) {
-        const Square to{bb.lsbll()};
+    for (const auto &to : singles) {
         movelist[num_moves] = Move(to);
         num_moves++;
     }
@@ -23,11 +22,9 @@ namespace libataxx {
     // Double moves
     Bitboard copy = pieces_[static_cast<int>(turn_)];
     for (const auto &from : copy) {
-        Bitboard destinations = from.doubles() & empty();
-        const Square fromsq{from.lsbll()};
+        Bitboard destinations = Bitboard{from}.doubles() & empty();
         for (const auto &to : destinations) {
-            const Square tosq{to.lsbll()};
-            movelist[num_moves] = Move(fromsq, tosq);
+            movelist[num_moves] = Move(from, to);
             num_moves++;
         }
     }

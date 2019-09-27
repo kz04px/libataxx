@@ -7,6 +7,28 @@
 
 namespace libataxx {
 
+class BitboardIterator {
+   public:
+    constexpr BitboardIterator(const std::uint64_t &data) : data_{data} {
+    }
+
+    constexpr Square operator*() const noexcept {
+        return Square{__builtin_ctzll(data_)};
+    }
+
+    constexpr BitboardIterator operator++() noexcept {
+        data_ &= data_ - 1;
+        return *this;
+    }
+
+    constexpr bool operator!=(const BitboardIterator &rhs) const noexcept {
+        return data_ != rhs.data_;
+    }
+
+   private:
+    std::uint64_t data_;
+};
+
 class Bitboard {
    public:
     constexpr Bitboard() : data_{0} {
@@ -128,25 +150,16 @@ class Bitboard {
         return data_ != rhs.data_;
     }
 
-    constexpr Bitboard operator*() const noexcept {
-        return Bitboard{Square{lsbll()}};
-    }
-
-    constexpr Bitboard operator++() {
-        data_ &= data_ - 1;
-        return *this;
-    }
-
     constexpr operator bool() const noexcept {
         return data_;
     }
 
-    constexpr Bitboard begin() noexcept {
-        return *this;
+    constexpr BitboardIterator begin() const noexcept {
+        return BitboardIterator{data_};
     }
 
-    constexpr Bitboard end() noexcept {
-        return Bitboard{0};
+    constexpr BitboardIterator end() const noexcept {
+        return BitboardIterator{0};
     }
 
     constexpr int lsbll() const noexcept {

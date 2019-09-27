@@ -17,9 +17,8 @@ namespace libataxx {
     num_moves += singles.count();
 
     // Double moves
-    Bitboard copy = pieces_[static_cast<int>(turn_)];
-    for (const auto &bb : copy) {
-        const Bitboard destinations = bb.doubles() & empty;
+    for (const auto &sq : pieces_[static_cast<int>(turn_)]) {
+        const Bitboard destinations = Bitboard{sq}.doubles() & empty;
         num_moves += destinations.count();
     }
 
