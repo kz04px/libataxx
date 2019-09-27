@@ -1,11 +1,15 @@
 #include "libataxx/move.hpp"
 #include "libataxx/position.hpp"
+#include "libataxx/zobrist.hpp"
 
 namespace libataxx {
 
 void Position::makemove(const Move &move) noexcept {
     // Increment halfmove clock
     halfmoves_++;
+
+    // Update hash -- turn
+    hash_ ^= zobrist::turn_key();
 
     // Handle nullmove
     if (move == Move::nullmove()) {
@@ -28,6 +32,17 @@ void Position::makemove(const Move &move) noexcept {
     // Flip any captured stones
     pieces_[static_cast<int>(them)] ^= captured;
     pieces_[static_cast<int>(us)] ^= captured;
+
+    // Update hash -- our pieces
+    for (const auto &sq : from_bb | to_bb) {
+        hash_ ^= zobrist::get_key(turn_, sq);
+    }
+
+    // Update hash -- captured pieces
+    for (const auto &sq : captured) {
+        hash_ ^= zobrist::get_key(!turn_, sq);
+        hash_ ^= zobrist::get_key(turn_, sq);
+    }
 
     // Reset halfmove clock on single moves or captures
     if (move.type() == Move::Type::Single || captured) {

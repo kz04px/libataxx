@@ -74,6 +74,9 @@ void Position::set_fen(const std::string &fen) noexcept {
     if (ss >> word) {
         halfmoves_ = std::stoul(word);
     }
+
+    // Calculate initial hash
+    hash_ = calculate_hash();
 }
 
 }  // namespace libataxx

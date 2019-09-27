@@ -22,11 +22,11 @@ enum class Result
 class Position {
    public:
     constexpr Position()
-        : pieces_{}, gaps_{}, halfmoves_{0}, turn_{Side::Black} {
+        : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, turn_{Side::Black} {
     }
 
     constexpr Position(const std::string &fen)
-        : pieces_{}, gaps_{}, halfmoves_{0}, turn_{Side::Black} {
+        : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, turn_{Side::Black} {
         set_fen(fen);
     }
 
@@ -110,9 +110,17 @@ class Position {
                  pieces_[static_cast<int>(Side::White)] | gaps_);
     }
 
+    [[nodiscard]] constexpr std::uint64_t hash() const noexcept {
+        return hash_;
+    }
+
+   private:
+    [[nodiscard]] std::uint64_t calculate_hash() const noexcept;
+
    private:
     Bitboard pieces_[2];
     Bitboard gaps_;
+    std::uint64_t hash_;
     unsigned int halfmoves_;
     Side turn_;
 };
