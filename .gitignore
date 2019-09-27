@@ -18,3 +18,5 @@ examples/pgn/main
 examples/engine/main
 
 examples/engine/engine
+
+examples/ttperft/main
