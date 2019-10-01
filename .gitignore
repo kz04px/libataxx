@@ -20,3 +20,5 @@ examples/engine/main
 examples/engine/engine
 
 examples/ttperft/main
+
+tests/main
