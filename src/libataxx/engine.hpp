@@ -40,6 +40,13 @@ struct SearchSettings {
 };
 
 class Engine {
+   public:
+    [[nodiscard]] bool running() noexcept {
+        std::error_code ec;
+        child_.running(ec);
+        return !static_cast<bool>(ec);
+    }
+
    protected:
     Engine(const std::string &path)
         : out_{ios_},
