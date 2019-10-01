@@ -36,6 +36,7 @@ class UAIEngine : public Engine {
     }
 
     [[nodiscard]] Move go(const SearchSettings &settings) override {
+        std::unique_lock<std::mutex> lock(mtx_);
         bestmove_received = false;
 
         switch (settings.type) {
@@ -70,7 +71,6 @@ class UAIEngine : public Engine {
                 throw std::invalid_argument("Invalid search type");
         }
 
-        std::unique_lock<std::mutex> lock(mtx_);
         cv_bestmove_.wait(lock, [&] { return bestmove_received; });
         return bestmove_;
     }
