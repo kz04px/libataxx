@@ -15,10 +15,17 @@ int main(int argc, char **argv) {
     engine.uainewgame();
     engine.position(pos);
 
+    engine.add_info_callback(
+        [](const std::string &info) { std::cout << info << std::endl; });
+
     const auto settings = SearchSettings{.type = SearchSettings::Type::Movetime,
                                          .movetime = 3000};
-    std::cout << "Bestmove: " << engine.go(settings) << std::endl;
-    std::cout << "Perft 6: " << engine.perft(6) << std::endl;
+
+    const auto bestmove = engine.go(settings);
+    std::cout << "Bestmove: " << bestmove << std::endl;
+
+    const auto nodes = engine.perft(6);
+    std::cout << "Perft 6: " << nodes << std::endl;
 
     return 0;
 }

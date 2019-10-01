@@ -2,8 +2,10 @@
 #define LIBATAXX_UAIENGINE_HPP
 
 #include <condition_variable>
+#include <functional>
 #include <mutex>
 #include <string>
+#include <vector>
 #include "engine.hpp"
 
 namespace libataxx {
@@ -118,6 +120,11 @@ class UAIEngine : public Engine {
         return true;
     }
 
+    void add_info_callback(
+        const std::function<void(const std::string &info)> func) noexcept {
+        info_callbacks_.push_back(func);
+    }
+
    private:
     void recv(const std::string &line) override {
         std::stringstream ss{line};
@@ -144,6 +151,10 @@ class UAIEngine : public Engine {
                 std::lock_guard<std::mutex> lock(mtx_);
                 nodes_received = true;
                 cv_nodes_.notify_one();
+            } else if (word == "info") {
+                for (const auto &func : info_callbacks_) {
+                    func(line);
+                }
             }
         }
     }
@@ -160,6 +171,7 @@ class UAIEngine : public Engine {
     bool readyok_received{false};
     bool bestmove_received{false};
     bool nodes_received{false};
+    std::vector<std::function<void(const std::string &info)>> info_callbacks_;
 };
 
 }  // namespace engine
