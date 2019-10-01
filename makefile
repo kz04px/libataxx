@@ -43,7 +43,7 @@ $(DDIR)/%.o: src/%.cpp | $(DDIR)
 	$(CC) $(CXXFLAGS) $(CXXRFLAGS) -o $@ -c $<
 
 $(SDIR) $(DDIR):
-	@mkdir $@
+	@mkdir -p $@
 
 clean:
 	$(RM) -r $(SDIR) $(DDIR)
