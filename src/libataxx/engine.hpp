@@ -90,6 +90,15 @@ class Engine {
 
     virtual void quit() noexcept = 0;
 
+    virtual bool set_option(const std::string &name,
+                            const int value) noexcept = 0;
+
+    virtual bool set_option(const std::string &name,
+                            const std::string &value) noexcept = 0;
+
+    virtual bool set_option(const std::string &name,
+                            const bool value) noexcept = 0;
+
    private:
     void handle_recv(const boost::system::error_code &ec,
                      [[maybe_unused]] const std::size_t size) {

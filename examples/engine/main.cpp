@@ -10,6 +10,7 @@ int main(int argc, char **argv) {
     auto engine = UAIEngine("./engine");
 
     engine.uai();
+    engine.set_option("Hash", 1);
     engine.isready();
     engine.uainewgame();
     engine.position(pos);

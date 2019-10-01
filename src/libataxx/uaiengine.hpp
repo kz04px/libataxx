@@ -91,6 +91,33 @@ class UAIEngine : public Engine {
         send("quit");
     }
 
+    bool set_option(const std::string &name,
+                    const int value) noexcept override {
+        if (!uaiok_received) {
+            return false;
+        }
+        send("setoption name " + name + " value " + std::to_string(value));
+        return true;
+    }
+
+    bool set_option(const std::string &name,
+                    const std::string &value) noexcept override {
+        if (!uaiok_received) {
+            return false;
+        }
+        send("setoption name " + name + " value " + value);
+        return true;
+    }
+
+    bool set_option(const std::string &name,
+                    const bool value) noexcept override {
+        if (!uaiok_received) {
+            return false;
+        }
+        send("setoption name " + name + " value " + (value ? "true" : "false"));
+        return true;
+    }
+
    private:
     void recv(const std::string &line) override {
         std::stringstream ss{line};
