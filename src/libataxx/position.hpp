@@ -118,6 +118,18 @@ class Position {
         return halfmoves_;
     }
 
+    [[nodiscard]] constexpr Bitboard reachable() const noexcept {
+        Bitboard all = black() | white();
+        Bitboard remaining = empty();
+        Bitboard moves;
+        do {
+            moves = (all.singles() | all.doubles()) & remaining;
+            all |= moves;
+            remaining &= ~moves;
+        } while (moves);
+        return all;
+    }
+
    private:
     [[nodiscard]] std::uint64_t calculate_hash() const noexcept;
 
