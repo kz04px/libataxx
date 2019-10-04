@@ -114,6 +114,10 @@ class Position {
         return hash_;
     }
 
+    [[nodiscard]] unsigned int halfmoves() const noexcept {
+        return halfmoves_;
+    }
+
    private:
     [[nodiscard]] std::uint64_t calculate_hash() const noexcept;
 
