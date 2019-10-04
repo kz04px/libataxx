@@ -6,7 +6,7 @@ namespace libataxx {
 
 void Position::set_fen(const std::string &fen) noexcept {
     if (fen == "startpos") {
-        return set_fen("x5o/7/7/7/7/7/o5x x");
+        return set_fen("x5o/7/7/7/7/7/o5x x 0");
     }
 
     // Clear board
