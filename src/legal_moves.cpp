@@ -13,15 +13,14 @@ namespace libataxx {
     int num_moves = 0;
 
     // Single moves
-    Bitboard singles = pieces_[static_cast<int>(turn_)].singles() & empty();
+    Bitboard singles = us().singles() & empty();
     for (const auto &to : singles) {
         movelist[num_moves] = Move(to);
         num_moves++;
     }
 
     // Double moves
-    Bitboard copy = pieces_[static_cast<int>(turn_)];
-    for (const auto &from : copy) {
+    for (const auto &from : us()) {
         Bitboard destinations = Bitboard{from}.doubles() & empty();
         for (const auto &to : destinations) {
             movelist[num_moves] = Move(from, to);

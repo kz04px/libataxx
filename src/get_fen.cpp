@@ -14,19 +14,19 @@ namespace libataxx {
         const auto sq = Square{idx};
         const Bitboard bb{sq};
 
-        if (bb & pieces_[static_cast<int>(Side::Black)]) {
+        if (bb & black()) {
             if (empty) {
                 fen += std::to_string(empty);
                 empty = 0;
             }
             fen += "x";
-        } else if (bb & pieces_[static_cast<int>(Side::White)]) {
+        } else if (bb & white()) {
             if (empty) {
                 fen += std::to_string(empty);
                 empty = 0;
             }
             fen += "o";
-        } else if (bb & gaps_) {
+        } else if (bb & gaps()) {
             if (empty) {
                 fen += std::to_string(empty);
                 empty = 0;
@@ -50,7 +50,7 @@ namespace libataxx {
     }
 
     // Turn
-    if (turn_ == Side::Black) {
+    if (turn() == Side::Black) {
         fen += " x";
     } else {
         fen += " o";

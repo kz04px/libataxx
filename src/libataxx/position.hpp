@@ -94,11 +94,11 @@ class Position {
 
     [[nodiscard]] constexpr Piece get(const Square &sq) const noexcept {
         const Bitboard bb{sq};
-        if (pieces_[static_cast<int>(Side::Black)] & bb) {
+        if (black() & bb) {
             return Piece::Black;
-        } else if (pieces_[static_cast<int>(Side::White)] & bb) {
+        } else if (white() & bb) {
             return Piece::White;
-        } else if (gaps_ & bb) {
+        } else if (gaps() & bb) {
             return Piece::Gap;
         } else {
             return Piece::Empty;
@@ -106,8 +106,7 @@ class Position {
     }
 
     [[nodiscard]] constexpr Bitboard empty() const noexcept {
-        return ~(pieces_[static_cast<int>(Side::Black)] |
-                 pieces_[static_cast<int>(Side::White)] | gaps_);
+        return ~(black() | white() | gaps());
     }
 
     [[nodiscard]] constexpr std::uint64_t hash() const noexcept {

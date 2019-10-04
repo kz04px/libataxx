@@ -3,22 +3,21 @@
 namespace libataxx {
 
 [[nodiscard]] bool Position::gameover() const noexcept {
-    const Bitboard both = pieces_[static_cast<int>(Side::Black)] |
-                          pieces_[static_cast<int>(Side::White)];
+    const Bitboard both = black() | white();
     const Bitboard moves = both.singles().singles();
 
     // No black pieces left
-    if (!pieces_[static_cast<int>(Side::Black)]) {
+    if (!black()) {
         return true;
     }
 
     // No white pieces left
-    if (!pieces_[static_cast<int>(Side::White)]) {
+    if (!white()) {
         return true;
     }
 
     // Halfmove clock
-    if (halfmoves_ >= 100) {
+    if (halfmoves() >= 100) {
         return true;
     }
 

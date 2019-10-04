@@ -6,15 +6,15 @@ namespace libataxx {
 [[nodiscard]] std::uint64_t Position::calculate_hash() const noexcept {
     std::uint64_t key = 0ULL;
 
-    if (turn_ == Side::Black) {
+    if (turn() == Side::Black) {
         key ^= zobrist::turn_key();
     }
 
-    for (const auto &sq : pieces_[static_cast<int>(Side::Black)]) {
+    for (const auto &sq : black()) {
         key ^= zobrist::get_key(Side::Black, sq);
     }
 
-    for (const auto &sq : pieces_[static_cast<int>(Side::White)]) {
+    for (const auto &sq : white()) {
         key ^= zobrist::get_key(Side::White, sq);
     }
 
