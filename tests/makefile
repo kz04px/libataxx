@@ -5,6 +5,6 @@ DLFLAGS  = -L../build/static/
 LFLAGS   = -pthread -lboost_system -lataxx
 
 all:
-	$(CC) $(CFLAGS) $(INC) test.cpp $(DLFLAGS) $(LFLAGS) -o main
+	$(CC) $(CFLAGS) $(INC) *.cpp $(DLFLAGS) $(LFLAGS) -o main
 
 .PHONY: clean

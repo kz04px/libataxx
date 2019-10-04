@@ -1,0 +1,36 @@
+#include <libataxx/move.hpp>
+#include <libataxx/position.hpp>
+#include <string>
+#include "catch.hpp"
+
+TEST_CASE("Position::gameover()") {
+    const std::pair<std::string, bool> positions[] = {
+        {"x5o/7/7/7/7/7/o5x x 0", false},
+        {"x5o/7/2-1-2/7/2-1-2/7/o5x x 0", false},
+        {"x5o/7/3-3/2-1-2/3-3/7/o5x x 0", false},
+        {"7/7/7/7/7/7/7 x 0", true},
+        {"7/7/7/7/7/7/7 o 0", true},
+        {"x5o/7/7/7/7/7/o5x x 0", false},
+        {"x5o/7/7/7/7/7/o5x x 99", false},
+        {"x5o/7/7/7/7/7/o5x x 100", true},
+        {"x5o/7/7/7/7/7/o5x x 101", true},
+        {"x6/7/7/7/7/7/7 x 0", true},
+        {"x6/7/7/7/7/7/7 o 0", true},
+        {"o6/7/7/7/7/7/7 x 0", true},
+        {"o6/7/7/7/7/7/7 o 0", true},
+    };
+
+    for (const auto& [fen, gameover] : positions) {
+        libataxx::Position pos{fen};
+        REQUIRE(pos.gameover() == gameover);
+
+        const int num_moves = pos.count_moves();
+
+        if (gameover) {
+            REQUIRE(num_moves == 0);
+        } else {
+            REQUIRE(num_moves > 0);
+            REQUIRE(num_moves < libataxx::max_moves);
+        }
+    }
+}
