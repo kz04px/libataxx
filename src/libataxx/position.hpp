@@ -105,6 +105,34 @@ class Position {
         }
     }
 
+    constexpr void set(const Square &sq, const Piece &piece) noexcept {
+        const Bitboard bb{sq};
+        switch (piece) {
+            case Piece::Black:
+                pieces_[static_cast<int>(Side::Black)] |= bb;
+                pieces_[static_cast<int>(Side::White)] &= ~bb;
+                gaps_ &= ~bb;
+                break;
+            case Piece::White:
+                pieces_[static_cast<int>(Side::Black)] &= ~bb;
+                pieces_[static_cast<int>(Side::White)] |= bb;
+                gaps_ &= ~bb;
+                break;
+            case Piece::Gap:
+                pieces_[static_cast<int>(Side::Black)] &= ~bb;
+                pieces_[static_cast<int>(Side::White)] &= ~bb;
+                gaps_ |= bb;
+                break;
+            case Piece::Empty:
+                pieces_[static_cast<int>(Side::Black)] &= ~bb;
+                pieces_[static_cast<int>(Side::White)] &= ~bb;
+                gaps_ &= ~bb;
+                break;
+            default:
+                break;
+        }
+    }
+
     [[nodiscard]] constexpr Bitboard empty() const noexcept {
         return ~(black() | white() | gaps());
     }
