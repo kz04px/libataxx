@@ -38,6 +38,10 @@ class Position {
         return turn_;
     }
 
+    constexpr void set_turn(const Side &side) noexcept {
+        turn_ = side;
+    }
+
     [[nodiscard]] std::uint64_t perft(const int depth) const noexcept;
 
     [[nodiscard]] std::uint64_t count_moves() const noexcept;
