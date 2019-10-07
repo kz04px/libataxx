@@ -101,6 +101,15 @@ class Move {
             const int dx = std::abs(x1 - x2);
             const int dy = std::abs(y1 - y2);
 
+            if (sq1 == sq2) {
+                throw std::invalid_argument(
+                    "Source and destination square are the same");
+            }
+
+            if (dx > 2 || dy > 2) {
+                throw std::invalid_argument("Invalid move. (" + str + ")");
+            }
+
             // We were just given a single jump in longhand notation
             // e.g. "b2b3" instead of "b3"
             if (dx <= 1 && dy <= 1) {
@@ -110,9 +119,9 @@ class Move {
             else {
                 return Move(sq1, sq2);
             }
-        } else {
-            throw std::invalid_argument("Invalid move. (" + str + ")");
         }
+
+        throw std::invalid_argument("Invalid move. (" + str + ")");
     }
 
    private:

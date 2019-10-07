@@ -24,4 +24,24 @@ TEST_CASE("Move::from_uai()") {
             REQUIRE(moves[i] == libataxx::Move::from_uai(movestr));
         }
     }
+
+    const std::string move_strings[] = {
+        "g8",
+        "g0",
+        "h1",
+        "e",
+        "1",
+        "g1g4",
+        "g1g1",
+        "00000",
+        "",
+    };
+    for (const auto &movestr : move_strings) {
+        try {
+            [[maybe_unused]] const auto move =
+                libataxx::Move::from_uai(movestr);
+            FAIL("Illegal move string parsed: " << movestr);
+        } catch (...) {
+        }
+    }
 }
