@@ -8,11 +8,19 @@ namespace libataxx {
 
 class File {
    public:
-    constexpr explicit File(const uint8_t f) : data_{f} {
+    constexpr explicit File(const int f) : data_(f) {
     }
 
-    constexpr operator char() const noexcept {
+    explicit constexpr operator char() const noexcept {
         return 'a' + data_;
+    }
+
+    explicit constexpr operator int() const noexcept {
+        return data_;
+    }
+
+    constexpr bool operator==(const File &rhs) const noexcept {
+        return data_ == rhs.data_;
     }
 
    private:
@@ -34,13 +42,21 @@ constexpr static File E = File{4};
 constexpr static File F = File{5};
 constexpr static File G = File{6};
 
-static_assert(A == 'a');
-static_assert(B == 'b');
-static_assert(C == 'c');
-static_assert(D == 'd');
-static_assert(E == 'e');
-static_assert(F == 'f');
-static_assert(G == 'g');
+static_assert(static_cast<char>(A) == 'a');
+static_assert(static_cast<char>(B) == 'b');
+static_assert(static_cast<char>(C) == 'c');
+static_assert(static_cast<char>(D) == 'd');
+static_assert(static_cast<char>(E) == 'e');
+static_assert(static_cast<char>(F) == 'f');
+static_assert(static_cast<char>(G) == 'g');
+
+static_assert(static_cast<int>(A) == 0);
+static_assert(static_cast<int>(B) == 1);
+static_assert(static_cast<int>(C) == 2);
+static_assert(static_cast<int>(D) == 3);
+static_assert(static_cast<int>(E) == 4);
+static_assert(static_cast<int>(F) == 5);
+static_assert(static_cast<int>(G) == 6);
 
 }  // namespace files
 

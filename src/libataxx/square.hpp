@@ -14,19 +14,22 @@ class Square {
     constexpr Square() : data_{0} {
     }
 
-    explicit constexpr Square(const uint8_t sq) : data_{sq} {
+    explicit constexpr Square(const int sq) : data_(sq) {
     }
 
-    explicit constexpr Square(const int sq)
-        : data_{static_cast<std::uint8_t>(sq)} {
+    constexpr Square(const int f, const int r) : data_(7 * r + f) {
+    }
+
+    constexpr Square(const File &f, const Rank &r)
+        : data_(7 * int(r) + int(f)) {
     }
 
     constexpr File file() const noexcept {
-        return File{static_cast<std::uint8_t>(data_ % 7)};
+        return File{data_ % 7};
     }
 
     constexpr Rank rank() const noexcept {
-        return Rank{static_cast<std::uint8_t>(data_ / 7)};
+        return Rank{data_ / 7};
     }
 
     explicit constexpr operator int() const noexcept {
