@@ -113,12 +113,10 @@ class Move {
             // We were just given a single jump in longhand notation
             // e.g. "b2b3" instead of "b3"
             if (dx <= 1 && dy <= 1) {
-                return Move(sq2);
+                throw std::invalid_argument("Single move given as double move");
             }
-            // Normal double jump
-            else {
-                return Move(sq1, sq2);
-            }
+
+            return Move(sq1, sq2);
         }
 
         throw std::invalid_argument("Invalid move. (" + str + ")");

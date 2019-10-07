@@ -34,6 +34,13 @@ TEST_CASE("Move::from_uai()") {
         "g1g4",
         "g1g1",
         "00000",
+        "g1f2",
+        "f1f2",
+        "f2g1",
+        "f2f1",
+        "\n",
+        "\t",
+        " ",
         "",
     };
     for (const auto &movestr : move_strings) {
