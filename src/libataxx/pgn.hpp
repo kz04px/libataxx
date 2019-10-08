@@ -121,6 +121,10 @@ class Header {
         return stuff_.at(key);
     }
 
+    [[nodiscard]] const auto &items() const noexcept {
+        return stuff_;
+    }
+
    private:
     std::unordered_map<std::string, std::string> stuff_;
 };
@@ -194,12 +198,15 @@ inline std::ostream &operator<<(std::ostream &os, const Node &node) {
 }
 
 inline std::ostream &operator<<(std::ostream &os, const PGN &pgn) {
-    // Header
-    for (const auto &thing : header_order) {
-        if (pgn.header().has(thing)) {
-            os << "[" << thing << " \"" << pgn.header().get(thing).value()
-               << "\"]\n";
+    // Header -- Event
+    os << "[Event \"" << pgn.header().get("Event").value() << "\"]\n";
+
+    // Header -- unordered
+    for (const auto &[key, value] : pgn.header().items()) {
+        if (key == "Event") {
+            continue;
         }
+        os << "[" << key << " \"" << value << "\"]\n";
     }
     os << '\n';
 
