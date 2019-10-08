@@ -48,6 +48,8 @@ class Position {
 
     [[nodiscard]] int legal_moves(Move *movelist) const noexcept;
 
+    [[nodiscard]] int legal_captures(Move *movelist) const noexcept;
+
     [[nodiscard]] bool legal_move(const Move &move) const noexcept;
 
     [[nodiscard]] bool gameover() const noexcept;
