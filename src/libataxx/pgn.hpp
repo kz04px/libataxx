@@ -49,7 +49,11 @@ class Node {
     }
 
     void add_comment(const std::string &comment) noexcept {
-        comment_ = comment;
+        if (comment_.empty()) {
+            comment_ = comment;
+        } else {
+            comment_ += " " + comment;
+        }
     }
 
     [[nodiscard]] std::vector<Move> mainline() const noexcept {
