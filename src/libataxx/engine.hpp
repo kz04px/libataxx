@@ -5,6 +5,7 @@
 #include <boost/bind.hpp>
 #include <boost/process.hpp>
 #include <cstdint>
+#include <iostream>
 #include <string>
 #include <thread>
 #include "move.hpp"
@@ -65,7 +66,19 @@ class Engine {
 
     void listen() {
         start();
-        ios_thread_ = std::thread([&]() { ios_.run(); });
+        ios_thread_ = std::thread([&]() {
+            for (;;) {
+                try {
+                    ios_.run();
+                    break;
+                } catch (std::exception &e) {
+                    std::cerr << "io_service exception: " << e.what()
+                              << std::endl;
+                } catch (...) {
+                    std::cerr << "io_service exception" << std::endl;
+                }
+            }
+        });
     }
 
     void send(const std::string &line) noexcept {
