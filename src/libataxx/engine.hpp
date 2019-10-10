@@ -53,8 +53,6 @@ class Engine {
           child_{path,
                  boost::process::std_out > out_,
                  boost::process::std_in < in_} {
-        start();
-        ios_thread_ = std::thread([&]() { ios_.run(); });
     }
 
     ~Engine() {
@@ -63,6 +61,11 @@ class Engine {
         if (ios_thread_.joinable()) {
             ios_thread_.join();
         }
+    }
+
+    void listen() {
+        start();
+        ios_thread_ = std::thread([&]() { ios_.run(); });
     }
 
     void send(const std::string &line) noexcept {

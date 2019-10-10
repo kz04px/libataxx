@@ -15,6 +15,7 @@ namespace engine {
 class UAIEngine : public Engine {
    public:
     explicit UAIEngine(const std::string &path) : Engine{path} {
+        listen();
     }
 
     void uai() noexcept {
