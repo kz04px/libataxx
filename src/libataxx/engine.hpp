@@ -57,11 +57,11 @@ class Engine {
     }
 
     ~Engine() {
-        child_.terminate();
         ios_.stop();
         if (ios_thread_.joinable()) {
             ios_thread_.join();
         }
+        child_.terminate();
     }
 
     void listen() {
