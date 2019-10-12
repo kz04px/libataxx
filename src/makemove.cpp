@@ -8,6 +8,9 @@ void Position::makemove(const Move &move) noexcept {
     // Increment halfmove clock
     halfmoves_++;
 
+    // Increment fullmove counter after player 2 moves
+    fullmoves_ += (turn() == Side::White);
+
     // Update hash -- turn
     hash_ ^= zobrist::turn_key();
 

@@ -6,7 +6,7 @@
 
 const std::string expected =
     "[Event \"PGN Test\"]\n"
-    "[FEN \"x5o/7/7/7/7/7/o5x x 0\"]\n"
+    "[FEN \"x5o/7/7/7/7/7/o5x x 0 1\"]\n"
     "[White \"PlayerWhite\"]\n"
     "[Black \"PlayerBlack\"]\n"
     "[Result \"*\"]\n"
@@ -18,7 +18,7 @@ const std::string expected =
 TEST_CASE("PGN") {
     libataxx::pgn::PGN pgn;
     pgn.header().add("Event", "PGN Test");
-    pgn.header().add("FEN", "x5o/7/7/7/7/7/o5x x 0");
+    pgn.header().add("FEN", "x5o/7/7/7/7/7/o5x x 0 1");
     pgn.header().add("White", "PlayerWhite");
     pgn.header().add("Black", "PlayerBlack");
     pgn.header().add("Result", "*");

@@ -5,9 +5,9 @@
 
 TEST_CASE("Position::perft()") {
     const std::pair<std::string, std::uint64_t> positions[] = {
-        {"x5o/7/7/7/7/7/o5x x 0", 155888},
-        {"x5o/7/2-1-2/7/2-1-2/7/o5x x 0", 86528},
-        {"x5o/7/3-3/2-1-2/3-3/7/o5x x 0", 133264},
+        {"x5o/7/7/7/7/7/o5x x 0 1", 155888},
+        {"x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1", 86528},
+        {"x5o/7/3-3/2-1-2/3-3/7/o5x x 0 1", 133264},
     };
 
     for (const auto& [fen, nodes] : positions) {

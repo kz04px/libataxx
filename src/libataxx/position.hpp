@@ -21,11 +21,21 @@ enum class Result
 class Position {
    public:
     constexpr Position()
-        : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, turn_{Side::Black} {
+        : pieces_{},
+          gaps_{},
+          hash_{0},
+          halfmoves_{0},
+          fullmoves_{0},
+          turn_{Side::Black} {
     }
 
     constexpr Position(const std::string &fen)
-        : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, turn_{Side::Black} {
+        : pieces_{},
+          gaps_{},
+          hash_{0},
+          halfmoves_{0},
+          fullmoves_{0},
+          turn_{Side::Black} {
         set_fen(fen);
     }
 
@@ -161,6 +171,10 @@ class Position {
         return halfmoves_;
     }
 
+    [[nodiscard]] unsigned int fullmoves() const noexcept {
+        return fullmoves_;
+    }
+
     [[nodiscard]] constexpr Bitboard reachable() const noexcept {
         Bitboard all = black() | white();
         Bitboard remaining = empty();
@@ -181,6 +195,7 @@ class Position {
     Bitboard gaps_;
     std::uint64_t hash_;
     unsigned int halfmoves_;
+    unsigned int fullmoves_;
     Side turn_;
 };
 

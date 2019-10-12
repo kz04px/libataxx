@@ -13,6 +13,8 @@ void Position::set_fen(const std::string &fen) noexcept {
     pieces_[static_cast<int>(Side::Black)].clear();
     pieces_[static_cast<int>(Side::White)].clear();
     gaps_.clear();
+    halfmoves_ = 0;
+    fullmoves_ = 1;
     turn_ = Side::Black;
 
     std::stringstream ss{fen};
@@ -73,6 +75,11 @@ void Position::set_fen(const std::string &fen) noexcept {
     // Halfmove clock
     if (ss >> word) {
         halfmoves_ = std::stoul(word);
+    }
+
+    // Fullmove counter
+    if (ss >> word) {
+        fullmoves_ = std::stoul(word);
     }
 
     // Calculate initial hash

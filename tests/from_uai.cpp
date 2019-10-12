@@ -5,10 +5,10 @@
 
 TEST_CASE("Move::from_uai()") {
     const std::string fens[] = {
-        "x5o/7/7/7/7/7/o5x x 0",
-        "x5o/7/2-1-2/7/2-1-2/7/o5x x 0",
-        "x5o/7/3-3/2-1-2/3-3/7/o5x x 0",
-        "xxxxxxx/7/ooooooo/7/ooooooo/7/xxxxxxx x 0",
+        "x5o/7/7/7/7/7/o5x x 0 1",
+        "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1",
+        "x5o/7/3-3/2-1-2/3-3/7/o5x x 0 1",
+        "xxxxxxx/7/ooooooo/7/ooooooo/7/xxxxxxx x 0 1",
     };
 
     REQUIRE(libataxx::Move::nullmove() == libataxx::Move::from_uai("0000"));

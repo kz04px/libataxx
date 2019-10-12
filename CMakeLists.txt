@@ -72,6 +72,7 @@ add_executable(
     tests/main.cpp
     tests/score.cpp
     tests/pgn.cpp
+    tests/counters.cpp
 )
 
 set_target_properties(
