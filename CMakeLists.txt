@@ -74,8 +74,22 @@ add_executable(
     tests/pgn.cpp
 )
 
-set_target_properties(ataxx-static PROPERTIES OUTPUT_NAME "ataxx")
-set_target_properties(ataxx-shared PROPERTIES OUTPUT_NAME "ataxx")
+set_target_properties(
+    ataxx-static
+    PROPERTIES
+    OUTPUT_NAME "ataxx"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/static"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/static"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/static"
+)
+set_target_properties(
+    ataxx-shared
+    PROPERTIES
+    OUTPUT_NAME "ataxx"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/shared"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/shared"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/shared"
+)
 
 set_property(TARGET libataxx-test PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE FALSE)
 
