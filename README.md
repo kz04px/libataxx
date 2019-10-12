@@ -4,7 +4,9 @@ A C++ library for the board game [Ataxx](https://en.wikipedia.org/wiki/Ataxx) wr
 ## Build
 ```bash
 git clone https://github.com/kz04px/libataxx
-cd libataxx
+mkdir libataxx/build
+cd libataxx/build
+cmake ..
 make
 ```
 
