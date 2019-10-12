@@ -22,6 +22,12 @@ Libataxx is specifically designed for Ataxx on a 7x7 board, as such, it does not
 ## Usage
 Some of the bit twiddling required for bitboards has been abstracted away, but at least a passing knowledge of [bitwise operators](https://en.wikipedia.org/wiki/Bitwise_operation) is recommended. The 'examples' folder contains some basic examples.
 
+## Testing
+To run the included tests, navigate to the build directory and then run:
+```bash
+./libataxx-test
+```
+
 ## License
 Libataxx and all [examples](examples) are under the MIT license.
 
