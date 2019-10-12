@@ -4,12 +4,11 @@
 #include <cstdint>
 #include <string>
 #include "bitboard.hpp"
+#include "move.hpp"
 #include "piece.hpp"
 #include "side.hpp"
 
 namespace libataxx {
-
-class Move;
 
 enum class Result
 {
@@ -80,6 +79,17 @@ class Position {
 
     [[nodiscard]] constexpr int score() const noexcept {
         return black().count() - white().count();
+    }
+
+    [[nodiscard]] constexpr int count_captures(const Move &move) const
+        noexcept {
+        const auto neighbours = Bitboard{move.to()}.singles() & them();
+        return neighbours.count();
+    }
+
+    [[nodiscard]] constexpr bool is_capture(const Move &move) const noexcept {
+        const auto neighbours = Bitboard{move.to()}.singles() & them();
+        return neighbours != 0;
     }
 
     [[nodiscard]] Result result() const noexcept {

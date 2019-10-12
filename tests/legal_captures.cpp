@@ -21,11 +21,10 @@ TEST_CASE("Position::legal_captures()") {
         libataxx::Move moves[libataxx::max_moves];
         const int num_moves = pos.legal_captures(moves);
         for (int i = 0; i < num_moves; ++i) {
-            const auto adjacent = libataxx::Bitboard{moves[i].to()}.singles();
-            const auto captured = adjacent & pos.them();
-            REQUIRE(captured);
-            REQUIRE(captured.count() > 0);
-            REQUIRE(captured.count() <= 8);
+            const auto num_captured = pos.count_captures(moves[i]);
+            REQUIRE(pos.is_capture(moves[i]));
+            REQUIRE(num_captured > 0);
+            REQUIRE(num_captured <= 8);
         }
     }
 }
