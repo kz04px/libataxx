@@ -71,6 +71,7 @@ add_executable(
     tests/get_fen.cpp
     tests/main.cpp
     tests/score.cpp
+    tests/pgn.cpp
 )
 
 set_target_properties(ataxx-static PROPERTIES OUTPUT_NAME "ataxx")

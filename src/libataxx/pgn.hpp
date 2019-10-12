@@ -4,24 +4,12 @@
 #include <optional>
 #include <ostream>
 #include <string>
-#include <unordered_map>
 #include <vector>
 #include "move.hpp"
 
 namespace libataxx {
 
 namespace pgn {
-
-static const std::string header_order[] = {"Event",
-                                           "Site",
-                                           "Date",
-                                           "Round",
-                                           "Black",
-                                           "White",
-                                           "Result",
-                                           "Score",
-                                           "FEN",
-                                           "TimeControl"};
 
 class Node {
    public:
@@ -106,23 +94,21 @@ class Node {
 
 class Header {
    public:
-    Header() : stuff_{{"Event", "*"}, {"Result", "*"}} {
+    Header() {
     }
 
     void add(const std::string &key, const std::string &value) noexcept {
-        stuff_[key] = value;
+        stuff_.push_back({key, value});
     }
 
-    [[nodiscard]] bool has(const std::string &key) const noexcept {
-        return stuff_.find(key) != stuff_.end();
-    }
-
-    [[nodiscard]] std::optional<std::string> get(const std::string &key) const
+    [[nodiscard]] std::optional<std::string> get(const std::string &k) const
         noexcept {
-        if (!has(key)) {
-            return {};
+        for (const auto &[key, val] : stuff_) {
+            if (key == k) {
+                return val;
+            }
         }
-        return stuff_.at(key);
+        return {};
     }
 
     [[nodiscard]] const auto &items() const noexcept {
@@ -130,7 +116,7 @@ class Header {
     }
 
    private:
-    std::unordered_map<std::string, std::string> stuff_;
+    std::vector<std::pair<std::string, std::string>> stuff_;
 };
 
 class PGN {
@@ -189,7 +175,8 @@ inline std::ostream &operator<<(std::ostream &os, const Node &node) {
     }
 
     // Spacer
-    if (!node.is_root() && (node.has_comment() || node.has_children())) {
+    // if (!node.is_root() && (node.has_comment() || node.has_children())) {
+    if (!node.is_root() && node.has_children()) {
         os << " ";
     }
 
@@ -202,21 +189,15 @@ inline std::ostream &operator<<(std::ostream &os, const Node &node) {
 }
 
 inline std::ostream &operator<<(std::ostream &os, const PGN &pgn) {
-    // Header -- Event
-    os << "[Event \"" << pgn.header().get("Event").value() << "\"]\n";
-
-    // Header -- unordered
+    // Header
     for (const auto &[key, value] : pgn.header().items()) {
-        if (key == "Event") {
-            continue;
-        }
         os << "[" << key << " \"" << value << "\"]\n";
     }
     os << '\n';
 
     // Nodes
-    os << pgn.root() << " " << pgn.header().get("Result").value();
-    os << "\n\n";
+    os << pgn.root() << " " << pgn.header().get("Result").value_or("*")
+       << "\n\n";
 
     return os;
 }
