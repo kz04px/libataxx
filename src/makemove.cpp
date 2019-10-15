@@ -45,8 +45,8 @@ void Position::makemove(const Move &move) noexcept {
         hash_ ^= zobrist::get_key(turn(), sq);
     }
 
-    // Reset halfmove clock on single moves or captures
-    if (move.type() == Move::Type::Single || captured) {
+    // Reset halfmove clock on single moves
+    if (move.type() == Move::Type::Single) {
         halfmoves_ = 0;
     }
 
