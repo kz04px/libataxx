@@ -41,6 +41,14 @@ class Square {
                static_cast<char>(rank());
     }
 
+    constexpr bool operator==(const Square &rhs) const noexcept {
+        return data_ == rhs.data_;
+    }
+
+    constexpr bool operator!=(const Square &rhs) const noexcept {
+        return data_ != rhs.data_;
+    }
+
    private:
     std::uint8_t data_;
 };
@@ -58,11 +66,6 @@ constexpr inline std::uint64_t operator<<(const uint64_t bb,
 constexpr inline std::uint64_t operator>>(const uint64_t bb,
                                           const Square &sq) noexcept {
     return bb >> sq;
-}
-
-constexpr inline bool operator==(const Square &lhs,
-                                 const Square &rhs) noexcept {
-    return static_cast<int>(lhs) == static_cast<int>(rhs);
 }
 
 namespace Squares {

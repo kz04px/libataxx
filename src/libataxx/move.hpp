@@ -59,6 +59,10 @@ class Move {
         return from_ == rhs.from_ && to_ == rhs.to_;
     }
 
+    constexpr bool operator!=(const Move &rhs) const noexcept {
+        return from_ != rhs.from_ || to_ != rhs.to_;
+    }
+
     [[nodiscard]] explicit operator std::string() const noexcept {
         if (*this == Move::nullmove()) {
             return "0000";
