@@ -5,6 +5,8 @@
 namespace libataxx {
 
 void Position::makemove(const Move &move) noexcept {
+    assert(move != Move::nomove());
+
     // Increment halfmove clock
     halfmoves_++;
 

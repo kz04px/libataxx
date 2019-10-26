@@ -22,6 +22,8 @@ TEST_CASE("Position::legal_captures()") {
         const int num_moves = pos.legal_captures(moves);
         for (int i = 0; i < num_moves; ++i) {
             const auto num_captured = pos.count_captures(moves[i]);
+            REQUIRE(moves[i]);
+            REQUIRE(moves[i] != libataxx::Move::nomove());
             REQUIRE(pos.is_capture(moves[i]));
             REQUIRE(num_captured > 0);
             REQUIRE(num_captured <= 8);

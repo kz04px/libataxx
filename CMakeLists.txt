@@ -66,6 +66,7 @@ add_executable(
     tests/set_turn.cpp
     tests/gameover.cpp
     tests/legal_move.cpp
+    tests/move.cpp
     tests/reachable.cpp
     tests/square.cpp
     tests/get_fen.cpp

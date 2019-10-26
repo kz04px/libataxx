@@ -52,6 +52,10 @@ class Move {
     }
 
     static constexpr Move nullmove() {
+        return Move{0xFE, 0xFE};
+    }
+
+    static constexpr Move nomove() {
         return Move{};
     }
 
@@ -63,9 +67,15 @@ class Move {
         return from_ != rhs.from_ || to_ != rhs.to_;
     }
 
+    constexpr operator bool() const noexcept {
+        return *this != nomove();
+    }
+
     [[nodiscard]] explicit operator std::string() const noexcept {
         if (*this == Move::nullmove()) {
             return "0000";
+        } else if (*this == Move::nomove()) {
+            return "NONE";
         } else if (type() == Move::Type::Single) {
             return static_cast<std::string>(from());
         } else {
@@ -124,6 +134,10 @@ class Move {
         }
 
         throw std::invalid_argument("Invalid move. (" + str + ")");
+    }
+
+   private:
+    constexpr Move(const int f, const int t) : from_{f}, to_{t} {
     }
 
    private:

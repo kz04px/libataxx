@@ -21,6 +21,8 @@ TEST_CASE("Position::legal_move()") {
         const int num_moves = pos.legal_moves(moves);
 
         for (int i = 0; i < num_moves; ++i) {
+            REQUIRE(moves[i]);
+            REQUIRE(moves[i] != libataxx::Move::nomove());
             REQUIRE(pos.legal_move(moves[i]) == true);
         }
 

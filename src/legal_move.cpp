@@ -5,6 +5,8 @@
 namespace libataxx {
 
 [[nodiscard]] bool Position::legal_move(const Move &move) const noexcept {
+    assert(move != Move::nomove());
+
     if (move == Move::nullmove()) {
         return must_pass() && !gameover();
     }
