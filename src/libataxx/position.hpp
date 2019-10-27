@@ -187,7 +187,6 @@ class Position {
         return all;
     }
 
-   private:
     [[nodiscard]] std::uint64_t calculate_hash() const noexcept;
 
    private:
