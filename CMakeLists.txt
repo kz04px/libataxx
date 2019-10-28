@@ -31,6 +31,7 @@ add_library(
     src/legal_captures.cpp
     src/legal_move.cpp
     src/legal_moves.cpp
+    src/legal_noncaptures.cpp
     src/makemove.cpp
     src/perft.cpp
     src/set_fen.cpp
@@ -47,6 +48,7 @@ add_library(
     src/legal_captures.cpp
     src/legal_move.cpp
     src/legal_moves.cpp
+    src/legal_noncaptures.cpp
     src/makemove.cpp
     src/perft.cpp
     src/set_fen.cpp
@@ -57,11 +59,13 @@ add_executable(
     libataxx-test
     tests/main.cpp
     tests/count_moves.cpp
+    tests/combined_moves.cpp
     tests/hash.cpp
     tests/passing.cpp
     tests/set_get.cpp
     tests/from_uai.cpp
     tests/legal_captures.cpp
+    tests/legal_noncaptures.cpp
     tests/perft.cpp
     tests/set_turn.cpp
     tests/gameover.cpp
