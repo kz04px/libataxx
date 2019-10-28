@@ -11,15 +11,15 @@ class File {
     constexpr explicit File(const int f) : data_(f) {
     }
 
-    explicit constexpr operator char() const noexcept {
+    [[nodiscard]] explicit constexpr operator char() const noexcept {
         return 'a' + data_;
     }
 
-    explicit constexpr operator int() const noexcept {
+    [[nodiscard]] explicit constexpr operator int() const noexcept {
         return data_;
     }
 
-    constexpr bool operator==(const File &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator==(const File &rhs) const noexcept {
         return data_ == rhs.data_;
     }
 

@@ -24,15 +24,15 @@ class Square {
         : data_(7 * int(r) + int(f)) {
     }
 
-    constexpr File file() const noexcept {
+    [[nodiscard]] constexpr File file() const noexcept {
         return File{data_ % 7};
     }
 
-    constexpr Rank rank() const noexcept {
+    [[nodiscard]] constexpr Rank rank() const noexcept {
         return Rank{data_ / 7};
     }
 
-    explicit constexpr operator int() const noexcept {
+    [[nodiscard]] explicit constexpr operator int() const noexcept {
         return data_;
     }
 
@@ -41,11 +41,11 @@ class Square {
                static_cast<char>(rank());
     }
 
-    constexpr bool operator==(const Square &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator==(const Square &rhs) const noexcept {
         return data_ == rhs.data_;
     }
 
-    constexpr bool operator!=(const Square &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator!=(const Square &rhs) const noexcept {
         return data_ != rhs.data_;
     }
 

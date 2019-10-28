@@ -51,23 +51,23 @@ class Move {
         return to_;
     }
 
-    static constexpr Move nullmove() {
+    [[nodiscard]] static constexpr Move nullmove() {
         return Move{0xFE, 0xFE};
     }
 
-    static constexpr Move nomove() {
+    [[nodiscard]] static constexpr Move nomove() {
         return Move{};
     }
 
-    constexpr bool operator==(const Move &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator==(const Move &rhs) const noexcept {
         return from_ == rhs.from_ && to_ == rhs.to_;
     }
 
-    constexpr bool operator!=(const Move &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator!=(const Move &rhs) const noexcept {
         return from_ != rhs.from_ || to_ != rhs.to_;
     }
 
-    constexpr operator bool() const noexcept {
+    [[nodiscard]] constexpr operator bool() const noexcept {
         return *this != nomove();
     }
 

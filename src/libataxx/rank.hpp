@@ -11,15 +11,15 @@ class Rank {
     constexpr explicit Rank(const int r) : data_(r) {
     }
 
-    explicit constexpr operator char() const noexcept {
+    [[nodiscard]] explicit constexpr operator char() const noexcept {
         return '1' + data_;
     }
 
-    explicit constexpr operator int() const noexcept {
+    [[nodiscard]] explicit constexpr operator int() const noexcept {
         return data_;
     }
 
-    constexpr bool operator==(const Rank &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator==(const Rank &rhs) const noexcept {
         return data_ == rhs.data_;
     }
 

@@ -53,11 +53,12 @@ namespace libataxx {
 
 namespace zobrist {
 
-constexpr std::uint64_t turn_key() {
+[[nodiscard]] constexpr std::uint64_t turn_key() {
     return turn;
 }
 
-constexpr std::uint64_t get_key(const Side &side, const Square &sq) {
+[[nodiscard]] constexpr std::uint64_t get_key(const Side &side,
+                                              const Square &sq) {
     return piece[static_cast<int>(side)][static_cast<int>(sq)];
 }
 

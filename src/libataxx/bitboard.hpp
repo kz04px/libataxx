@@ -12,7 +12,7 @@ class BitboardIterator {
     constexpr BitboardIterator(const std::uint64_t &data) : data_{data} {
     }
 
-    constexpr Square operator*() const noexcept {
+    [[nodiscard]] constexpr Square operator*() const noexcept {
         return Square{__builtin_ctzll(data_)};
     }
 
@@ -21,7 +21,8 @@ class BitboardIterator {
         return *this;
     }
 
-    constexpr bool operator!=(const BitboardIterator &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator!=(const BitboardIterator &rhs) const
+        noexcept {
         return data_ != rhs.data_;
     }
 
@@ -49,32 +50,32 @@ class Bitboard {
         data_ |= 1ULL << sq;
     }
 
-    constexpr bool get(const Square &sq) const noexcept {
+    [[nodiscard]] constexpr bool get(const Square &sq) const noexcept {
         return (data_ >> sq) & 1;
     }
 
-    constexpr Bitboard north() const noexcept {
+    [[nodiscard]] constexpr Bitboard north() const noexcept {
         return ((*this) << 7) & Bitboard::all();
     }
 
-    constexpr Bitboard south() const noexcept {
+    [[nodiscard]] constexpr Bitboard south() const noexcept {
         return (*this) >> 7;
     }
 
-    constexpr Bitboard east() const noexcept {
+    [[nodiscard]] constexpr Bitboard east() const noexcept {
         return ((*this) << 1) & Bitboard::NotFileA();
     }
 
-    constexpr Bitboard west() const noexcept {
+    [[nodiscard]] constexpr Bitboard west() const noexcept {
         return ((*this) >> 1) & Bitboard::NotFileG();
     }
 
-    constexpr Bitboard singles() const noexcept {
+    [[nodiscard]] constexpr Bitboard singles() const noexcept {
         return north() | south() | east() | west() | north().west() |
                north().east() | south().west() | south().east();
     }
 
-    constexpr Bitboard doubles() const noexcept {
+    [[nodiscard]] constexpr Bitboard doubles() const noexcept {
         // clang-format off
         return // North
                north().north().west().west() |
@@ -103,27 +104,30 @@ class Bitboard {
         data_ = 0;
     }
 
-    constexpr Bitboard operator&(const Bitboard &rhs) const noexcept {
+    [[nodiscard]] constexpr Bitboard operator&(const Bitboard &rhs) const
+        noexcept {
         return Bitboard{data_ & rhs.data_};
     }
 
-    constexpr Bitboard operator^(const Bitboard &rhs) const noexcept {
+    [[nodiscard]] constexpr Bitboard operator^(const Bitboard &rhs) const
+        noexcept {
         return Bitboard{data_ ^ rhs.data_};
     }
 
-    constexpr Bitboard operator|(const Bitboard &rhs) const noexcept {
+    [[nodiscard]] constexpr Bitboard operator|(const Bitboard &rhs) const
+        noexcept {
         return Bitboard{data_ | rhs.data_};
     }
 
-    constexpr Bitboard operator~() const noexcept {
+    [[nodiscard]] constexpr Bitboard operator~() const noexcept {
         return Bitboard{~data_} & all();
     }
 
-    constexpr Bitboard operator<<(const int n) const noexcept {
+    [[nodiscard]] constexpr Bitboard operator<<(const int n) const noexcept {
         return Bitboard{data_ << n} & all();
     }
 
-    constexpr Bitboard operator>>(const int n) const noexcept {
+    [[nodiscard]] constexpr Bitboard operator>>(const int n) const noexcept {
         return Bitboard{data_ >> n};
     }
 
@@ -142,87 +146,89 @@ class Bitboard {
         return *this;
     }
 
-    constexpr bool operator==(const Bitboard &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator==(const Bitboard &rhs) const
+        noexcept {
         return data_ == rhs.data_;
     }
 
-    constexpr bool operator!=(const Bitboard &rhs) const noexcept {
+    [[nodiscard]] constexpr bool operator!=(const Bitboard &rhs) const
+        noexcept {
         return data_ != rhs.data_;
     }
 
-    constexpr operator bool() const noexcept {
+    [[nodiscard]] constexpr operator bool() const noexcept {
         return data_;
     }
 
-    constexpr BitboardIterator begin() const noexcept {
+    [[nodiscard]] constexpr BitboardIterator begin() const noexcept {
         return BitboardIterator{data_};
     }
 
-    constexpr BitboardIterator end() const noexcept {
+    [[nodiscard]] constexpr BitboardIterator end() const noexcept {
         return BitboardIterator{0};
     }
 
-    constexpr int lsbll() const noexcept {
+    [[nodiscard]] constexpr int lsbll() const noexcept {
         return __builtin_ctzll(data_);
     }
 
-    static constexpr Bitboard all() noexcept {
+    [[nodiscard]] static constexpr Bitboard all() noexcept {
         return Bitboard{0x1FFFFFFFFFFFFULL};
     }
 
-    static constexpr Bitboard FileA() noexcept {
+    [[nodiscard]] static constexpr Bitboard FileA() noexcept {
         return Bitboard{0x0040810204081ULL};
     }
 
-    static constexpr Bitboard FileB() noexcept {
+    [[nodiscard]] static constexpr Bitboard FileB() noexcept {
         return Bitboard{0x0081020408102ULL};
     }
 
-    static constexpr Bitboard FileC() noexcept {
+    [[nodiscard]] static constexpr Bitboard FileC() noexcept {
         return Bitboard{0x0102040810204ULL};
     }
 
-    static constexpr Bitboard FileD() noexcept {
+    [[nodiscard]] static constexpr Bitboard FileD() noexcept {
         return Bitboard{0x0204081020408ULL};
     }
 
-    static constexpr Bitboard FileE() noexcept {
+    [[nodiscard]] static constexpr Bitboard FileE() noexcept {
         return Bitboard{0x0408102040810ULL};
     }
 
-    static constexpr Bitboard FileF() noexcept {
+    [[nodiscard]] static constexpr Bitboard FileF() noexcept {
         return Bitboard{0x0810204081020ULL};
     }
 
-    static constexpr Bitboard FileG() noexcept {
+    [[nodiscard]] static constexpr Bitboard FileG() noexcept {
         return Bitboard{0x1020408102040ULL};
     }
 
-    static constexpr Bitboard NotFileA() noexcept {
+    [[nodiscard]] static constexpr Bitboard NotFileA() noexcept {
         return Bitboard{0x1fbf7efdfbf7eULL};
     }
 
-    static constexpr Bitboard NotFileB() noexcept {
+    [[nodiscard]] static constexpr Bitboard NotFileB() noexcept {
         return Bitboard{0x1f7efdfbf7efdULL};
     }
 
-    static constexpr Bitboard NotFileC() noexcept {
+    [[nodiscard]] static constexpr Bitboard NotFileC() noexcept {
         return Bitboard{0x1efdfbf7efdfbULL};
     }
 
-    static constexpr Bitboard NotFileD() noexcept {
+    [[nodiscard]] static constexpr Bitboard NotFileD() noexcept {
         return Bitboard{0x1dfbf7efdfbf7ULL};
     }
 
-    static constexpr Bitboard NotFileE() noexcept {
+    [[nodiscard]] static constexpr Bitboard NotFileE() noexcept {
         return Bitboard{0x1bf7efdfbf7efULL};
     }
 
-    static constexpr Bitboard NotFileF() noexcept {
+    [[nodiscard]] static constexpr Bitboard NotFileF() noexcept {
         return Bitboard{0x17efdfbf7efdfULL};
     }
 
-    static constexpr Bitboard NotFileG() noexcept {
+    [[nodiscard]] static constexpr Bitboard NotFileG() noexcept {
         return Bitboard{0x0fdfbf7efdfbfULL};
     }
 
