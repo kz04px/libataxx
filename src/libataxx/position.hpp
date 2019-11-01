@@ -108,14 +108,28 @@ class Position {
         if (!gameover()) {
             return Result::None;
         }
-        const int s = score();
-        if (s > 0) {
-            return Result::BlackWin;
-        } else if (s < 0) {
-            return Result::WhiteWin;
-        } else {
+
+        const auto both = black() | white();
+        const auto moves = (both.singles() | both.doubles()) & empty();
+
+        // No legal moves or no pieces left
+        if (!moves || !black() || !white()) {
+            const int s = score();
+            if (s > 0) {
+                return Result::BlackWin;
+            } else if (s < 0) {
+                return Result::WhiteWin;
+            } else {
+                return Result::Draw;
+            }
+        }
+
+        // 50 move draw
+        if (halfmoves_ >= 100) {
             return Result::Draw;
         }
+
+        return Result::None;
     }
 
     void makemove(const Move &move) noexcept;

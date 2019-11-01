@@ -72,6 +72,7 @@ add_executable(
     tests/legal_move.cpp
     tests/move.cpp
     tests/reachable.cpp
+    tests/result.cpp
     tests/square.cpp
     tests/get_fen.cpp
     tests/main.cpp
