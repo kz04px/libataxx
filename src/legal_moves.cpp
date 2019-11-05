@@ -13,7 +13,7 @@ namespace libataxx {
     int num_moves = 0;
 
     // Single moves
-    Bitboard singles = us().singles() & empty();
+    const Bitboard singles = us().singles() & empty();
     for (const auto &to : singles) {
         movelist[num_moves] = Move(to);
         num_moves++;
@@ -21,7 +21,7 @@ namespace libataxx {
 
     // Double moves
     for (const auto &from : us()) {
-        Bitboard destinations = Bitboard{from}.doubles() & empty();
+        const Bitboard destinations = Bitboard{from}.doubles() & empty();
         for (const auto &to : destinations) {
             movelist[num_moves] = Move(from, to);
             num_moves++;
