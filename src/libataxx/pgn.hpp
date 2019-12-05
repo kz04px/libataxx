@@ -84,6 +84,49 @@ class Node {
         return &children_.back();
     }
 
+    [[nodiscard]] explicit operator std::string() const noexcept {
+        std::string str;
+
+        // Move number
+        if (parent() && (ply() % 2 == 1 || parent()->num_children() > 1 ||
+                         parent()->has_comment())) {
+            const int move_num = (ply() + 1) / 2;
+
+            if (ply() % 2 == 1) {
+                str += std::to_string(move_num) + ". ";
+            } else {
+                str += std::to_string(move_num) + "... ";
+            }
+        }
+
+        // Move
+        if (!is_root()) {
+            str += static_cast<std::string>(move());
+        }
+
+        // Comment
+        if (has_comment()) {
+            str += " { " + comment() + " }";
+        }
+
+        // Variations
+        for (std::size_t i = 1; i < num_children(); ++i) {
+            str += " (" + static_cast<std::string>(children().at(i)) + ")";
+        }
+
+        // Spacer
+        if (!is_root() && has_children()) {
+            str += " ";
+        }
+
+        // Mainline
+        if (has_children()) {
+            str += static_cast<std::string>(children().at(0));
+        }
+
+        return str;
+    }
+
    private:
     const Node *parent_;
     Move move_;
@@ -145,59 +188,23 @@ class PGN {
     Node root_;
 };
 
-inline std::ostream &operator<<(std::ostream &os, const Node &node) {
-    // Move number
-    if (node.parent() &&
-        (node.ply() % 2 == 1 || node.parent()->num_children() > 1 ||
-         node.parent()->has_comment())) {
-        const int move_num = (node.ply() + 1) / 2;
-
-        if (node.ply() % 2 == 1) {
-            os << move_num << ". ";
-        } else {
-            os << move_num << "... ";
-        }
-    }
-
-    // Move
-    if (!node.is_root()) {
-        os << node.move();
-    }
-
-    // Comment
-    if (node.has_comment()) {
-        os << " { " << node.comment() << " }";
-    }
-
-    // Variations
-    for (std::size_t i = 1; i < node.num_children(); ++i) {
-        os << " (" << node.children().at(i) << ")";
-    }
-
-    // Spacer
-    // if (!node.is_root() && (node.has_comment() || node.has_children())) {
-    if (!node.is_root() && node.has_children()) {
-        os << " ";
-    }
-
-    // Mainline
-    if (node.has_children()) {
-        os << node.children().at(0);
-    }
-
-    return os;
-}
-
 inline std::ostream &operator<<(std::ostream &os, const PGN &pgn) {
+    std::string str;
+
     // Header
     for (const auto &[key, value] : pgn.header().items()) {
-        os << "[" << key << " \"" << value << "\"]\n";
+        str += "[" + key + " \"" + value + "\"]\n";
     }
-    os << '\n';
+    str += '\n';
 
     // Nodes
-    os << pgn.root() << " " << pgn.header().get("Result").value_or("*")
-       << "\n\n";
+    str += static_cast<std::string>(pgn.root());
+
+    // Result
+    str += " " + pgn.header().get("Result").value_or("*") + "\n\n";
+
+    // Write
+    os << str;
 
     return os;
 }
