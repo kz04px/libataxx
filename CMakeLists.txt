@@ -34,6 +34,7 @@ add_library(
     src/legal_noncaptures.cpp
     src/makemove.cpp
     src/perft.cpp
+    src/predict_hash.cpp
     src/set_fen.cpp
 )
 
@@ -51,6 +52,7 @@ add_library(
     src/legal_noncaptures.cpp
     src/makemove.cpp
     src/perft.cpp
+    src/predict_hash.cpp
     src/set_fen.cpp
 )
 

@@ -205,6 +205,8 @@ class Position {
 
     [[nodiscard]] std::uint64_t calculate_hash() const noexcept;
 
+    [[nodiscard]] std::uint64_t predict_hash(const Move &move) const noexcept;
+
    private:
     Bitboard pieces_[2];
     Bitboard gaps_;
