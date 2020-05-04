@@ -60,12 +60,12 @@ inline std::ostream &operator<<(std::ostream &os, const Square &sq) noexcept {
 
 constexpr inline std::uint64_t operator<<(const uint64_t bb,
                                           const Square &sq) noexcept {
-    return bb << sq;
+    return bb << static_cast<int>(sq);
 }
 
 constexpr inline std::uint64_t operator>>(const uint64_t bb,
                                           const Square &sq) noexcept {
-    return bb >> sq;
+    return bb >> static_cast<int>(sq);
 }
 
 namespace Squares {
