@@ -12,7 +12,7 @@ void test(const libataxx::Position &pos, const int depth) {
     // Track hash distribution
     nodes++;
     for (int i = 0; i < 8; ++i) {
-        chunks[i][(pos.hash() >> (64 - 8 * i + 8)) & 0xFF]++;
+        chunks[i][(pos.hash() >> (64 - (8 * i + 8))) & 0xFF]++;
     }
 
     if (depth == 0) {
