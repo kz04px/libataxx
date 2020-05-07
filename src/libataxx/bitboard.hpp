@@ -204,6 +204,14 @@ class Bitboard {
         return Bitboard{0x1020408102040ULL};
     }
 
+    [[nodiscard]] static constexpr Bitboard Center() noexcept {
+        return Bitboard{0x1f3e7cf9f00ULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Edge() noexcept {
+        return Bitboard{0x1fe0c183060ffULL};
+    }
+
     [[nodiscard]] static constexpr Bitboard NotFileA() noexcept {
         return Bitboard{0x1fbf7efdfbf7eULL};
     }
@@ -270,6 +278,10 @@ static_assert(Bitboard::FileC().east() == Bitboard::FileD());
 static_assert(Bitboard::FileD().east() == Bitboard::FileE());
 static_assert(Bitboard::FileE().east() == Bitboard::FileF());
 static_assert(Bitboard::FileF().east() == Bitboard::FileG());
+static_assert((Bitboard::Center() | Bitboard::Edge()) == Bitboard::all());
+static_assert((Bitboard::Center() & Bitboard::Edge()) == Bitboard{0});
+static_assert(Bitboard::Center().count() == 25);
+static_assert(Bitboard::Edge().count() == 24);
 static_assert(Bitboard{Squares::A1}.north() == Bitboard{Squares::A2});
 static_assert(Bitboard{Squares::A1}.south() == Bitboard{0});
 static_assert(Bitboard{Squares::A1}.east() == Bitboard{Squares::B1});
