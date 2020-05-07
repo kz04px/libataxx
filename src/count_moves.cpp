@@ -2,7 +2,7 @@
 
 namespace libataxx {
 
-[[nodiscard]] std::uint64_t Position::count_moves() const noexcept {
+[[nodiscard]] int Position::count_moves() const noexcept {
     if (gameover()) {
         return 0;
     }

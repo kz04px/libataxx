@@ -53,7 +53,7 @@ class Position {
 
     [[nodiscard]] std::uint64_t perft(const int depth) const noexcept;
 
-    [[nodiscard]] std::uint64_t count_moves() const noexcept;
+    [[nodiscard]] int count_moves() const noexcept;
 
     [[nodiscard]] int legal_moves(Move *movelist) const noexcept;
 
