@@ -13,7 +13,8 @@ class BitboardIterator {
     }
 
     [[nodiscard]] constexpr Square operator*() const noexcept {
-        return Square{__builtin_ctzll(data_)};
+        const int n = __builtin_ctzll(data_);
+        return Square{File{n % 8}, Rank{n / 8}};
     }
 
     constexpr BitboardIterator operator++() noexcept {
@@ -55,11 +56,11 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr Bitboard north() const noexcept {
-        return ((*this) << 7) & Bitboard::all();
+        return ((*this) << 8) & Bitboard::all();
     }
 
     [[nodiscard]] constexpr Bitboard south() const noexcept {
-        return (*this) >> 7;
+        return (*this) >> 8;
     }
 
     [[nodiscard]] constexpr Bitboard east() const noexcept {
@@ -173,71 +174,71 @@ class Bitboard {
     }
 
     [[nodiscard]] static constexpr Bitboard all() noexcept {
-        return Bitboard{0x1FFFFFFFFFFFFULL};
+        return Bitboard{0x7f7f7f7f7f7f7fULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileA() noexcept {
-        return Bitboard{0x0040810204081ULL};
+        return Bitboard{0x1010101010101ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileB() noexcept {
-        return Bitboard{0x0081020408102ULL};
+        return Bitboard{0x2020202020202ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileC() noexcept {
-        return Bitboard{0x0102040810204ULL};
+        return Bitboard{0x4040404040404ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileD() noexcept {
-        return Bitboard{0x0204081020408ULL};
+        return Bitboard{0x8080808080808ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileE() noexcept {
-        return Bitboard{0x0408102040810ULL};
+        return Bitboard{0x10101010101010ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileF() noexcept {
-        return Bitboard{0x0810204081020ULL};
+        return Bitboard{0x20202020202020ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileG() noexcept {
-        return Bitboard{0x1020408102040ULL};
+        return Bitboard{0x40404040404040ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard Center() noexcept {
-        return Bitboard{0x1f3e7cf9f00ULL};
+        return Bitboard{0x3e3e3e3e3e00ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard Edge() noexcept {
-        return Bitboard{0x1fe0c183060ffULL};
+        return Bitboard{0x7f41414141417fULL};
     }
 
     [[nodiscard]] static constexpr Bitboard NotFileA() noexcept {
-        return Bitboard{0x1fbf7efdfbf7eULL};
+        return Bitboard{0x7e7e7e7e7e7e7eULL};
     }
 
     [[nodiscard]] static constexpr Bitboard NotFileB() noexcept {
-        return Bitboard{0x1f7efdfbf7efdULL};
+        return Bitboard{0x7d7d7d7d7d7d7dULL};
     }
 
     [[nodiscard]] static constexpr Bitboard NotFileC() noexcept {
-        return Bitboard{0x1efdfbf7efdfbULL};
+        return Bitboard{0x7b7b7b7b7b7b7bULL};
     }
 
     [[nodiscard]] static constexpr Bitboard NotFileD() noexcept {
-        return Bitboard{0x1dfbf7efdfbf7ULL};
+        return Bitboard{0x77777777777777ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard NotFileE() noexcept {
-        return Bitboard{0x1bf7efdfbf7efULL};
+        return Bitboard{0x6f6f6f6f6f6f6fULL};
     }
 
     [[nodiscard]] static constexpr Bitboard NotFileF() noexcept {
-        return Bitboard{0x17efdfbf7efdfULL};
+        return Bitboard{0x5f5f5f5f5f5f5fULL};
     }
 
     [[nodiscard]] static constexpr Bitboard NotFileG() noexcept {
-        return Bitboard{0x0fdfbf7efdfbfULL};
+        return Bitboard{0x3f3f3f3f3f3f3fULL};
     }
 
    private:
@@ -245,22 +246,20 @@ class Bitboard {
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Bitboard &bb) {
-    int idx = 42;
-    while (idx >= 0) {
-        const auto sq = Square{idx};
-        const Bitboard sq_bb{sq};
+    for (int y = 6; y >= 0; --y) {
+        for (int x = 0; x < 7; ++x) {
+            const auto f = File{x};
+            const auto r = Rank{y};
+            const auto sq = Square{f, r};
+            const auto nbb = Bitboard{sq};
 
-        if (sq_bb & bb) {
-            os << '1';
-        } else {
-            os << '0';
+            if (nbb & bb) {
+                os << '1';
+            } else {
+                os << '0';
+            }
         }
-
-        if (sq.file() == files::G) {
-            idx -= 14;
-            os << '\n';
-        }
-        idx++;
+        os << '\n';
     }
     return os;
 }

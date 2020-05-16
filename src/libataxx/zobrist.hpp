@@ -59,7 +59,7 @@ namespace zobrist {
 
 [[nodiscard]] constexpr std::uint64_t get_key(const Side &side,
                                               const Square &sq) {
-    return piece[static_cast<int>(side)][static_cast<int>(sq)];
+    return piece[static_cast<int>(side)][sq.index()];
 }
 
 }  // namespace zobrist

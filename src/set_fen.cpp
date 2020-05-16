@@ -19,31 +19,35 @@ void Position::set_fen(const std::string &fen) noexcept {
 
     std::stringstream ss{fen};
     std::string word;
-    int sq = 42;
+    int y = 6;
+    int x = 0;
 
     // Position
     if (ss >> word) {
         for (const auto &c : word) {
+            const auto f = File{x};
+            const auto r = Rank{y};
+            const auto sq = Square{f, r};
+            const auto bb = Bitboard{sq};
+
             switch (c) {
                 case 'x':
                 case 'X':
                 case 'b':
                 case 'B':
-                    pieces_[static_cast<int>(Side::Black)] ^=
-                        Bitboard(Square{sq});
-                    sq++;
+                    pieces_[static_cast<int>(Side::Black)] ^= bb;
+                    x++;
                     break;
                 case 'o':
                 case 'O':
                 case 'w':
                 case 'W':
-                    pieces_[static_cast<int>(Side::White)] ^=
-                        Bitboard(Square{sq});
-                    sq++;
+                    pieces_[static_cast<int>(Side::White)] ^= bb;
+                    x++;
                     break;
                 case '-':
-                    gaps_ ^= Bitboard(Square{sq});
-                    sq++;
+                    gaps_ ^= bb;
+                    x++;
                     break;
                 case '1':
                 case '2':
@@ -52,13 +56,17 @@ void Position::set_fen(const std::string &fen) noexcept {
                 case '5':
                 case '6':
                 case '7':
-                    sq += c - '0';
+                    x += c - '0';
                     break;
                 case '/':
-                    sq -= 14;
                     break;
                 default:
                     return;
+            }
+
+            if (x > 6) {
+                x = 0;
+                y--;
             }
         }
     }

@@ -9,10 +9,10 @@ TEST_CASE("Position::reachable()") {
         {"7/7/7/7/7/7/6o o 0 1", libataxx::Bitboard::all()},
         {"7/7/7/7/7/7/7 x 0 1", libataxx::Bitboard{}},
         {"7/7/7/7/7/7/7 o 0 1", libataxx::Bitboard{}},
-        {"7/7/-------/7/7/7/6x x 0 1", libataxx::Bitboard{0x1FFF80FFFFFFF}},
-        {"7/7/-------/7/7/7/6o o 0 1", libataxx::Bitboard{0x1FFF80FFFFFFF}},
-        {"7/7/-------/-------/7/7/6x x 0 1", libataxx::Bitboard{0x1FFFFF}},
-        {"7/7/-------/-------/7/7/6o o 0 1", libataxx::Bitboard{0x1FFFFF}},
+        {"7/7/-------/7/7/7/6x x 0 1", libataxx::Bitboard{0x7f7f007f7f7f7f}},
+        {"7/7/-------/7/7/7/6o o 0 1", libataxx::Bitboard{0x7f7f007f7f7f7f}},
+        {"7/7/-------/-------/7/7/6x x 0 1", libataxx::Bitboard{0x7f7f7f}},
+        {"7/7/-------/-------/7/7/6o o 0 1", libataxx::Bitboard{0x7f7f7f}},
     };
 
     for (const auto& [fen, bb] : tests) {

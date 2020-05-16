@@ -217,34 +217,31 @@ class Position {
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Position &pos) {
-    int idx = 42;
-    while (idx >= 0) {
-        const auto sq = Square{idx};
-        const Bitboard bb{sq};
-        const Piece piece{pos.get(sq)};
+    for (int y = 6; y >= 0; --y) {
+        for (int x = 0; x < 7; ++x) {
+            const auto f = File{x};
+            const auto r = Rank{y};
+            const auto sq = Square{f, r};
+            const Piece piece{pos.get(sq)};
 
-        switch (piece) {
-            case Piece::Black:
-                os << 'x';
-                break;
-            case Piece::White:
-                os << 'o';
-                break;
-            case Piece::Gap:
-                os << ' ';
-                break;
-            case Piece::Empty:
-                os << '-';
-                break;
+            switch (piece) {
+                case Piece::Black:
+                    os << 'x';
+                    break;
+                case Piece::White:
+                    os << 'o';
+                    break;
+                case Piece::Gap:
+                    os << ' ';
+                    break;
+                case Piece::Empty:
+                    os << '-';
+                    break;
+            }
         }
-
-        if (sq.file() == files::G) {
-            idx -= 14;
-            os << '\n';
-        }
-        idx++;
+        os << '\n';
     }
-    os << "Turn: " << pos.turn() << std::endl;
+    os << "Turn: " << pos.turn();
     return os;
 }
 

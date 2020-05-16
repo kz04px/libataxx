@@ -17,19 +17,23 @@ class Square {
     explicit constexpr Square(const int sq) : data_(sq) {
     }
 
-    constexpr Square(const int f, const int r) : data_(7 * r + f) {
+    constexpr Square(const int f, const int r) : data_(8 * r + f) {
     }
 
     constexpr Square(const File &f, const Rank &r)
-        : data_(7 * int(r) + int(f)) {
+        : data_(8 * int(r) + int(f)) {
     }
 
     [[nodiscard]] constexpr File file() const noexcept {
-        return File{data_ % 7};
+        return File{data_ % 8};
     }
 
     [[nodiscard]] constexpr Rank rank() const noexcept {
-        return Rank{data_ / 7};
+        return Rank{data_ / 8};
+    }
+
+    [[nodiscard]] constexpr int index() const noexcept {
+        return 7 * static_cast<int>(rank()) + static_cast<int>(file());
     }
 
     [[nodiscard]] explicit constexpr operator int() const noexcept {
@@ -70,55 +74,55 @@ constexpr inline std::uint64_t operator>>(const uint64_t bb,
 
 namespace Squares {
 
-constexpr static Square A1 = Square(0);
-constexpr static Square B1 = Square(1);
-constexpr static Square C1 = Square(2);
-constexpr static Square D1 = Square(3);
-constexpr static Square E1 = Square(4);
-constexpr static Square F1 = Square(5);
-constexpr static Square G1 = Square(6);
-constexpr static Square A2 = Square(7);
-constexpr static Square B2 = Square(8);
-constexpr static Square C2 = Square(9);
-constexpr static Square D2 = Square(10);
-constexpr static Square E2 = Square(11);
-constexpr static Square F2 = Square(12);
-constexpr static Square G2 = Square(13);
-constexpr static Square A3 = Square(14);
-constexpr static Square B3 = Square(15);
-constexpr static Square C3 = Square(16);
-constexpr static Square D3 = Square(17);
-constexpr static Square E3 = Square(18);
-constexpr static Square F3 = Square(19);
-constexpr static Square G3 = Square(20);
-constexpr static Square A4 = Square(21);
-constexpr static Square B4 = Square(22);
-constexpr static Square C4 = Square(23);
-constexpr static Square D4 = Square(24);
-constexpr static Square E4 = Square(25);
-constexpr static Square F4 = Square(26);
-constexpr static Square G4 = Square(27);
-constexpr static Square A5 = Square(28);
-constexpr static Square B5 = Square(29);
-constexpr static Square C5 = Square(30);
-constexpr static Square D5 = Square(31);
-constexpr static Square E5 = Square(32);
-constexpr static Square F5 = Square(33);
-constexpr static Square G5 = Square(34);
-constexpr static Square A6 = Square(35);
-constexpr static Square B6 = Square(36);
-constexpr static Square C6 = Square(37);
-constexpr static Square D6 = Square(38);
-constexpr static Square E6 = Square(39);
-constexpr static Square F6 = Square(40);
-constexpr static Square G6 = Square(41);
-constexpr static Square A7 = Square(42);
-constexpr static Square B7 = Square(43);
-constexpr static Square C7 = Square(44);
-constexpr static Square D7 = Square(45);
-constexpr static Square E7 = Square(46);
-constexpr static Square F7 = Square(47);
-constexpr static Square G7 = Square(48);
+constexpr static Square A1 = Square(files::A, ranks::A);
+constexpr static Square B1 = Square(files::B, ranks::A);
+constexpr static Square C1 = Square(files::C, ranks::A);
+constexpr static Square D1 = Square(files::D, ranks::A);
+constexpr static Square E1 = Square(files::E, ranks::A);
+constexpr static Square F1 = Square(files::F, ranks::A);
+constexpr static Square G1 = Square(files::G, ranks::A);
+constexpr static Square A2 = Square(files::A, ranks::B);
+constexpr static Square B2 = Square(files::B, ranks::B);
+constexpr static Square C2 = Square(files::C, ranks::B);
+constexpr static Square D2 = Square(files::D, ranks::B);
+constexpr static Square E2 = Square(files::E, ranks::B);
+constexpr static Square F2 = Square(files::F, ranks::B);
+constexpr static Square G2 = Square(files::G, ranks::B);
+constexpr static Square A3 = Square(files::A, ranks::C);
+constexpr static Square B3 = Square(files::B, ranks::C);
+constexpr static Square C3 = Square(files::C, ranks::C);
+constexpr static Square D3 = Square(files::D, ranks::C);
+constexpr static Square E3 = Square(files::E, ranks::C);
+constexpr static Square F3 = Square(files::F, ranks::C);
+constexpr static Square G3 = Square(files::G, ranks::C);
+constexpr static Square A4 = Square(files::A, ranks::D);
+constexpr static Square B4 = Square(files::B, ranks::D);
+constexpr static Square C4 = Square(files::C, ranks::D);
+constexpr static Square D4 = Square(files::D, ranks::D);
+constexpr static Square E4 = Square(files::E, ranks::D);
+constexpr static Square F4 = Square(files::F, ranks::D);
+constexpr static Square G4 = Square(files::G, ranks::D);
+constexpr static Square A5 = Square(files::A, ranks::E);
+constexpr static Square B5 = Square(files::B, ranks::E);
+constexpr static Square C5 = Square(files::C, ranks::E);
+constexpr static Square D5 = Square(files::D, ranks::E);
+constexpr static Square E5 = Square(files::E, ranks::E);
+constexpr static Square F5 = Square(files::F, ranks::E);
+constexpr static Square G5 = Square(files::G, ranks::E);
+constexpr static Square A6 = Square(files::A, ranks::F);
+constexpr static Square B6 = Square(files::B, ranks::F);
+constexpr static Square C6 = Square(files::C, ranks::F);
+constexpr static Square D6 = Square(files::D, ranks::F);
+constexpr static Square E6 = Square(files::E, ranks::F);
+constexpr static Square F6 = Square(files::F, ranks::F);
+constexpr static Square G6 = Square(files::G, ranks::F);
+constexpr static Square A7 = Square(files::A, ranks::G);
+constexpr static Square B7 = Square(files::B, ranks::G);
+constexpr static Square C7 = Square(files::C, ranks::G);
+constexpr static Square D7 = Square(files::D, ranks::G);
+constexpr static Square E7 = Square(files::E, ranks::G);
+constexpr static Square F7 = Square(files::F, ranks::G);
+constexpr static Square G7 = Square(files::G, ranks::G);
 
 // static_assert(A1 == "a1");
 static_assert(A1.file() == files::A);

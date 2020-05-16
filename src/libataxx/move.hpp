@@ -95,7 +95,7 @@ class Move {
                 throw std::invalid_argument("Not a move. (" + str + ")");
             }
 
-            return Move(Square{7 * y + x});
+            return Move(Square{x, y});
         } else if (str.length() == 4) {
             const int x1 = str[0] - 'a';
             const int y1 = str[1] - '1';
@@ -110,8 +110,8 @@ class Move {
                 throw std::invalid_argument("Invalid move. (" + str + ")");
             }
 
-            const auto sq1 = Square{7 * y1 + x1};
-            const auto sq2 = Square{7 * y2 + x2};
+            const auto sq1 = Square{x1, y1};
+            const auto sq2 = Square{x2, y2};
             const int dx = std::abs(x1 - x2);
             const int dy = std::abs(y1 - y2);
 

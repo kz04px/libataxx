@@ -4,12 +4,12 @@
 #include "catch.hpp"
 
 TEST_CASE("Square()") {
-    for (int i = 0; i < 49; ++i) {
-        const auto sq = libataxx::Square{i};
-        const int f = i % 7;
-        const int r = i / 7;
-        REQUIRE(static_cast<int>(sq) == i);
-        REQUIRE(libataxx::Square(f, r) == sq);
-        REQUIRE(libataxx::Square(sq.file(), sq.rank()) == sq);
+    for (int f = 0; f < 7; ++f) {
+        for (int r = 0; r < 7; ++r) {
+            const auto sq = libataxx::Square{f, r};
+            REQUIRE(static_cast<int>(sq.file()) == f);
+            REQUIRE(static_cast<int>(sq.rank()) == r);
+            REQUIRE(libataxx::Square(sq.file(), sq.rank()) == sq);
+        }
     }
 }

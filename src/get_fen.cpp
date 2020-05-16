@@ -6,47 +6,46 @@ namespace libataxx {
 
 [[nodiscard]] std::string Position::get_fen() const noexcept {
     std::string fen = "";
-    int empty = 0;
 
     // Board
-    int idx = 42;
-    while (idx >= 0) {
-        const auto sq = Square{idx};
-        const Bitboard bb{sq};
+    for (int y = 6; y >= 0; --y) {
+        int empty = 0;
 
-        if (bb & black()) {
-            if (empty) {
-                fen += std::to_string(empty);
-                empty = 0;
+        for (int x = 0; x < 7; ++x) {
+            const auto f = File{x};
+            const auto r = Rank{y};
+            const auto sq = Square{f, r};
+            const auto bb = Bitboard{sq};
+
+            if (bb & black()) {
+                if (empty) {
+                    fen += std::to_string(empty);
+                    empty = 0;
+                }
+                fen += "x";
+            } else if (bb & white()) {
+                if (empty) {
+                    fen += std::to_string(empty);
+                    empty = 0;
+                }
+                fen += "o";
+            } else if (bb & gaps()) {
+                if (empty) {
+                    fen += std::to_string(empty);
+                    empty = 0;
+                }
+                fen += "-";
+            } else {
+                empty += 1;
             }
-            fen += "x";
-        } else if (bb & white()) {
-            if (empty) {
-                fen += std::to_string(empty);
-                empty = 0;
-            }
-            fen += "o";
-        } else if (bb & gaps()) {
-            if (empty) {
-                fen += std::to_string(empty);
-                empty = 0;
-            }
-            fen += "-";
-        } else {
-            empty += 1;
         }
 
-        if (sq.file() == files::G) {
-            idx -= 14;
-            if (empty) {
-                fen += std::to_string(empty);
-                empty = 0;
-            }
-            if (idx >= -1) {
-                fen += "/";
-            }
+        if (empty) {
+            fen += std::to_string(empty);
         }
-        idx++;
+        if (y > 0) {
+            fen += "/";
+        }
     }
 
     // Turn
