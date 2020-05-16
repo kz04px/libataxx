@@ -124,6 +124,10 @@ class Bitboard {
         return Bitboard{~data_} & all();
     }
 
+    [[nodiscard]] constexpr bool operator<(const Bitboard &rhs) const noexcept {
+        return data_ < rhs.data_;
+    }
+
     [[nodiscard]] constexpr Bitboard operator<<(const int n) const noexcept {
         return Bitboard{data_ << n} & all();
     }
