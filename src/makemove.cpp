@@ -28,6 +28,9 @@ void Position::makemove(const Move &move) noexcept {
     const Bitboard from_bb = Bitboard(from);
     const Bitboard neighbours = to_bb.singles();
     const Bitboard captured = neighbours & them();
+    const Piece our_piece = turn() == Side::Black ? Piece::Black : Piece::White;
+    const Piece their_piece =
+        turn() == Side::Black ? Piece::White : Piece::Black;
 
     // Remove and replace our stone
     pieces_[static_cast<int>(turn())] ^= from_bb | to_bb;
@@ -38,13 +41,13 @@ void Position::makemove(const Move &move) noexcept {
 
     // Update hash -- our pieces
     for (const auto &sq : from_bb | to_bb) {
-        hash_ ^= zobrist::get_key(turn(), sq);
+        hash_ ^= zobrist::get_key(our_piece, sq);
     }
 
     // Update hash -- captured pieces
     for (const auto &sq : captured) {
-        hash_ ^= zobrist::get_key(!turn(), sq);
-        hash_ ^= zobrist::get_key(turn(), sq);
+        hash_ ^= zobrist::get_key(their_piece, sq);
+        hash_ ^= zobrist::get_key(our_piece, sq);
     }
 
     // Reset halfmove clock on single moves

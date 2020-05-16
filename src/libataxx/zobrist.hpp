@@ -2,11 +2,13 @@
 #define ZOBRIST_HPP
 
 #include <cstdint>
+#include "piece.hpp"
+#include "square.hpp"
 
 namespace {
 
 constexpr const std::uint64_t turn = 0x2e98304a94e1000d;
-constexpr const std::uint64_t piece[2][49] = {
+constexpr const std::uint64_t piece[3][49] = {
     {
         0xddd67db865dc92f9, 0x31ad7f3d49884764, 0xfc810e82600d77ed,
         0xa329bc2fe9a585c2, 0x0dd7013c7b5f9ee0, 0xcbfb18e330c5152b,
@@ -45,6 +47,25 @@ constexpr const std::uint64_t piece[2][49] = {
         0xec4f8821305bbd96, 0x43ed7506a2bd6b16, 0xf0eb5d0784e3eb03,
         0xe578cac94b342a86,
     },
+    {
+        0x389334c091fb178b, 0xc49c74fe672eef1b, 0x47b26673e8ecc2c9,
+        0x9517104b5b229a11, 0x7a1539922694facb, 0x001c0d1c373673c9,
+        0x19581df3ba523ca3, 0xf93dd0859efb8f2d, 0x650a5e8c62abbc36,
+        0x344ed312359ba06b, 0xac1bdf2dbfa24510, 0xe78cde9f2c94bbf7,
+        0xe99f05db53ad88e5, 0xe5de28e3f5427a54, 0x40cf50c653126026,
+        0x0798412d65bc843a, 0x4d61778f9912d6b8, 0xc41d7c84d36878df,
+        0xe82b78b989bd55f4, 0x1190749dddf654a2, 0x65dc06cc2f2bfa20,
+        0x3144a986fd0d7827, 0x0db1ce137155befc, 0x4d2653580bf0680d,
+        0x93aea07a37dd1736, 0x15796cdff212d202, 0x461c4b3999ce2ed6,
+        0x331fb5d0ea1a69fa, 0xef87dadc7f28dde8, 0x22dca43f46365b6a,
+        0x623a22e748384539, 0x5dd89fd95c4d5ec6, 0x790d810b6bd0dcbc,
+        0xe06e78818f6864f6, 0xd4378e7b03088634, 0x6ceb024e247cd217,
+        0x93f15442fcce0a55, 0x154eab5e8620744c, 0x65d3884620d69fb0,
+        0xb1fed42a7eb9f02b, 0xf8e0a7acdfdd769d, 0x5b660b56b0e029d5,
+        0x81d29d5e7aad71e9, 0xb444e414c4573be8, 0xea73727ec09846e1,
+        0xb561a7c25264c71a, 0x7feda459b0c22d55, 0x788e4b767d5f8b00,
+        0x36995517712d9e10,
+    },
 };
 
 }  // namespace
@@ -57,9 +78,9 @@ namespace zobrist {
     return turn;
 }
 
-[[nodiscard]] constexpr std::uint64_t get_key(const Side &side,
+[[nodiscard]] constexpr std::uint64_t get_key(const Piece &p,
                                               const Square &sq) {
-    return piece[static_cast<int>(side)][sq.index()];
+    return piece[static_cast<int>(p)][sq.index()];
 }
 
 }  // namespace zobrist

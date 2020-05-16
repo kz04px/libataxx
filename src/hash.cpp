@@ -11,11 +11,15 @@ namespace libataxx {
     }
 
     for (const auto &sq : black()) {
-        key ^= zobrist::get_key(Side::Black, sq);
+        key ^= zobrist::get_key(Piece::Black, sq);
     }
 
     for (const auto &sq : white()) {
-        key ^= zobrist::get_key(Side::White, sq);
+        key ^= zobrist::get_key(Piece::White, sq);
+    }
+
+    for (const auto &sq : gaps()) {
+        key ^= zobrist::get_key(Piece::Gap, sq);
     }
 
     return key;

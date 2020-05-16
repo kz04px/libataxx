@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <libataxx/position.hpp>
 #include <string>
 #include "catch.hpp"
@@ -36,12 +37,17 @@ TEST_CASE("Move::hash()") {
         "x5o/7/7/7/7/7/o5x x 0 1",
         "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1",
         "x5o/7/3-3/2-1-2/3-3/7/o5x x 0 1",
-        "7/7/7/7/4ooo/4ooo/4oox x 0 1",
-        "7/7/7/7/4ooo/4ooo/4oox o 0 1",
-        "7/7/7/7/4xxx/4xxx/4xxo x 0 1",
-        "7/7/7/7/4xxx/4xxx/4xxo o 0 1",
-        "7/7/2x1o2/2x1o2/2x1o2/7/7 x 0 1",
-        "7/7/2x1o2/2x1o2/2x1o2/7/7 o 0 1",
+        "3xx-1/-2ooxx/2oo1o1/1-xoo2/1-4o/x4-1/1x2xx1 x 0 1",
+        "4o2/2x1o2/2x4/1o5/7/3o1oo/-x3-1 o 0 1",
+        "4o-o/1xo1x2/2-2-1/6-/1o1xx2/2x4/4oo1 x 0 1",
+        "6x/7/2x3x/o6/2-2oo/o3-2/-6 x 0 1",
+        "2x4/5o1/4o2/1o3o1/1o5/7/5o1 x 0 1",
+        "1oo1o2/7/7/3xo2/1x5/7/7 x 0 1",
+        "o2o3/2o4/2-4/1x5/4o2/1-2x-1/5xo o 0 1",
+        "5-o/2-1-2/xo5/x1o1-2/o5-/o1-o2x/x5- o 0 1",
+        "x2x2-/x4o1/7/5x1/4-2/5x1/-2oxo1 o 0 1",
+        "3xo2/4o2/2x2-1/3-ox1/xx5/6o/1x3o1 x 0 1",
+        "---4/1o5/o-1ox2/x6/2xo3/4xx1/o3-o1 o 0 1",
     };
 
     for (const auto &fen : fens) {
@@ -50,7 +56,7 @@ TEST_CASE("Move::hash()") {
     }
 
     // Test hash distribution
-    const uint64_t expected = nodes / 256;
+    const std::uint64_t expected = nodes / 256;
     for (int c = 0; c < 8; ++c) {
         for (int i = 0; i < 256; ++i) {
             if (chunks[c][i] >= expected) {
