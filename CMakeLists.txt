@@ -81,6 +81,7 @@ add_executable(
     tests/score.cpp
     tests/pgn.cpp
     tests/counters.cpp
+    tests/transformations.cpp
 )
 
 set_target_properties(

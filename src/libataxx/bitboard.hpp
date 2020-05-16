@@ -173,8 +173,76 @@ class Bitboard {
         return __builtin_ctzll(data_);
     }
 
+    [[nodiscard]] constexpr Bitboard flip_vertical() const noexcept {
+        return Bitboard{
+                   ((data_ << 56)) | ((data_ << 40) & 0x00ff000000000000ULL) |
+                   ((data_ << 24) & 0x0000ff0000000000ULL) |
+                   ((data_ << 8) & 0x000000ff00000000ULL) |
+                   ((data_ >> 8) & 0x00000000ff000000ULL) |
+                   ((data_ >> 24) & 0x0000000000ff0000ULL) |
+                   ((data_ >> 40) & 0x000000000000ff00ULL) | ((data_ >> 56))} >>
+               8;
+    }
+
+    [[nodiscard]] constexpr Bitboard flip_horizontal() const noexcept {
+        constexpr std::uint64_t k1 = 0x5555555555555555ULL;
+        constexpr std::uint64_t k2 = 0x3333333333333333ULL;
+        constexpr std::uint64_t k4 = 0x0f0f0f0f0f0f0f0fULL;
+        auto x = data_;
+        x = ((x >> 1) & k1) + 2 * (x & k1);
+        x = ((x >> 2) & k2) + 4 * (x & k2);
+        x = ((x >> 4) & k4) + 16 * (x & k4);
+        return Bitboard{x >> 1};
+    }
+
+    [[nodiscard]] constexpr Bitboard flip_diagA7G1() const noexcept {
+        constexpr std::uint64_t k1 = 0xaa00aa00aa00aa00ULL;
+        constexpr std::uint64_t k2 = 0xcccc0000cccc0000ULL;
+        constexpr std::uint64_t k4 = 0xf0f0f0f00f0f0f0fULL;
+        std::uint64_t t = 0;
+        std::uint64_t x = data_;
+        t = x ^ (x << 36);
+        x ^= k4 & (t ^ (x >> 36));
+        t = k2 & (x ^ (x << 18));
+        x ^= t ^ (t >> 18);
+        t = k1 & (x ^ (x << 9));
+        x ^= t ^ (t >> 9);
+        return Bitboard{x >> 9};
+    }
+
+    [[nodiscard]] constexpr Bitboard flip_diagA1G7() const noexcept {
+        constexpr std::uint64_t k1 = 0x5500550055005500ULL;
+        constexpr std::uint64_t k2 = 0x3333000033330000ULL;
+        constexpr std::uint64_t k4 = 0x0f0f0f0f00000000ULL;
+        std::uint64_t t = 0;
+        std::uint64_t x = data_;
+        t = k4 & (x ^ (x << 28));
+        x ^= t ^ (t >> 28);
+        t = k2 & (x ^ (x << 14));
+        x ^= t ^ (t >> 14);
+        t = k1 & (x ^ (x << 7));
+        x ^= t ^ (t >> 7);
+        return Bitboard{x};
+    }
+
+    [[nodiscard]] constexpr Bitboard rot90() const noexcept {
+        return ((*this).flip_diagA1G7()).flip_vertical();
+    }
+
+    [[nodiscard]] constexpr Bitboard rot180() const noexcept {
+        return ((*this).flip_vertical()).flip_horizontal();
+    }
+
+    [[nodiscard]] constexpr Bitboard rot270() const noexcept {
+        return ((*this).flip_vertical()).flip_diagA1G7();
+    }
+
     [[nodiscard]] static constexpr Bitboard all() noexcept {
         return Bitboard{0x7f7f7f7f7f7f7fULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Empty() noexcept {
+        return Bitboard{0x0ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard FileA() noexcept {
@@ -203,6 +271,34 @@ class Bitboard {
 
     [[nodiscard]] static constexpr Bitboard FileG() noexcept {
         return Bitboard{0x40404040404040ULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Rank1() noexcept {
+        return Bitboard{0x7fULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Rank2() noexcept {
+        return Bitboard{0x7f00ULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Rank3() noexcept {
+        return Bitboard{0x7f0000ULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Rank4() noexcept {
+        return Bitboard{0x7f000000ULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Rank5() noexcept {
+        return Bitboard{0x7f00000000ULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Rank6() noexcept {
+        return Bitboard{0x7f0000000000ULL};
+    }
+
+    [[nodiscard]] static constexpr Bitboard Rank7() noexcept {
+        return Bitboard{0x7f000000000000ULL};
     }
 
     [[nodiscard]] static constexpr Bitboard Center() noexcept {
