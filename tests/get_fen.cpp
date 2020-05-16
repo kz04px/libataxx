@@ -21,4 +21,7 @@ TEST_CASE("Move::get_fen()") {
         libataxx::Position pos{fen};
         REQUIRE(pos.get_fen() == fen);
     }
+
+    libataxx::Position pos{"startpos"};
+    REQUIRE(pos.get_fen() == "x5o/7/7/7/7/7/o5x x 0 1");
 }

@@ -6,7 +6,7 @@ namespace libataxx {
 
 void Position::set_fen(const std::string &fen) noexcept {
     if (fen == "startpos") {
-        return set_fen("x5o/7/7/7/7/7/o5x x 0");
+        return set_fen("x5o/7/7/7/7/7/o5x x 0 1");
     }
 
     // Clear board
@@ -14,7 +14,7 @@ void Position::set_fen(const std::string &fen) noexcept {
     pieces_[static_cast<int>(Side::White)].clear();
     gaps_.clear();
     halfmoves_ = 0;
-    fullmoves_ = 1;
+    fullmoves_ = 0;
     turn_ = Side::Black;
 
     std::stringstream ss{fen};
@@ -73,14 +73,10 @@ void Position::set_fen(const std::string &fen) noexcept {
     }
 
     // Halfmove clock
-    if (ss >> word) {
-        halfmoves_ = std::stoul(word);
-    }
+    ss >> halfmoves_;
 
     // Fullmove counter
-    if (ss >> word) {
-        fullmoves_ = std::stoul(word);
-    }
+    ss >> fullmoves_;
 
     // Calculate initial hash
     hash_ = calculate_hash();
