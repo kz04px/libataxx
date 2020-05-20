@@ -22,7 +22,7 @@ endif()
 
 # Add the static library
 add_library(
-    ataxx-static
+    static
     STATIC
     src/count_moves.cpp
     src/gameover.cpp
@@ -40,7 +40,7 @@ add_library(
 
 # Add the shared library
 add_library(
-    ataxx-shared
+    shared
     SHARED
     src/count_moves.cpp
     src/gameover.cpp
@@ -58,7 +58,7 @@ add_library(
 
 # Add the test executable
 add_executable(
-    libataxx-test
+    tests
     tests/main.cpp
     tests/count_moves.cpp
     tests/combined_moves.cpp
@@ -85,15 +85,16 @@ add_executable(
 )
 
 set_target_properties(
-    ataxx-static
+    static
     PROPERTIES
     OUTPUT_NAME "ataxx"
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/static"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/static"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/static"
 )
+
 set_target_properties(
-    ataxx-shared
+    shared
     PROPERTIES
     OUTPUT_NAME "ataxx"
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/shared"
@@ -101,6 +102,6 @@ set_target_properties(
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/shared"
 )
 
-set_property(TARGET libataxx-test PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE FALSE)
+set_property(TARGET tests PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE FALSE)
 
-target_link_libraries(libataxx-test ataxx-static)
+target_link_libraries(tests static)
