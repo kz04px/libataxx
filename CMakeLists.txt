@@ -117,6 +117,12 @@ add_executable(
     examples/pgn.cpp
 )
 
+# Add example
+add_executable(
+    split
+    examples/split.cpp
+)
+
 ADD_CUSTOM_TARGET(examples)
 
 ADD_DEPENDENCIES(
@@ -126,6 +132,7 @@ ADD_DEPENDENCIES(
     tttperft
     engine
     pgn
+    split
 )
 
 set_target_properties(
@@ -191,6 +198,15 @@ set_target_properties(
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
 )
 
+set_target_properties(
+    split
+    PROPERTIES
+    OUTPUT_NAME "split"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+)
+
 set_property(TARGET tests PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE FALSE)
 
 target_link_libraries(tests static)
@@ -199,3 +215,4 @@ target_link_libraries(ttperft static)
 target_link_libraries(tttperft static)
 target_link_libraries(engine static ${CMAKE_THREAD_LIBS_INIT} ${Boost_SYSTEM_LIBRARY})
 target_link_libraries(pgn static)
+target_link_libraries(split static)
