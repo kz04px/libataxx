@@ -150,10 +150,10 @@ inline std::ostream &operator<<(std::ostream &os, const Move &m) {
     return os;
 }
 
-static_assert(Move{Squares::A1}.type() == Move::Type::Single);
-// static_assert(Move{Squares::A1, Squares::A2}.type() ==
+static_assert(Move{squares::A1}.type() == Move::Type::Single);
+// static_assert(Move{squares::A1, squares::A2}.type() ==
 // Move::Type::Single);
-static_assert(Move{Squares::A1, Squares::A3}.type() == Move::Type::Double);
+static_assert(Move{squares::A1, squares::A3}.type() == Move::Type::Double);
 
 }  // namespace libataxx
 

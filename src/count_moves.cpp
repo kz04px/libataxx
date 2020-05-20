@@ -8,7 +8,7 @@ namespace libataxx {
     }
 
     const Bitboard filled = black() | white() | gaps();
-    const Bitboard empty = Bitboard::all() ^ filled;
+    const Bitboard empty = bitboards::All ^ filled;
     int num_moves = 0;
 
     // Single moves

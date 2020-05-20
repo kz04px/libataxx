@@ -72,7 +72,7 @@ constexpr inline std::uint64_t operator>>(const uint64_t bb,
     return bb >> static_cast<int>(sq);
 }
 
-namespace Squares {
+namespace squares {
 
 constexpr static Square A1 = Square(files::A, ranks::A);
 constexpr static Square B1 = Square(files::B, ranks::A);
@@ -127,7 +127,7 @@ constexpr static Square G7 = Square(files::G, ranks::G);
 // static_assert(A1 == "a1");
 static_assert(A1.file() == files::A);
 
-}  // namespace Squares
+}  // namespace squares
 
 }  // namespace libataxx
 
