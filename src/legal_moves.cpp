@@ -36,4 +36,32 @@ namespace libataxx {
     return num_moves;
 }
 
+[[nodiscard]] std::vector<Move> Position::legal_moves() const noexcept {
+    if (gameover()) {
+        return {};
+    }
+
+    std::vector<Move> moves;
+
+    // Single moves
+    const Bitboard singles = us().singles() & empty();
+    for (const auto &to : singles) {
+        moves.emplace_back(to);
+    }
+
+    // Double moves
+    for (const auto &from : us()) {
+        const Bitboard destinations = Bitboard{from}.doubles() & empty();
+        for (const auto &to : destinations) {
+            moves.emplace_back(from, to);
+        }
+    }
+
+    if (moves.empty()) {
+        moves.push_back(Move::nullmove());
+    }
+
+    return moves;
+}
+
 }  // namespace libataxx

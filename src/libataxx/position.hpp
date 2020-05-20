@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 #include "bitboard.hpp"
 #include "move.hpp"
 #include "piece.hpp"
@@ -70,6 +71,8 @@ class Position {
     [[nodiscard]] int count_moves() const noexcept;
 
     [[nodiscard]] int legal_moves(Move *movelist) const noexcept;
+
+    [[nodiscard]] std::vector<Move> legal_moves() const noexcept;
 
     [[nodiscard]] int legal_captures(Move *movelist) const noexcept;
 
