@@ -230,15 +230,15 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr Bitboard rot90() const noexcept {
-        return ((*this).flip_diagA1G7()).flip_vertical();
+        return flip_diagA1G7().flip_vertical();
     }
 
     [[nodiscard]] constexpr Bitboard rot180() const noexcept {
-        return ((*this).flip_vertical()).flip_horizontal();
+        return flip_vertical().flip_horizontal();
     }
 
     [[nodiscard]] constexpr Bitboard rot270() const noexcept {
-        return ((*this).flip_vertical()).flip_diagA1G7();
+        return flip_vertical().flip_diagA1G7();
     }
 
    private:
