@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 3.12)
 # Project
 project(Libataxx VERSION 1.0 LANGUAGES CXX)
 
+find_package(Boost COMPONENTS system)
+find_package(Threads)
+
 # Base directory relative includes
 include_directories(.)
 include_directories(./src/)
@@ -84,6 +87,47 @@ add_executable(
     tests/transformations.cpp
 )
 
+# Add example
+add_executable(
+    perft
+    examples/perft.cpp
+)
+
+# Add example
+add_executable(
+    ttperft
+    examples/ttperft.cpp
+)
+
+# Add example
+add_executable(
+    tttperft
+    examples/tttperft.cpp
+)
+
+# Add example
+add_executable(
+    engine
+    examples/engine.cpp
+)
+
+# Add example
+add_executable(
+    pgn
+    examples/pgn.cpp
+)
+
+ADD_CUSTOM_TARGET(examples)
+
+ADD_DEPENDENCIES(
+    examples
+    perft
+    ttperft
+    tttperft
+    engine
+    pgn
+)
+
 set_target_properties(
     static
     PROPERTIES
@@ -102,6 +146,56 @@ set_target_properties(
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/shared"
 )
 
+set_target_properties(
+    perft
+    PROPERTIES
+    OUTPUT_NAME "perft"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+)
+
+set_target_properties(
+    ttperft
+    PROPERTIES
+    OUTPUT_NAME "ttperft"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+)
+
+set_target_properties(
+    tttperft
+    PROPERTIES
+    OUTPUT_NAME "tttperft"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+)
+
+set_target_properties(
+    pgn
+    PROPERTIES
+    OUTPUT_NAME "pgn"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+)
+
+set_target_properties(
+    engine
+    PROPERTIES
+    OUTPUT_NAME "engine"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+)
+
 set_property(TARGET tests PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE FALSE)
 
 target_link_libraries(tests static)
+target_link_libraries(perft static)
+target_link_libraries(ttperft static)
+target_link_libraries(tttperft static)
+target_link_libraries(engine static ${CMAKE_THREAD_LIBS_INIT} ${Boost_SYSTEM_LIBRARY})
+target_link_libraries(pgn static)
