@@ -9,9 +9,12 @@ cd libataxx/build
 cmake ..
 make
 ```
-
-## Header only
-A header only version of libataxx can be found in the 'header_only' folder. This version should be functionally identical.
+Specific make targets exist:
+```bash
+make static
+make shared
+make tests
+```
 
 ## Performance
 A mid range Intel i5 processor is capable of processing several hundred million nodes per second.
@@ -25,7 +28,7 @@ Some of the bit twiddling required for bitboards has been abstracted away, but a
 ## Testing
 To run the included tests, navigate to the build directory and then run:
 ```bash
-./libataxx-test
+./tests
 ```
 
 ## License
