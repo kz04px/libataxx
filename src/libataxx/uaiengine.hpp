@@ -113,6 +113,11 @@ class UAIEngine : public Engine {
     }
 
     bool set_option(const std::string &name,
+                    const char *value) noexcept override {
+        return set_option(name, std::string(value));
+    }
+
+    bool set_option(const std::string &name,
                     const bool value) noexcept override {
         if (!uaiok_received) {
             return false;

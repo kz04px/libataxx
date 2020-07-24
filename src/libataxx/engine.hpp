@@ -113,6 +113,9 @@ class Engine {
                             const std::string &value) noexcept = 0;
 
     virtual bool set_option(const std::string &name,
+                            const char *value) noexcept = 0;
+
+    virtual bool set_option(const std::string &name,
                             const bool value) noexcept = 0;
 
    private:
