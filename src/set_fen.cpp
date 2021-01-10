@@ -14,7 +14,7 @@ void Position::set_fen(const std::string &fen) noexcept {
     pieces_[static_cast<int>(Side::White)].clear();
     gaps_.clear();
     halfmoves_ = 0;
-    fullmoves_ = 0;
+    fullmoves_ = 1;
     turn_ = Side::Black;
 
     std::stringstream ss{fen};

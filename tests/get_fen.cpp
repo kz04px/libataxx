@@ -25,3 +25,19 @@ TEST_CASE("Move::get_fen()") {
     libataxx::Position pos{"startpos"};
     REQUIRE(pos.get_fen() == "x5o/7/7/7/7/7/o5x x 0 1");
 }
+
+TEST_CASE("Move::get_fen() on incomplete strings") {
+    const std::pair<std::string, std::string> tests[] = {
+        {"x5o/7/7/7/7/7/o5x", "x5o/7/7/7/7/7/o5x x 0 1"},
+        {"x5o/7/7/7/7/7/o5x x", "x5o/7/7/7/7/7/o5x x 0 1"},
+        {"x5o/7/7/7/7/7/o5x x 0", "x5o/7/7/7/7/7/o5x x 0 1"},
+        {"x5o/7/2-1-2/7/2-1-2/7/o5x", "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1"},
+        {"x5o/7/2-1-2/7/2-1-2/7/o5x x", "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1"},
+        {"x5o/7/2-1-2/7/2-1-2/7/o5x x 0", "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1"},
+    };
+
+    for (const auto &[incomplete, expected] : tests) {
+        libataxx::Position pos{incomplete};
+        REQUIRE(pos.get_fen() == expected);
+    }
+}
