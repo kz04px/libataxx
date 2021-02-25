@@ -47,9 +47,15 @@ int main(int argc, char **argv) {
     int depth = 6;
     std::string fen = "startpos";
 
-    if (argc > 3) {
+    if (argc > 1) {
         MB = std::stoi(argv[1]);
+    }
+
+    if (argc > 2) {
         depth = std::stoi(argv[2]);
+    }
+
+    if (argc > 3) {
         fen = argv[3];
         for (int i = 4; i < argc; ++i) {
             fen += " " + std::string(argv[i]);
@@ -78,6 +84,7 @@ int main(int argc, char **argv) {
 
         std::cout << "Depth " << i;
         std::cout << " nodes " << nodes;
+        std::cout << " hashfull " << tt.hashfull();
         std::cout << " time " << diff.count() << "ms";
         if (diff.count() > 0) {
             const auto nps = 1000 * nodes / diff.count();
