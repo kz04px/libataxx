@@ -22,8 +22,7 @@ class BitboardIterator {
         return *this;
     }
 
-    [[nodiscard]] constexpr bool operator!=(const BitboardIterator &rhs) const
-        noexcept {
+    [[nodiscard]] constexpr bool operator!=(const BitboardIterator &rhs) const noexcept {
         return data_ != rhs.data_;
     }
 
@@ -36,8 +35,7 @@ class Bitboard {
     constexpr Bitboard() : data_{0} {
     }
 
-    constexpr explicit Bitboard(const Square sq)
-        : data_{1ULL << static_cast<int>(sq)} {
+    constexpr explicit Bitboard(const Square sq) : data_{1ULL << static_cast<int>(sq)} {
     }
 
     constexpr explicit Bitboard(const std::uint64_t bb) : data_{bb} {
@@ -72,8 +70,7 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr Bitboard singles() const noexcept {
-        return north() | south() | east() | west() | north().west() |
-               north().east() | south().west() | south().east();
+        return north() | south() | east() | west() | north().west() | north().east() | south().west() | south().east();
     }
 
     [[nodiscard]] constexpr Bitboard doubles() const noexcept {
@@ -105,18 +102,15 @@ class Bitboard {
         data_ = 0;
     }
 
-    [[nodiscard]] constexpr Bitboard operator&(const Bitboard &rhs) const
-        noexcept {
+    [[nodiscard]] constexpr Bitboard operator&(const Bitboard &rhs) const noexcept {
         return Bitboard{data_ & rhs.data_};
     }
 
-    [[nodiscard]] constexpr Bitboard operator^(const Bitboard &rhs) const
-        noexcept {
+    [[nodiscard]] constexpr Bitboard operator^(const Bitboard &rhs) const noexcept {
         return Bitboard{data_ ^ rhs.data_};
     }
 
-    [[nodiscard]] constexpr Bitboard operator|(const Bitboard &rhs) const
-        noexcept {
+    [[nodiscard]] constexpr Bitboard operator|(const Bitboard &rhs) const noexcept {
         return Bitboard{data_ | rhs.data_};
     }
 
@@ -151,13 +145,11 @@ class Bitboard {
         return *this;
     }
 
-    [[nodiscard]] constexpr bool operator==(const Bitboard &rhs) const
-        noexcept {
+    [[nodiscard]] constexpr bool operator==(const Bitboard &rhs) const noexcept {
         return data_ == rhs.data_;
     }
 
-    [[nodiscard]] constexpr bool operator!=(const Bitboard &rhs) const
-        noexcept {
+    [[nodiscard]] constexpr bool operator!=(const Bitboard &rhs) const noexcept {
         return data_ != rhs.data_;
     }
 
@@ -178,13 +170,10 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr Bitboard flip_vertical() const noexcept {
-        return Bitboard{
-                   ((data_ << 56)) | ((data_ << 40) & 0x00ff000000000000ULL) |
-                   ((data_ << 24) & 0x0000ff0000000000ULL) |
-                   ((data_ << 8) & 0x000000ff00000000ULL) |
-                   ((data_ >> 8) & 0x00000000ff000000ULL) |
-                   ((data_ >> 24) & 0x0000000000ff0000ULL) |
-                   ((data_ >> 40) & 0x000000000000ff00ULL) | ((data_ >> 56))} >>
+        return Bitboard{((data_ << 56)) | ((data_ << 40) & 0x00ff000000000000ULL) |
+                        ((data_ << 24) & 0x0000ff0000000000ULL) | ((data_ << 8) & 0x000000ff00000000ULL) |
+                        ((data_ >> 8) & 0x00000000ff000000ULL) | ((data_ >> 24) & 0x0000000000ff0000ULL) |
+                        ((data_ >> 40) & 0x000000000000ff00ULL) | ((data_ >> 56))} >>
                8;
     }
 

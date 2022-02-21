@@ -39,11 +39,9 @@ int main(int argc, char **argv) {
     engine.uainewgame();
     engine.position(pos);
 
-    engine.add_info_callback(
-        [](const std::string &info) { std::cout << info << std::endl; });
+    engine.add_info_callback([](const std::string &info) { std::cout << info << std::endl; });
 
-    const auto settings = SearchSettings{.type = SearchSettings::Type::Movetime,
-                                         .movetime = 3000};
+    const auto settings = SearchSettings{.type = SearchSettings::Type::Movetime, .movetime = 3000};
 
     const auto bestmove = engine.go(settings);
     std::cout << "Bestmove: " << bestmove << std::endl;

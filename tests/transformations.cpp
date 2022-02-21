@@ -12,8 +12,7 @@ TEST_CASE("flip_horizontal()") {
         {libataxx::bitboards::FileE, libataxx::bitboards::FileC},
         {libataxx::bitboards::FileF, libataxx::bitboards::FileB},
         {libataxx::bitboards::FileG, libataxx::bitboards::FileA},
-        {libataxx::Bitboard{libataxx::squares::B2},
-         libataxx::Bitboard{libataxx::squares::F2}},
+        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F2}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_horizontal() == bb2);
@@ -31,8 +30,7 @@ TEST_CASE("flip_vertical()") {
         {libataxx::bitboards::FileE, libataxx::bitboards::FileE},
         {libataxx::bitboards::FileF, libataxx::bitboards::FileF},
         {libataxx::bitboards::FileG, libataxx::bitboards::FileG},
-        {libataxx::Bitboard{libataxx::squares::B2},
-         libataxx::Bitboard{libataxx::squares::B6}},
+        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::B6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_vertical() == bb2);
@@ -50,8 +48,7 @@ TEST_CASE("flip_diagA7G1()") {
         {libataxx::bitboards::FileE, libataxx::bitboards::Rank3},
         {libataxx::bitboards::FileF, libataxx::bitboards::Rank2},
         {libataxx::bitboards::FileG, libataxx::bitboards::Rank1},
-        {libataxx::Bitboard{libataxx::squares::B2},
-         libataxx::Bitboard{libataxx::squares::F6}},
+        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_diagA7G1() == bb2);
@@ -69,8 +66,7 @@ TEST_CASE("flip_diagA1G7()") {
         {libataxx::bitboards::FileE, libataxx::bitboards::Rank5},
         {libataxx::bitboards::FileF, libataxx::bitboards::Rank6},
         {libataxx::bitboards::FileG, libataxx::bitboards::Rank7},
-        {libataxx::Bitboard{libataxx::squares::B6},
-         libataxx::Bitboard{libataxx::squares::F2}},
+        {libataxx::Bitboard{libataxx::squares::B6}, libataxx::Bitboard{libataxx::squares::F2}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_diagA1G7() == bb2);
@@ -88,8 +84,7 @@ TEST_CASE("rot90()") {
         {libataxx::bitboards::FileE, libataxx::bitboards::Rank3},
         {libataxx::bitboards::FileF, libataxx::bitboards::Rank2},
         {libataxx::bitboards::FileG, libataxx::bitboards::Rank1},
-        {libataxx::Bitboard{libataxx::squares::B2},
-         libataxx::Bitboard{libataxx::squares::B6}},
+        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::B6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.rot90() == bb2);
@@ -107,8 +102,7 @@ TEST_CASE("rot180()") {
         {libataxx::bitboards::FileE, libataxx::bitboards::FileC},
         {libataxx::bitboards::FileF, libataxx::bitboards::FileB},
         {libataxx::bitboards::FileG, libataxx::bitboards::FileA},
-        {libataxx::Bitboard{libataxx::squares::B2},
-         libataxx::Bitboard{libataxx::squares::F6}},
+        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.rot180() == bb2);
@@ -126,8 +120,7 @@ TEST_CASE("rot270()") {
         {libataxx::bitboards::FileE, libataxx::bitboards::Rank5},
         {libataxx::bitboards::FileF, libataxx::bitboards::Rank6},
         {libataxx::bitboards::FileG, libataxx::bitboards::Rank7},
-        {libataxx::Bitboard{libataxx::squares::B2},
-         libataxx::Bitboard{libataxx::squares::F2}},
+        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F2}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.rot270() == bb2);

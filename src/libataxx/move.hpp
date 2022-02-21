@@ -79,8 +79,7 @@ class Move {
         } else if (type() == Move::Type::Single) {
             return static_cast<std::string>(from());
         } else {
-            return static_cast<std::string>(from()) +
-                   static_cast<std::string>(to());
+            return static_cast<std::string>(from()) + static_cast<std::string>(to());
         }
     }
 
@@ -116,8 +115,7 @@ class Move {
             const int dy = std::abs(y1 - y2);
 
             if (sq1 == sq2) {
-                throw std::invalid_argument(
-                    "Source and destination square are the same");
+                throw std::invalid_argument("Source and destination square are the same");
             }
 
             if (dx > 2 || dy > 2) {

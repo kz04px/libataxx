@@ -50,10 +50,7 @@ class Engine {
 
    protected:
     Engine(const std::string &path)
-        : out_{ios_},
-          child_{path,
-                 boost::process::std_out > out_,
-                 boost::process::std_in < in_} {
+        : out_{ios_}, child_{path, boost::process::std_out > out_, boost::process::std_in < in_} {
     }
 
     virtual ~Engine() {
@@ -72,8 +69,7 @@ class Engine {
                     ios_.run();
                     break;
                 } catch (std::exception &e) {
-                    std::cerr << "io_service exception: " << e.what()
-                              << std::endl;
+                    std::cerr << "io_service exception: " << e.what() << std::endl;
                 } catch (...) {
                     std::cerr << "io_service exception" << std::endl;
                 }
@@ -86,14 +82,13 @@ class Engine {
     }
 
     void start() {
-        boost::asio::async_read_until(
-            out_,
-            buf_,
-            '\n',
-            boost::bind(&Engine::handle_recv,
-                        this,
-                        boost::asio::placeholders::error,
-                        boost::asio::placeholders::bytes_transferred));
+        boost::asio::async_read_until(out_,
+                                      buf_,
+                                      '\n',
+                                      boost::bind(&Engine::handle_recv,
+                                                  this,
+                                                  boost::asio::placeholders::error,
+                                                  boost::asio::placeholders::bytes_transferred));
     }
 
     virtual void recv(const std::string &line) = 0;
@@ -106,21 +101,16 @@ class Engine {
 
     virtual void quit() noexcept = 0;
 
-    virtual bool set_option(const std::string &name,
-                            const int value) noexcept = 0;
+    virtual bool set_option(const std::string &name, const int value) noexcept = 0;
 
-    virtual bool set_option(const std::string &name,
-                            const std::string &value) noexcept = 0;
+    virtual bool set_option(const std::string &name, const std::string &value) noexcept = 0;
 
-    virtual bool set_option(const std::string &name,
-                            const char *value) noexcept = 0;
+    virtual bool set_option(const std::string &name, const char *value) noexcept = 0;
 
-    virtual bool set_option(const std::string &name,
-                            const bool value) noexcept = 0;
+    virtual bool set_option(const std::string &name, const bool value) noexcept = 0;
 
    private:
-    void handle_recv(const boost::system::error_code &ec,
-                     [[maybe_unused]] const std::size_t size) {
+    void handle_recv(const boost::system::error_code &ec, [[maybe_unused]] const std::size_t size) {
         if (!ec) {
             std::istream is(&buf_);
             std::string line;

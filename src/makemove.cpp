@@ -29,8 +29,7 @@ void Position::makemove(const Move &move) noexcept {
     const Bitboard neighbours = to_bb.singles();
     const Bitboard captured = neighbours & them();
     const Piece our_piece = turn() == Side::Black ? Piece::Black : Piece::White;
-    const Piece their_piece =
-        turn() == Side::Black ? Piece::White : Piece::Black;
+    const Piece their_piece = turn() == Side::Black ? Piece::White : Piece::Black;
 
     // Remove and replace our stone
     pieces_[static_cast<int>(turn())] ^= from_bb | to_bb;

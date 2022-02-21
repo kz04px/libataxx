@@ -88,8 +88,7 @@ class Node {
         std::string str;
 
         // Move number
-        if (parent() && (ply() % 2 == 1 || parent()->num_children() > 1 ||
-                         parent()->has_comment())) {
+        if (parent() && (ply() % 2 == 1 || parent()->num_children() > 1 || parent()->has_comment())) {
             const int move_num = (ply() + 1) / 2;
 
             if (ply() % 2 == 1) {
@@ -144,8 +143,7 @@ class Header {
         stuff_.push_back({key, value});
     }
 
-    [[nodiscard]] std::optional<std::string> get(const std::string &k) const
-        noexcept {
+    [[nodiscard]] std::optional<std::string> get(const std::string &k) const noexcept {
         for (const auto &[key, val] : stuff_) {
             if (key == k) {
                 return val;

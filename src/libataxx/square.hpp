@@ -20,8 +20,7 @@ class Square {
     constexpr Square(const int f, const int r) : data_(8 * r + f) {
     }
 
-    constexpr Square(const File &f, const Rank &r)
-        : data_(8 * int(r) + int(f)) {
+    constexpr Square(const File &f, const Rank &r) : data_(8 * int(r) + int(f)) {
     }
 
     [[nodiscard]] constexpr File file() const noexcept {
@@ -41,8 +40,7 @@ class Square {
     }
 
     [[nodiscard]] explicit operator std::string() const noexcept {
-        return std::string() + static_cast<char>(file()) +
-               static_cast<char>(rank());
+        return std::string() + static_cast<char>(file()) + static_cast<char>(rank());
     }
 
     [[nodiscard]] constexpr bool operator==(const Square &rhs) const noexcept {
@@ -62,13 +60,11 @@ inline std::ostream &operator<<(std::ostream &os, const Square &sq) noexcept {
     return os;
 }
 
-constexpr inline std::uint64_t operator<<(const uint64_t bb,
-                                          const Square &sq) noexcept {
+constexpr inline std::uint64_t operator<<(const uint64_t bb, const Square &sq) noexcept {
     return bb << static_cast<int>(sq);
 }
 
-constexpr inline std::uint64_t operator>>(const uint64_t bb,
-                                          const Square &sq) noexcept {
+constexpr inline std::uint64_t operator>>(const uint64_t bb, const Square &sq) noexcept {
     return bb >> static_cast<int>(sq);
 }
 

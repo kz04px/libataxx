@@ -21,22 +21,11 @@ enum class Result
 
 class Position {
    public:
-    constexpr Position()
-        : pieces_{},
-          gaps_{},
-          hash_{0},
-          halfmoves_{0},
-          fullmoves_{0},
-          turn_{Side::Black} {
+    constexpr Position() : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, fullmoves_{0}, turn_{Side::Black} {
     }
 
     constexpr Position(const std::string &fen)
-        : pieces_{},
-          gaps_{},
-          hash_{0},
-          halfmoves_{0},
-          fullmoves_{0},
-          turn_{Side::Black} {
+        : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, fullmoves_{0}, turn_{Side::Black} {
         set_fen(fen);
     }
 
@@ -46,12 +35,7 @@ class Position {
                        const unsigned int hm,
                        const unsigned int fm,
                        const Side &t)
-        : pieces_{b, w},
-          gaps_{g},
-          hash_{0},
-          halfmoves_{hm},
-          fullmoves_{fm},
-          turn_{t} {
+        : pieces_{b, w}, gaps_{g}, hash_{0}, halfmoves_{hm}, fullmoves_{fm}, turn_{t} {
     }
 
     void set_fen(const std::string &fen) noexcept;
@@ -110,8 +94,7 @@ class Position {
         return black().count() - white().count();
     }
 
-    [[nodiscard]] constexpr int count_captures(
-        const Move &move) const noexcept {
+    [[nodiscard]] constexpr int count_captures(const Move &move) const noexcept {
         const auto neighbours = Bitboard{move.to()}.singles() & them();
         return neighbours.count();
     }
@@ -290,30 +273,15 @@ class Position {
     }
 
     [[nodiscard]] constexpr Position rot90() const noexcept {
-        return Position{pieces_[0].rot90(),
-                        pieces_[1].rot90(),
-                        gaps_.rot90(),
-                        halfmoves_,
-                        fullmoves_,
-                        turn_};
+        return Position{pieces_[0].rot90(), pieces_[1].rot90(), gaps_.rot90(), halfmoves_, fullmoves_, turn_};
     }
 
     [[nodiscard]] constexpr Position rot180() const noexcept {
-        return Position{pieces_[0].rot180(),
-                        pieces_[1].rot180(),
-                        gaps_.rot180(),
-                        halfmoves_,
-                        fullmoves_,
-                        turn_};
+        return Position{pieces_[0].rot180(), pieces_[1].rot180(), gaps_.rot180(), halfmoves_, fullmoves_, turn_};
     }
 
     [[nodiscard]] constexpr Position rot270() const noexcept {
-        return Position{pieces_[0].rot270(),
-                        pieces_[1].rot270(),
-                        gaps_.rot270(),
-                        halfmoves_,
-                        fullmoves_,
-                        turn_};
+        return Position{pieces_[0].rot270(), pieces_[1].rot270(), gaps_.rot270(), halfmoves_, fullmoves_, turn_};
     }
 
     [[nodiscard]] constexpr Position flip_horizontal() const noexcept {

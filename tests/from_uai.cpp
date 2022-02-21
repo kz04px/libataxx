@@ -45,8 +45,7 @@ TEST_CASE("Move::from_uai()") {
     };
     for (const auto &movestr : move_strings) {
         try {
-            [[maybe_unused]] const auto move =
-                libataxx::Move::from_uai(movestr);
+            [[maybe_unused]] const auto move = libataxx::Move::from_uai(movestr);
             FAIL("Illegal move string parsed: " << movestr);
         } catch (...) {
         }

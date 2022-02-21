@@ -65,10 +65,8 @@ class UAIEngine : public Engine {
                 if (settings.btime < 0 || settings.wtime < 0) {
                     throw std::invalid_argument("btime and wtime must be >= 0");
                 }
-                send("go btime " + std::to_string(settings.btime) + " wtime " +
-                     std::to_string(settings.wtime) + " binc " +
-                     std::to_string(settings.binc) + " winc " +
-                     std::to_string(settings.winc));
+                send("go btime " + std::to_string(settings.btime) + " wtime " + std::to_string(settings.wtime) +
+                     " binc " + std::to_string(settings.binc) + " winc " + std::to_string(settings.winc));
                 break;
             default:
                 throw std::invalid_argument("Invalid search type");
@@ -94,8 +92,7 @@ class UAIEngine : public Engine {
         send("quit");
     }
 
-    bool set_option(const std::string &name,
-                    const int value) noexcept override {
+    bool set_option(const std::string &name, const int value) noexcept override {
         if (!uaiok_received) {
             return false;
         }
@@ -103,8 +100,7 @@ class UAIEngine : public Engine {
         return true;
     }
 
-    bool set_option(const std::string &name,
-                    const std::string &value) noexcept override {
+    bool set_option(const std::string &name, const std::string &value) noexcept override {
         if (!uaiok_received) {
             return false;
         }
@@ -112,13 +108,11 @@ class UAIEngine : public Engine {
         return true;
     }
 
-    bool set_option(const std::string &name,
-                    const char *value) noexcept override {
+    bool set_option(const std::string &name, const char *value) noexcept override {
         return set_option(name, std::string(value));
     }
 
-    bool set_option(const std::string &name,
-                    const bool value) noexcept override {
+    bool set_option(const std::string &name, const bool value) noexcept override {
         if (!uaiok_received) {
             return false;
         }
@@ -126,8 +120,7 @@ class UAIEngine : public Engine {
         return true;
     }
 
-    void add_info_callback(
-        const std::function<void(const std::string &info)> func) noexcept {
+    void add_info_callback(const std::function<void(const std::string &info)> func) noexcept {
         info_callbacks_.push_back(func);
     }
 
