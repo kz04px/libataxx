@@ -156,7 +156,6 @@ class UAIEngine : public Engine {
         }
     }
 
-   private:
     Move bestmove_;
     std::uint64_t nodes_;
     std::mutex mtx_;
