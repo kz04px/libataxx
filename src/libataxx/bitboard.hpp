@@ -102,6 +102,10 @@ class Bitboard {
         data_ = 0;
     }
 
+    [[nodiscard]] constexpr bool empty() const noexcept {
+        return data_ == 0ULL;
+    }
+
     [[nodiscard]] constexpr Bitboard operator&(const Bitboard &rhs) const noexcept {
         return Bitboard{data_ & rhs.data_};
     }
@@ -154,7 +158,7 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr operator bool() const noexcept {
-        return data_;
+        return !empty();
     }
 
     [[nodiscard]] constexpr BitboardIterator begin() const noexcept {
