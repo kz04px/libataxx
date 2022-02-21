@@ -110,8 +110,8 @@ class Position {
         return black().count() - white().count();
     }
 
-    [[nodiscard]] constexpr int count_captures(const Move &move) const
-        noexcept {
+    [[nodiscard]] constexpr int count_captures(
+        const Move &move) const noexcept {
         const auto neighbours = Bitboard{move.to()}.singles() & them();
         return neighbours.count();
     }
