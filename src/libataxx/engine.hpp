@@ -49,7 +49,7 @@ class Engine {
     }
 
    protected:
-    Engine(const std::string &path)
+    explicit Engine(const std::string &path)
         : out_{ios_}, child_{path, boost::process::std_out > out_, boost::process::std_in < in_} {
     }
 

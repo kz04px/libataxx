@@ -24,7 +24,7 @@ class Position {
     constexpr Position() : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, fullmoves_{0}, turn_{Side::Black} {
     }
 
-    constexpr Position(const std::string &fen)
+    constexpr explicit Position(const std::string &fen)
         : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, fullmoves_{0}, turn_{Side::Black} {
         set_fen(fen);
     }

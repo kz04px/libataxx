@@ -9,7 +9,7 @@ namespace libataxx {
 
 class BitboardIterator {
    public:
-    constexpr BitboardIterator(const std::uint64_t &data) : data_{data} {
+    constexpr explicit BitboardIterator(const std::uint64_t &data) : data_{data} {
     }
 
     [[nodiscard]] constexpr Square operator*() const noexcept {
