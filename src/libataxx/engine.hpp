@@ -11,9 +11,7 @@
 #include "move.hpp"
 #include "position.hpp"
 
-namespace libataxx {
-
-namespace engine {
+namespace libataxx::engine {
 
 struct SearchSettings {
    public:
@@ -130,8 +128,6 @@ class Engine {
     boost::process::child child_;
 };
 
-}  // namespace engine
-
-}  // namespace libataxx
+}  // namespace libataxx::engine
 
 #endif

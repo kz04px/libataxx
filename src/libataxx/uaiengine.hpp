@@ -8,9 +8,7 @@
 #include <vector>
 #include "engine.hpp"
 
-namespace libataxx {
-
-namespace engine {
+namespace libataxx::engine {
 
 class UAIEngine : public Engine {
    public:
@@ -173,8 +171,6 @@ class UAIEngine : public Engine {
     std::vector<std::function<void(const std::string &info)>> info_callbacks_;
 };
 
-}  // namespace engine
-
-}  // namespace libataxx
+}  // namespace libataxx::engine
 
 #endif

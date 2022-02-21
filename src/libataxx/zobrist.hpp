@@ -49,9 +49,7 @@ constexpr const std::uint64_t piece[3][49] = {
 
 }  // namespace
 
-namespace libataxx {
-
-namespace zobrist {
+namespace libataxx::zobrist {
 
 [[nodiscard]] constexpr std::uint64_t turn_key() {
     return turn;
@@ -61,8 +59,6 @@ namespace zobrist {
     return piece[static_cast<int>(p)][sq.index()];
 }
 
-}  // namespace zobrist
-
-}  // namespace libataxx
+}  // namespace libataxx::zobrist
 
 #endif

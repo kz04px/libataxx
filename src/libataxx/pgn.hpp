@@ -7,9 +7,7 @@
 #include <vector>
 #include "move.hpp"
 
-namespace libataxx {
-
-namespace pgn {
+namespace libataxx::pgn {
 
 class Node {
    public:
@@ -207,8 +205,6 @@ inline std::ostream &operator<<(std::ostream &os, const PGN &pgn) {
     return os;
 }
 
-}  // namespace pgn
-
-}  // namespace libataxx
+}  // namespace libataxx::pgn
 
 #endif
