@@ -8,8 +8,11 @@ int main(int argc, char **argv) {
     int depth = 6;
     std::string fen = "startpos";
 
-    if (argc > 2) {
+    if (argc > 1) {
         depth = std::stoi(argv[1]);
+    }
+
+    if (argc > 2) {
         fen = argv[2];
         for (int i = 3; i < argc; ++i) {
             fen += " " + std::string(argv[i]);
