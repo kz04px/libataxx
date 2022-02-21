@@ -56,7 +56,7 @@ class Engine {
                  boost::process::std_in < in_} {
     }
 
-    ~Engine() {
+    virtual ~Engine() {
         ios_.stop();
         if (ios_thread_.joinable()) {
             ios_thread_.join();
