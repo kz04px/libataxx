@@ -66,6 +66,10 @@ class Node {
         return parent_;
     }
 
+    [[nodiscard]] constexpr bool has_parent() const noexcept {
+        return parent() != nullptr;
+    }
+
     [[nodiscard]] std::size_t num_children() const noexcept {
         return children_.size();
     }
@@ -84,7 +88,7 @@ class Node {
         std::string str;
 
         // Move number
-        if (parent() && (ply() % 2 == 1 || parent()->num_children() > 1 || parent()->has_comment())) {
+        if (has_parent() && (ply() % 2 == 1 || parent()->num_children() > 1 || parent()->has_comment())) {
             const int move_num = (ply() + 1) / 2;
 
             if (ply() % 2 == 1) {
