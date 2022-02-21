@@ -5,7 +5,7 @@ namespace libataxx {
 
 enum class Side : bool
 {
-    Black = 0,
+    Black = false,
     White
 };
 

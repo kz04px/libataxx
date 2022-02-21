@@ -3,18 +3,17 @@
 #include <libataxx/libataxx.hpp>
 #include "tt.hpp"
 
-using namespace std::chrono;
-
 struct TTEntry {
-    std::uint64_t hash;
-    std::uint64_t nodes;
-    std::uint8_t depth;
+    std::uint64_t hash = 0;
+    std::uint64_t nodes = 0;
+    std::uint8_t depth = 0;
 };
 
 [[nodiscard]] std::uint64_t ttperft(TT<TTEntry> &tt, const libataxx::Position &pos, const std::uint8_t depth) {
     if (depth == 0) {
         return 1;
-    } else if (depth == 1) {
+    }
+    if (depth == 1) {
         return pos.count_moves();
     }
 
@@ -77,10 +76,10 @@ int main(int argc, char **argv) {
     std::cout << std::endl;
 
     for (int i = 0; i <= depth; ++i) {
-        const auto t0 = high_resolution_clock::now();
+        const auto t0 = std::chrono::high_resolution_clock::now();
         const auto nodes = ttperft(tt, pos, i);
-        const auto t1 = high_resolution_clock::now();
-        const auto diff = duration_cast<milliseconds>(t1 - t0);
+        const auto t1 = std::chrono::high_resolution_clock::now();
+        const auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0);
 
         std::cout << "Depth " << i;
         std::cout << " nodes " << nodes;

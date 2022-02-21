@@ -51,11 +51,11 @@ constexpr const std::uint64_t piece[3][49] = {
 
 namespace libataxx::zobrist {
 
-[[nodiscard]] constexpr std::uint64_t turn_key() {
+[[nodiscard]] constexpr std::uint64_t turn_key() noexcept {
     return turn;
 }
 
-[[nodiscard]] constexpr std::uint64_t get_key(const Piece &p, const Square &sq) {
+[[nodiscard]] constexpr std::uint64_t get_key(const Piece &p, const Square &sq) noexcept {
     return piece[static_cast<int>(p)][sq.index()];
 }
 

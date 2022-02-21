@@ -3,20 +3,17 @@
 
 #include <cstdint>
 #include <cstring>
+#include <memory>
 
 template <class T>
 class TT {
    public:
-    explicit TT(unsigned int mb) : filled_{0} {
+    explicit TT(unsigned int mb) {
         if (mb < 1) {
             mb = 1;
         }
-        max_entries_ = (mb * 1024 * 1024) / sizeof(T);
-        entries_ = new T[max_entries_];
-    }
-
-    ~TT() {
-        delete entries_;
+        max_entries_ = (mb * 1024U * 1024U) / sizeof(T);
+        entries_ = std::make_unique<T[]>(max_entries_);
     }
 
     [[nodiscard]] T poll(const std::uint64_t hash) const noexcept {
@@ -53,9 +50,9 @@ class TT {
         return hash % max_entries_;
     }
 
-    std::size_t max_entries_;
-    std::size_t filled_;
-    T *entries_;
+    std::size_t max_entries_ = 0;
+    std::size_t filled_ = 0;
+    std::unique_ptr<T[]> entries_;
 };
 
 #endif

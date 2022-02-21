@@ -5,7 +5,7 @@
 namespace libataxx {
 
 [[nodiscard]] std::string Position::get_fen() const noexcept {
-    std::string fen = "";
+    std::string fen;
 
     // Board
     for (int y = 6; y >= 0; --y) {
@@ -18,19 +18,19 @@ namespace libataxx {
             const auto bb = Bitboard{sq};
 
             if (bb & black()) {
-                if (empty) {
+                if (empty > 0) {
                     fen += std::to_string(empty);
                     empty = 0;
                 }
                 fen += "x";
             } else if (bb & white()) {
-                if (empty) {
+                if (empty > 0) {
                     fen += std::to_string(empty);
                     empty = 0;
                 }
                 fen += "o";
             } else if (bb & gaps()) {
-                if (empty) {
+                if (empty > 0) {
                     fen += std::to_string(empty);
                     empty = 0;
                 }
@@ -40,7 +40,7 @@ namespace libataxx {
             }
         }
 
-        if (empty) {
+        if (empty > 0) {
             fen += std::to_string(empty);
         }
         if (y > 0) {

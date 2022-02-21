@@ -35,7 +35,7 @@ TEST_CASE("PGN") {
     altnode = altnode->add_mainline(libataxx::Move::from_uai("g4"));
     altnode = altnode->add_mainline(libataxx::Move::from_uai("a3"));
     altnode->add_comment("done");
-    node = node->add_mainline(libataxx::Move::from_uai("g4"));
+    node->add_mainline(libataxx::Move::from_uai("g4"));
 
     std::stringstream ss;
     ss << pgn;

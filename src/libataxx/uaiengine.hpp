@@ -156,17 +156,17 @@ class UAIEngine : public Engine {
         }
     }
 
-    Move bestmove_;
-    std::uint64_t nodes_;
+    Move bestmove_ = {};
+    std::uint64_t nodes_ = {};
     std::mutex mtx_;
     std::condition_variable cv_uaiok_;
     std::condition_variable cv_readyok_;
     std::condition_variable cv_bestmove_;
     std::condition_variable cv_nodes_;
-    bool uaiok_received{false};
-    bool readyok_received{false};
-    bool bestmove_received{false};
-    bool nodes_received{false};
+    bool uaiok_received = false;
+    bool readyok_received = false;
+    bool bestmove_received = false;
+    bool nodes_received = false;
     std::vector<std::function<void(const std::string &info)>> info_callbacks_;
 };
 

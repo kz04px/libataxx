@@ -11,11 +11,9 @@ namespace libataxx::pgn {
 
 class Node {
    public:
-    Node() : parent_{}, move_{}, ply_{0}, comment_{}, children_{} {
-    }
+    [[nodiscard]] Node() noexcept = default;
 
-    Node(const Node *parent, const Move move, const int ply)
-        : parent_{parent}, move_{move}, ply_{ply}, comment_{}, children_{} {
+    [[nodiscard]] Node(Node *parent, const Move move, const int ply) : parent_{parent}, move_{move}, ply_{ply} {
     }
 
     [[nodiscard]] constexpr bool is_root() const noexcept {
@@ -125,20 +123,19 @@ class Node {
     }
 
    private:
-    const Node *parent_;
+    Node *parent_ = nullptr;
     Move move_;
-    int ply_;
+    int ply_ = 0;
     std::string comment_;
     std::vector<Node> children_;
 };
 
 class Header {
    public:
-    Header() {
-    }
+    [[nodiscard]] Header() = default;
 
     void add(const std::string &key, const std::string &value) noexcept {
-        stuff_.push_back({key, value});
+        stuff_.emplace_back(key, value);
     }
 
     [[nodiscard]] std::optional<std::string> get(const std::string &k) const noexcept {
@@ -160,8 +157,7 @@ class Header {
 
 class PGN {
    public:
-    PGN() {
-    }
+    [[nodiscard]] PGN() = default;
 
     [[nodiscard]] Header &header() noexcept {
         return header_;
@@ -189,7 +185,11 @@ inline std::ostream &operator<<(std::ostream &os, const PGN &pgn) {
 
     // Header
     for (const auto &[key, value] : pgn.header().items()) {
-        str += "[" + key + " \"" + value + "\"]\n";
+        str += "[";
+        str += key;
+        str += " \"";
+        str += value;
+        str += "\"]\n";
     }
     str += '\n';
 

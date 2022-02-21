@@ -14,7 +14,8 @@ struct TTEntry {
 [[nodiscard]] std::uint64_t ttperft(TT<TTEntry> &tt, const libataxx::Position &pos, const std::uint8_t depth) {
     if (depth == 0) {
         return 1;
-    } else if (depth == 1) {
+    }
+    if (depth == 1) {
         return pos.count_moves();
     }
 

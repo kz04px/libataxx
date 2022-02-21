@@ -21,21 +21,19 @@ enum class Result
 
 class Position {
    public:
-    constexpr Position() : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, fullmoves_{0}, turn_{Side::Black} {
-    }
+    [[nodiscard]] constexpr Position() noexcept = default;
 
-    constexpr explicit Position(const std::string &fen)
-        : pieces_{}, gaps_{}, hash_{0}, halfmoves_{0}, fullmoves_{0}, turn_{Side::Black} {
+    [[nodiscard]] constexpr explicit Position(const std::string &fen) noexcept {
         set_fen(fen);
     }
 
-    constexpr Position(const Bitboard &b,
-                       const Bitboard &w,
-                       const Bitboard &g,
-                       const unsigned int hm,
-                       const unsigned int fm,
-                       const Side &t)
-        : pieces_{b, w}, gaps_{g}, hash_{0}, halfmoves_{hm}, fullmoves_{fm}, turn_{t} {
+    [[nodiscard]] constexpr Position(const Bitboard &b,
+                                     const Bitboard &w,
+                                     const Bitboard &g,
+                                     const unsigned int hm,
+                                     const unsigned int fm,
+                                     const Side &t)
+        : pieces_{b, w}, gaps_{g}, halfmoves_{hm}, fullmoves_{fm}, turn_{t} {
     }
 
     void set_fen(const std::string &fen) noexcept;
@@ -101,7 +99,7 @@ class Position {
 
     [[nodiscard]] constexpr bool is_capture(const Move &move) const noexcept {
         const auto neighbours = Bitboard{move.to()}.singles() & them();
-        return neighbours != 0;
+        return !neighbours.empty();
     }
 
     [[nodiscard]] Result result() const noexcept {
@@ -117,11 +115,11 @@ class Position {
             const int s = score();
             if (s > 0) {
                 return Result::BlackWin;
-            } else if (s < 0) {
-                return Result::WhiteWin;
-            } else {
-                return Result::Draw;
             }
+            if (s < 0) {
+                return Result::WhiteWin;
+            }
+            return Result::Draw;
         }
 
         // 50 move draw
@@ -138,13 +136,14 @@ class Position {
         const Bitboard bb{sq};
         if (black() & bb) {
             return Piece::Black;
-        } else if (white() & bb) {
-            return Piece::White;
-        } else if (gaps() & bb) {
-            return Piece::Gap;
-        } else {
-            return Piece::Empty;
         }
+        if (white() & bb) {
+            return Piece::White;
+        }
+        if (gaps() & bb) {
+            return Piece::Gap;
+        }
+        return Piece::Empty;
     }
 
     constexpr void set(const Square &sq, const Piece &piece) noexcept {
@@ -327,10 +326,10 @@ class Position {
    private:
     Bitboard pieces_[2];
     Bitboard gaps_;
-    std::uint64_t hash_;
-    unsigned int halfmoves_;
-    unsigned int fullmoves_;
-    Side turn_;
+    std::uint64_t hash_ = 0;
+    unsigned int halfmoves_ = 0;
+    unsigned int fullmoves_ = 0;
+    Side turn_ = Side::Black;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Position &pos) {

@@ -30,9 +30,8 @@ class Move {
     [[nodiscard]] constexpr Type type() const noexcept {
         if (from_ == to_) {
             return Type::Single;
-        } else {
-            return Type::Double;
         }
+        return Type::Double;
     }
 
     [[nodiscard]] constexpr bool is_single() const noexcept {
@@ -74,19 +73,21 @@ class Move {
     [[nodiscard]] explicit operator std::string() const noexcept {
         if (*this == Move::nullmove()) {
             return "0000";
-        } else if (*this == Move::nomove()) {
-            return "NONE";
-        } else if (type() == Move::Type::Single) {
-            return static_cast<std::string>(from());
-        } else {
-            return static_cast<std::string>(from()) + static_cast<std::string>(to());
         }
+        if (*this == Move::nomove()) {
+            return "NONE";
+        }
+        if (type() == Move::Type::Single) {
+            return static_cast<std::string>(from());
+        }
+        return static_cast<std::string>(from()) + static_cast<std::string>(to());
     }
 
     [[nodiscard]] static Move from_uai(const std::string &str) {
         if (str == "0000" || str == "null") {
             return Move::nullmove();
-        } else if (str.length() == 2) {
+        }
+        if (str.length() == 2) {
             const int x = str[0] - 'a';
             const int y = str[1] - '1';
 
@@ -95,7 +96,8 @@ class Move {
             }
 
             return Move(Square{x, y});
-        } else if (str.length() == 4) {
+        }
+        if (str.length() == 4) {
             const int x1 = str[0] - 'a';
             const int y1 = str[1] - '1';
             const int x2 = str[2] - 'a';
@@ -138,7 +140,6 @@ class Move {
     constexpr Move(const int f, const int t) : from_{f}, to_{t} {
     }
 
-   private:
     Square from_;
     Square to_;
 };

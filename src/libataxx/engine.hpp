@@ -23,7 +23,7 @@ struct SearchSettings {
         Time
     };
 
-    Type type;
+    Type type = Type::Depth;
     // SearchType::Depth
     int depth = 0;
     // SearchType::Movetime
@@ -51,15 +51,18 @@ class Engine {
         : out_{ios_}, child_{path, boost::process::std_out > out_, boost::process::std_in < in_} {
     }
 
-    virtual ~Engine() {
-        ios_.stop();
-        if (ios_thread_.joinable()) {
-            ios_thread_.join();
+    virtual ~Engine() noexcept {
+        try {
+            ios_.stop();
+            if (ios_thread_.joinable()) {
+                ios_thread_.join();
+            }
+            child_.terminate();
+        } catch (...) {
         }
-        child_.terminate();
     }
 
-    void listen() {
+    void listen() noexcept {
         start();
         ios_thread_ = std::thread([&]() {
             for (;;) {

@@ -24,10 +24,9 @@ namespace libataxx {
     if (move.type() == Move::Type::Single) {
         return Bitboard{to}.singles() & us();
     }
+
     // Double moves
-    else {
-        return Bitboard{to}.doubles() & us() & Bitboard{from};
-    }
+    return Bitboard{to}.doubles() & us() & Bitboard{from};
 }
 
 }  // namespace libataxx

@@ -32,13 +32,12 @@ class BitboardIterator {
 
 class Bitboard {
    public:
-    constexpr Bitboard() : data_{0} {
+    [[nodiscard]] constexpr Bitboard() = default;
+
+    [[nodiscard]] constexpr explicit Bitboard(const Square sq) : data_{1ULL << static_cast<int>(sq)} {
     }
 
-    constexpr explicit Bitboard(const Square sq) : data_{1ULL << static_cast<int>(sq)} {
-    }
-
-    constexpr explicit Bitboard(const std::uint64_t bb) : data_{bb} {
+    [[nodiscard]] constexpr explicit Bitboard(const std::uint64_t bb) : data_{bb} {
     }
 
     [[nodiscard]] constexpr int count() const noexcept {
@@ -165,7 +164,7 @@ class Bitboard {
         return BitboardIterator{data_};
     }
 
-    [[nodiscard]] constexpr BitboardIterator end() const noexcept {
+    [[nodiscard]] static constexpr BitboardIterator end() noexcept {
         return BitboardIterator{0};
     }
 
@@ -235,7 +234,7 @@ class Bitboard {
     }
 
    private:
-    std::uint64_t data_;
+    std::uint64_t data_ = 0;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Bitboard &bb) {

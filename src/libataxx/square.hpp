@@ -11,16 +11,15 @@ namespace libataxx {
 
 class Square {
    public:
-    constexpr Square() : data_{0} {
+    [[nodiscard]] constexpr Square() = default;
+
+    [[nodiscard]] explicit constexpr Square(const int sq) : data_(sq) {
     }
 
-    explicit constexpr Square(const int sq) : data_(sq) {
+    [[nodiscard]] constexpr Square(const int f, const int r) : data_(8 * r + f) {
     }
 
-    constexpr Square(const int f, const int r) : data_(8 * r + f) {
-    }
-
-    constexpr Square(const File &f, const Rank &r) : data_(8 * int(r) + int(f)) {
+    [[nodiscard]] constexpr Square(const File &f, const Rank &r) : data_(8 * int(r) + int(f)) {
     }
 
     [[nodiscard]] constexpr File file() const noexcept {
@@ -52,7 +51,7 @@ class Square {
     }
 
    private:
-    std::uint8_t data_;
+    std::uint8_t data_ = 0;
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Square &sq) noexcept {
