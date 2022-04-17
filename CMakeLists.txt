@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.12)
 # Project
 project(Libataxx VERSION 1.0 LANGUAGES CXX)
 
-find_package(Boost COMPONENTS system)
 find_package(Threads)
 
 # Base directory relative includes
@@ -107,12 +106,6 @@ add_executable(
 
 # Add example
 add_executable(
-    engine
-    examples/engine.cpp
-)
-
-# Add example
-add_executable(
     pgn
     examples/pgn.cpp
 )
@@ -130,7 +123,6 @@ ADD_DEPENDENCIES(
     perft
     ttperft
     tttperft
-    engine
     pgn
     split
 )
@@ -190,15 +182,6 @@ set_target_properties(
 )
 
 set_target_properties(
-    engine
-    PROPERTIES
-    OUTPUT_NAME "engine"
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
-)
-
-set_target_properties(
     split
     PROPERTIES
     OUTPUT_NAME "split"
@@ -213,6 +196,5 @@ target_link_libraries(tests static)
 target_link_libraries(perft static)
 target_link_libraries(ttperft static)
 target_link_libraries(tttperft static)
-target_link_libraries(engine static ${CMAKE_THREAD_LIBS_INIT} ${Boost_SYSTEM_LIBRARY})
 target_link_libraries(pgn static)
 target_link_libraries(split static)
