@@ -6,9 +6,7 @@ project(Libataxx VERSION 1.0 LANGUAGES CXX)
 find_package(Threads)
 
 # Base directory relative includes
-include_directories(.)
 include_directories(./src/)
-include_directories(./build/)
 
 # Flags
 set(CMAKE_CXX_STANDARD 20)
