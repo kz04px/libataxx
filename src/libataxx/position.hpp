@@ -202,6 +202,18 @@ class Position {
         return all;
     }
 
+    [[nodiscard]] constexpr Bitboard reachable(const Side s) const noexcept {
+        Bitboard all = pieces_[static_cast<int>(s)];
+        Bitboard remaining = empty();
+        Bitboard moves;
+        do {
+            moves = (all.singles() | all.doubles()) & remaining;
+            all |= moves;
+            remaining &= ~moves;
+        } while (moves);
+        return all;
+    }
+
     [[nodiscard]] constexpr std::uint64_t minimal_hash() const noexcept {
         enum Transform
         {
