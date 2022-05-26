@@ -84,6 +84,14 @@ class Position {
         return pieces_[static_cast<int>(!turn_)];
     }
 
+    [[nodiscard]] constexpr Bitboard both() const noexcept {
+        return black() | white();
+    }
+
+    [[nodiscard]] constexpr Bitboard side(const Side s) const noexcept {
+        return pieces_[static_cast<int>(s)];
+    }
+
     [[nodiscard]] constexpr bool must_pass() const noexcept {
         return !(empty() & (us().singles() | us().doubles()));
     }
@@ -190,28 +198,22 @@ class Position {
         return fullmoves_;
     }
 
-    [[nodiscard]] constexpr Bitboard reachable() const noexcept {
-        Bitboard all = black() | white();
-        Bitboard remaining = empty();
+    [[nodiscard]] constexpr Bitboard reachable(Bitboard us, Bitboard available) const noexcept {
         Bitboard moves;
         do {
-            moves = (all.singles() | all.doubles()) & remaining;
-            all |= moves;
-            remaining &= ~moves;
+            moves = (us | us.singles() | us.doubles()) & available;
+            us |= moves;
+            available &= ~moves;
         } while (moves);
-        return all;
+        return us;
+    }
+
+    [[nodiscard]] constexpr Bitboard reachable() const noexcept {
+        return reachable(both(), empty());
     }
 
     [[nodiscard]] constexpr Bitboard reachable(const Side s) const noexcept {
-        Bitboard all = pieces_[static_cast<int>(s)];
-        Bitboard remaining = empty();
-        Bitboard moves;
-        do {
-            moves = (all.singles() | all.doubles()) & remaining;
-            all |= moves;
-            remaining &= ~moves;
-        } while (moves);
-        return all;
+        return reachable(side(s), empty());
     }
 
     [[nodiscard]] constexpr std::uint64_t minimal_hash() const noexcept {
