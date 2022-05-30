@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.12)
 # Project
 project(Libataxx VERSION 1.0 LANGUAGES CXX)
 
-find_package(Threads)
-
 # Base directory relative includes
 include_directories(./src/)
 
