@@ -24,8 +24,7 @@ void test(const libataxx::Position &pos, const int depth) {
     const int num_moves = pos.legal_moves(moves);
 
     for (int i = 0; i < num_moves; ++i) {
-        auto npos = pos;
-        npos.makemove(moves[i]);
+        const auto npos = pos.after_move(moves[i]);
         REQUIRE(npos.hash() != pos.hash());
         REQUIRE(npos.hash() == pos.predict_hash(moves[i]));
         test(npos, depth - 1);

@@ -30,8 +30,7 @@ struct TTEntry {
     const int num_moves = pos.legal_moves(moves);
 
     for (int i = 0; i < num_moves; ++i) {
-        auto npos = pos;
-        npos.makemove(moves[i]);
+        const auto npos = pos.after_move(moves[i]);
         nodes += ttperft(tt, npos, depth - 1);
     }
 

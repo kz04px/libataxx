@@ -31,8 +31,7 @@ int main(int argc, char **argv) {
 
     const auto t0 = high_resolution_clock::now();
     for (int i = 0; i < num_moves; ++i) {
-        auto npos = pos;
-        npos.makemove(moves[i]);
+        const auto npos = pos.after_move(moves[i]);
         std::cout << i + 1 << ") " << moves[i];
         const auto nodes = npos.perft(depth - 1);
         std::cout << " " << nodes;
