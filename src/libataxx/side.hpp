@@ -1,6 +1,8 @@
 #ifndef LIBATAXX_SIDE_HPP
 #define LIBATAXX_SIDE_HPP
 
+#include <ostream>
+
 namespace libataxx {
 
 enum class Side : bool
