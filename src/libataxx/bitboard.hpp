@@ -69,31 +69,20 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr Bitboard singles() const noexcept {
-        // clang-format off
         return Bitboard(
-                 // right 1
-                 ((data_ << 1 | data_ << 9 | data_ >> 7) & 0x7e7e7e7e7e7e7eULL) |
-                 // center
-                 ((data_ << 8 | data_ >> 8) & 0x7f7f7f7f7f7f7fULL) | 
-                 // left 1
-                 ((data_ >> 1 | data_ >> 9 | data_ << 7) & 0x3f3f3f3f3f3f3fULL)
-               );
-        // clang-format on
+            (data_ << 1 | data_ << 9 | data_ >> 7 | data_ << 8 | data_ >> 8 | data_ >> 1 | data_ >> 9 | data_ << 7) &
+            0x7f7f7f7f7f7f7fULL);
     }
 
     [[nodiscard]] constexpr Bitboard doubles() const noexcept {
         // clang-format off
         return Bitboard(
-                 // right 2
-                 ((data_ << 2 | data_ << 10 | data_ << 18 | data_ >> 6 | data_ >> 14) & 0x7c7c7c7c7c7c7cull) |
-                 // right 1
-                 ((data_ << 17 | data_ >> 15) & 0x7e7e7e7e7e7e7eull) |
+                 // right
+                 ((data_ << 2 | data_ << 10 | data_ << 18 | data_ >> 6 | data_ >> 14 | data_ << 17 | data_ >> 15) & 0x7e7e7e7e7e7e7eull) |
                  // center
                  ((data_ << 16 | data_ >> 16) & 0x7f7f7f7f7f7f7fULL) |
-                 // left 1
-                 ((data_ << 15 | data_ >> 17) & 0x3f3f3f3f3f3f3full) |
-                 // left 2
-                 ((data_ >> 2 | data_ >> 10 | data_ >> 18 | data_ << 6 | data_ << 14) & 0x1f1f1f1f1f1f1full)
+                 // left
+                 ((data_ >> 2 | data_ >> 10 | data_ >> 18 | data_ << 6 | data_ << 14 | data_ << 15 | data_ >> 17) & 0x3f3f3f3f3f3f3full)
               );
         // clang-format on
     }
