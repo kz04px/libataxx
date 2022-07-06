@@ -108,6 +108,12 @@ add_executable(
 
 # Add example
 add_executable(
+    benchmark
+    examples/benchmark.cpp
+)
+
+# Add example
+add_executable(
     split
     examples/split.cpp
 )
@@ -121,6 +127,7 @@ ADD_DEPENDENCIES(
     tttperft
     pgn
     split
+    benchmark
 )
 
 set_target_properties(
@@ -186,6 +193,15 @@ set_target_properties(
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
 )
 
+set_target_properties(
+    benchmark
+    PROPERTIES
+    OUTPUT_NAME "benchmark"
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/examples"
+)
+
 set_property(TARGET tests PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE FALSE)
 
 target_link_libraries(tests static)
@@ -194,3 +210,4 @@ target_link_libraries(ttperft static)
 target_link_libraries(tttperft static)
 target_link_libraries(pgn static)
 target_link_libraries(split static)
+target_link_libraries(benchmark static)
