@@ -4,6 +4,30 @@
 #include <string>
 #include "catch.hpp"
 
+TEST_CASE("PGN - Empty") {
+    const std::string expected =
+        "[Event \"PGN Test\"]\n"
+        "[FEN \"x5o/7/7/7/7/7/o5x x 0 1\"]\n"
+        "[Black \"PlayerBlack\"]\n"
+        "[White \"PlayerWhite\"]\n"
+        "[Result \"*\"]\n"
+        "\n"
+        " *\n"
+        "\n";
+
+    libataxx::pgn::PGN pgn;
+    pgn.header().add("Event", "PGN Test");
+    pgn.header().add("FEN", "x5o/7/7/7/7/7/o5x x 0 1");
+    pgn.header().add("Black", "PlayerBlack");
+    pgn.header().add("White", "PlayerWhite");
+    pgn.header().add("Result", "*");
+
+    std::stringstream ss;
+    ss << pgn;
+
+    REQUIRE(ss.str() == expected);
+}
+
 TEST_CASE("PGN - 1") {
     const std::string expected =
         "[Event \"PGN Test\"]\n"
