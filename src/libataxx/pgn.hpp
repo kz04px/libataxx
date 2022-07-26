@@ -84,11 +84,16 @@ class Node {
         return &children_.back();
     }
 
+    void set_ply(const int n) noexcept {
+        ply_ = n;
+    }
+
     [[nodiscard]] explicit operator std::string() const noexcept {
         std::string str;
 
         // Move number
-        if (has_parent() && (ply() % 2 == 1 || parent()->num_children() > 1 || parent()->has_comment())) {
+        if (has_parent() &&
+            (!parent()->has_parent() || ply() % 2 == 1 || parent()->num_children() > 1 || parent()->has_comment())) {
             const int move_num = (ply() + 1) / 2;
 
             if (ply() % 2 == 1) {
@@ -177,6 +182,10 @@ class PGN {
 
     [[nodiscard]] const Node &root() const noexcept {
         return root_;
+    }
+
+    void set_black_first(const bool is_black_first) noexcept {
+        root_.set_ply(is_black_first ? 0 : 1);
     }
 
    private:
