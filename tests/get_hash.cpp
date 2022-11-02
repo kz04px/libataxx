@@ -31,7 +31,7 @@ void test(const libataxx::Position &pos, const int depth) {
     }
 }
 
-TEST_CASE("Move::get_hash()") {
+TEST_CASE("Position::get_hash()") {
     const std::string fens[] = {
         "x5o/7/7/7/7/7/o5x x 0 1",
         "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1",
