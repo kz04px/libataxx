@@ -150,6 +150,10 @@ class Bitboard {
         return !empty();
     }
 
+    [[nodiscard]] constexpr std::uint64_t data() const noexcept {
+        return data_;
+    }
+
     [[nodiscard]] constexpr BitboardIterator begin() const noexcept {
         return BitboardIterator{data_};
     }
