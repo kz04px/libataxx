@@ -5,18 +5,18 @@
 
 TEST_CASE("Position::reachable()") {
     const std::pair<std::string, libataxx::Bitboard> tests[] = {
-        {"7/7/7/7/7/7/6x x 0 1", libataxx::bitboards::All},
-        {"7/7/7/7/7/7/6o o 0 1", libataxx::bitboards::All},
-        {"7/7/7/7/7/7/7 x 0 1", libataxx::bitboards::Empty},
-        {"7/7/7/7/7/7/7 o 0 1", libataxx::bitboards::Empty},
+        {"7/7/7/7/7/7/6x x 0 1", libataxx::Bitboard(libataxx::Bitmask::All)},
+        {"7/7/7/7/7/7/6o o 0 1", libataxx::Bitboard(libataxx::Bitmask::All)},
+        {"7/7/7/7/7/7/7 x 0 1", libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {"7/7/7/7/7/7/7 o 0 1", libataxx::Bitboard(libataxx::Bitmask::Empty)},
         {"7/7/-------/7/7/7/6x x 0 1", libataxx::Bitboard{0x7f7f007f7f7f7f}},
         {"7/7/-------/7/7/7/6o o 0 1", libataxx::Bitboard{0x7f7f007f7f7f7f}},
         {"7/7/-------/-------/7/7/6x x 0 1", libataxx::Bitboard{0x7f7f7f}},
         {"7/7/-------/-------/7/7/6o o 0 1", libataxx::Bitboard{0x7f7f7f}},
         {"6o/7/-------/-------/7/7/6x x 0 1", libataxx::Bitboard{0x7f7f00007f7f7f}},
         {"6o/7/-------/-------/7/7/6x o 0 1", libataxx::Bitboard{0x7f7f00007f7f7f}},
-        {"4oox/4ooo/4ooo/7/7/7/7 x 0 1", libataxx::bitboards::All},
-        {"4oox/4ooo/4ooo/7/7/7/7 o 0 1", libataxx::bitboards::All},
+        {"4oox/4ooo/4ooo/7/7/7/7 x 0 1", libataxx::Bitboard(libataxx::Bitmask::All)},
+        {"4oox/4ooo/4ooo/7/7/7/7 o 0 1", libataxx::Bitboard(libataxx::Bitmask::All)},
     };
 
     for (const auto& [fen, bb] : tests) {
@@ -27,10 +27,10 @@ TEST_CASE("Position::reachable()") {
 
 TEST_CASE("Position::reachable(Side)") {
     const std::pair<std::string, libataxx::Bitboard> tests[] = {
-        {"7/7/7/7/7/7/6x x 0 1", libataxx::bitboards::All},
-        {"7/7/7/7/7/7/6o o 0 1", libataxx::bitboards::All},
-        {"7/7/7/7/7/7/7 x 0 1", libataxx::bitboards::Empty},
-        {"7/7/7/7/7/7/7 o 0 1", libataxx::bitboards::Empty},
+        {"7/7/7/7/7/7/6x x 0 1", libataxx::Bitboard(libataxx::Bitmask::All)},
+        {"7/7/7/7/7/7/6o o 0 1", libataxx::Bitboard(libataxx::Bitmask::All)},
+        {"7/7/7/7/7/7/7 x 0 1", libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {"7/7/7/7/7/7/7 o 0 1", libataxx::Bitboard(libataxx::Bitmask::Empty)},
         {"7/7/-------/7/7/7/6x x 0 1", libataxx::Bitboard{0x7f7f007f7f7f7f}},
         {"7/7/-------/7/7/7/6o o 0 1", libataxx::Bitboard{0x7f7f007f7f7f7f}},
         {"7/7/-------/-------/7/7/6x x 0 1", libataxx::Bitboard{0x7f7f7f}},

@@ -5,7 +5,7 @@ TEST_CASE("Position::set() Position::get()") {
     libataxx::Position pos;
 
     pos.set_fen("7/7/7/7/7/7/7 x 0 1");
-    for (const auto &sq : libataxx::bitboards::All) {
+    for (const auto &sq : libataxx::Bitboard(libataxx::Bitmask::All)) {
         REQUIRE(pos.get(sq) == libataxx::Piece::Empty);
         for (const auto &piece :
              {libataxx::Piece::Black, libataxx::Piece::White, libataxx::Piece::Gap, libataxx::Piece::Empty}) {
@@ -15,7 +15,7 @@ TEST_CASE("Position::set() Position::get()") {
     }
 
     pos.set_fen("xxxxxxx/xxxxxxx/xxxxxxx/xxxxxxx/xxxxxxx/xxxxxxx/xxxxxxx x 0 1");
-    for (const auto &sq : libataxx::bitboards::All) {
+    for (const auto &sq : libataxx::Bitboard(libataxx::Bitmask::All)) {
         REQUIRE(pos.get(sq) == libataxx::Piece::Black);
         for (const auto &piece :
              {libataxx::Piece::Black, libataxx::Piece::White, libataxx::Piece::Gap, libataxx::Piece::Empty}) {
@@ -25,7 +25,7 @@ TEST_CASE("Position::set() Position::get()") {
     }
 
     pos.set_fen("ooooooo/ooooooo/ooooooo/ooooooo/ooooooo/ooooooo/ooooooo x 0 1");
-    for (const auto &sq : libataxx::bitboards::All) {
+    for (const auto &sq : libataxx::Bitboard(libataxx::Bitmask::All)) {
         REQUIRE(pos.get(sq) == libataxx::Piece::White);
         for (const auto &piece :
              {libataxx::Piece::Black, libataxx::Piece::White, libataxx::Piece::Gap, libataxx::Piece::Empty}) {
@@ -35,7 +35,7 @@ TEST_CASE("Position::set() Position::get()") {
     }
 
     pos.set_fen("-------/-------/-------/-------/-------/-------/------- x 0 1");
-    for (const auto &sq : libataxx::bitboards::All) {
+    for (const auto &sq : libataxx::Bitboard(libataxx::Bitmask::All)) {
         REQUIRE(pos.get(sq) == libataxx::Piece::Gap);
         for (const auto &piece :
              {libataxx::Piece::Black, libataxx::Piece::White, libataxx::Piece::Gap, libataxx::Piece::Empty}) {

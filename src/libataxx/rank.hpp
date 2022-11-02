@@ -6,9 +6,23 @@
 
 namespace libataxx {
 
+enum class Ranks : int
+{
+    Rank1 = 0,
+    Rank2,
+    Rank3,
+    Rank4,
+    Rank5,
+    Rank6,
+    Rank7,
+};
+
 class Rank {
    public:
     constexpr explicit Rank(const int r) : data_(r) {
+    }
+
+    constexpr explicit Rank(const Ranks r) : data_(static_cast<int>(r)) {
     }
 
     [[nodiscard]] explicit constexpr operator char() const noexcept {
@@ -32,33 +46,21 @@ inline std::ostream &operator<<(std::ostream &os, const Rank &r) {
     return os;
 }
 
-namespace ranks {
+static_assert(static_cast<char>(Rank(Ranks::Rank1)) == '1');
+static_assert(static_cast<char>(Rank(Ranks::Rank2)) == '2');
+static_assert(static_cast<char>(Rank(Ranks::Rank3)) == '3');
+static_assert(static_cast<char>(Rank(Ranks::Rank4)) == '4');
+static_assert(static_cast<char>(Rank(Ranks::Rank5)) == '5');
+static_assert(static_cast<char>(Rank(Ranks::Rank6)) == '6');
+static_assert(static_cast<char>(Rank(Ranks::Rank7)) == '7');
 
-constexpr static Rank A = Rank{0};
-constexpr static Rank B = Rank{1};
-constexpr static Rank C = Rank{2};
-constexpr static Rank D = Rank{3};
-constexpr static Rank E = Rank{4};
-constexpr static Rank F = Rank{5};
-constexpr static Rank G = Rank{6};
-
-static_assert(static_cast<char>(A) == '1');
-static_assert(static_cast<char>(B) == '2');
-static_assert(static_cast<char>(C) == '3');
-static_assert(static_cast<char>(D) == '4');
-static_assert(static_cast<char>(E) == '5');
-static_assert(static_cast<char>(F) == '6');
-static_assert(static_cast<char>(G) == '7');
-
-static_assert(static_cast<int>(A) == 0);
-static_assert(static_cast<int>(B) == 1);
-static_assert(static_cast<int>(C) == 2);
-static_assert(static_cast<int>(D) == 3);
-static_assert(static_cast<int>(E) == 4);
-static_assert(static_cast<int>(F) == 5);
-static_assert(static_cast<int>(G) == 6);
-
-}  // namespace ranks
+static_assert(static_cast<int>(Rank(Ranks::Rank1)) == 0);
+static_assert(static_cast<int>(Rank(Ranks::Rank2)) == 1);
+static_assert(static_cast<int>(Rank(Ranks::Rank3)) == 2);
+static_assert(static_cast<int>(Rank(Ranks::Rank4)) == 3);
+static_assert(static_cast<int>(Rank(Ranks::Rank5)) == 4);
+static_assert(static_cast<int>(Rank(Ranks::Rank6)) == 5);
+static_assert(static_cast<int>(Rank(Ranks::Rank7)) == 6);
 
 }  // namespace libataxx
 

@@ -9,6 +9,19 @@
 
 namespace libataxx {
 
+// clang-format off
+enum class SquareIndex : std::uint8_t
+{
+    A1 = 0, B1, C1, D1, E1, F1, G1,
+    A2 = 8, B2, C2, D2, E2, F2, G2,
+    A3 = 16, B3, C3, D3, E3, F3, G3,
+    A4 = 24, B4, C4, D4, E4, F4, G4,
+    A5 = 32, B5, C5, D5, E5, F5, G5,
+    A6 = 40, B6, C6, D6, E6, F6, G6,
+    A7 = 48, B7, C7, D7, E7, F7, G7,
+};
+// clang-format on
+
 class Square {
    public:
     [[nodiscard]] constexpr Square() = default;
@@ -20,6 +33,9 @@ class Square {
     }
 
     [[nodiscard]] constexpr Square(const File &f, const Rank &r) : data_(8 * int(r) + int(f)) {
+    }
+
+    [[nodiscard]] constexpr Square(const SquareIndex idx) : data_(static_cast<std::uint8_t>(idx)) {
     }
 
     [[nodiscard]] constexpr File file() const noexcept {
@@ -67,62 +83,7 @@ constexpr inline std::uint64_t operator>>(const uint64_t bb, const Square &sq) n
     return bb >> static_cast<int>(sq);
 }
 
-namespace squares {
-
-constexpr static Square A1 = Square(files::A, ranks::A);
-constexpr static Square B1 = Square(files::B, ranks::A);
-constexpr static Square C1 = Square(files::C, ranks::A);
-constexpr static Square D1 = Square(files::D, ranks::A);
-constexpr static Square E1 = Square(files::E, ranks::A);
-constexpr static Square F1 = Square(files::F, ranks::A);
-constexpr static Square G1 = Square(files::G, ranks::A);
-constexpr static Square A2 = Square(files::A, ranks::B);
-constexpr static Square B2 = Square(files::B, ranks::B);
-constexpr static Square C2 = Square(files::C, ranks::B);
-constexpr static Square D2 = Square(files::D, ranks::B);
-constexpr static Square E2 = Square(files::E, ranks::B);
-constexpr static Square F2 = Square(files::F, ranks::B);
-constexpr static Square G2 = Square(files::G, ranks::B);
-constexpr static Square A3 = Square(files::A, ranks::C);
-constexpr static Square B3 = Square(files::B, ranks::C);
-constexpr static Square C3 = Square(files::C, ranks::C);
-constexpr static Square D3 = Square(files::D, ranks::C);
-constexpr static Square E3 = Square(files::E, ranks::C);
-constexpr static Square F3 = Square(files::F, ranks::C);
-constexpr static Square G3 = Square(files::G, ranks::C);
-constexpr static Square A4 = Square(files::A, ranks::D);
-constexpr static Square B4 = Square(files::B, ranks::D);
-constexpr static Square C4 = Square(files::C, ranks::D);
-constexpr static Square D4 = Square(files::D, ranks::D);
-constexpr static Square E4 = Square(files::E, ranks::D);
-constexpr static Square F4 = Square(files::F, ranks::D);
-constexpr static Square G4 = Square(files::G, ranks::D);
-constexpr static Square A5 = Square(files::A, ranks::E);
-constexpr static Square B5 = Square(files::B, ranks::E);
-constexpr static Square C5 = Square(files::C, ranks::E);
-constexpr static Square D5 = Square(files::D, ranks::E);
-constexpr static Square E5 = Square(files::E, ranks::E);
-constexpr static Square F5 = Square(files::F, ranks::E);
-constexpr static Square G5 = Square(files::G, ranks::E);
-constexpr static Square A6 = Square(files::A, ranks::F);
-constexpr static Square B6 = Square(files::B, ranks::F);
-constexpr static Square C6 = Square(files::C, ranks::F);
-constexpr static Square D6 = Square(files::D, ranks::F);
-constexpr static Square E6 = Square(files::E, ranks::F);
-constexpr static Square F6 = Square(files::F, ranks::F);
-constexpr static Square G6 = Square(files::G, ranks::F);
-constexpr static Square A7 = Square(files::A, ranks::G);
-constexpr static Square B7 = Square(files::B, ranks::G);
-constexpr static Square C7 = Square(files::C, ranks::G);
-constexpr static Square D7 = Square(files::D, ranks::G);
-constexpr static Square E7 = Square(files::E, ranks::G);
-constexpr static Square F7 = Square(files::F, ranks::G);
-constexpr static Square G7 = Square(files::G, ranks::G);
-
-// static_assert(A1 == "a1");
-static_assert(A1.file() == files::A);
-
-}  // namespace squares
+static_assert(Square(SquareIndex::A1).file() == File(Files::FileA));
 
 }  // namespace libataxx
 

@@ -7,6 +7,31 @@
 
 namespace libataxx {
 
+enum class Bitmask : std::uint64_t
+{
+    All = 0x7f7f7f7f7f7f7fULL,
+    Empty = 0x0ULL,
+    Center = 0x3e3e3e3e3e00ULL,
+    Edge = 0x7f41414141417fULL,
+    Corners = 0x41000000000041ULL,
+    // Files
+    FileA = 0x1010101010101ULL,
+    FileB = 0x2020202020202ULL,
+    FileC = 0x4040404040404ULL,
+    FileD = 0x8080808080808ULL,
+    FileE = 0x10101010101010ULL,
+    FileF = 0x20202020202020ULL,
+    FileG = 0x40404040404040ULL,
+    // Ranks
+    Rank1 = 0x7fULL,
+    Rank2 = 0x7f00ULL,
+    Rank3 = 0x7f0000ULL,
+    Rank4 = 0x7f000000ULL,
+    Rank5 = 0x7f00000000ULL,
+    Rank6 = 0x7f0000000000ULL,
+    Rank7 = 0x7f000000000000ULL,
+};
+
 class BitboardIterator {
    public:
     constexpr explicit BitboardIterator(const std::uint64_t &data) : data_{data} {
@@ -38,6 +63,9 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr explicit Bitboard(const std::uint64_t bb) : data_{bb} {
+    }
+
+    [[nodiscard]] constexpr explicit Bitboard(const Bitmask mask) : data_{static_cast<std::uint64_t>(mask)} {
     }
 
     [[nodiscard]] constexpr int count() const noexcept {
@@ -250,98 +278,72 @@ inline std::ostream &operator<<(std::ostream &os, const Bitboard &bb) {
     return os;
 }
 
-namespace bitboards {
-
-constexpr Bitboard All = Bitboard{0x7f7f7f7f7f7f7fULL};
-constexpr Bitboard Empty = Bitboard{0x0ULL};
-constexpr Bitboard Center = Bitboard{0x3e3e3e3e3e00ULL};
-constexpr Bitboard Edge = Bitboard{0x7f41414141417fULL};
-constexpr Bitboard Corners = Bitboard{0x41000000000041ULL};
-// Files
-constexpr Bitboard FileA = Bitboard{0x1010101010101ULL};
-constexpr Bitboard FileB = Bitboard{0x2020202020202ULL};
-constexpr Bitboard FileC = Bitboard{0x4040404040404ULL};
-constexpr Bitboard FileD = Bitboard{0x8080808080808ULL};
-constexpr Bitboard FileE = Bitboard{0x10101010101010ULL};
-constexpr Bitboard FileF = Bitboard{0x20202020202020ULL};
-constexpr Bitboard FileG = Bitboard{0x40404040404040ULL};
-// Ranks
-constexpr Bitboard Rank1 = Bitboard{0x7fULL};
-constexpr Bitboard Rank2 = Bitboard{0x7f00ULL};
-constexpr Bitboard Rank3 = Bitboard{0x7f0000ULL};
-constexpr Bitboard Rank4 = Bitboard{0x7f000000ULL};
-constexpr Bitboard Rank5 = Bitboard{0x7f00000000ULL};
-constexpr Bitboard Rank6 = Bitboard{0x7f0000000000ULL};
-constexpr Bitboard Rank7 = Bitboard{0x7f000000000000ULL};
-
-}  // namespace bitboards
-
 static_assert(sizeof(Bitboard) == sizeof(std::uint64_t));
-static_assert(Bitboard{} == bitboards::Empty);
-static_assert(bitboards::All.count() == 49);
-static_assert(bitboards::Empty.count() == 0);
-static_assert(bitboards::Corners.count() == 4);
-static_assert(Bitboard{squares::A1}.count() == 1);
-static_assert((Bitboard{squares::A1} | Bitboard{squares::B1}).count() == 2);
-static_assert(bitboards::FileA.east() == bitboards::FileB);
-static_assert(bitboards::FileB.east() == bitboards::FileC);
-static_assert(bitboards::FileC.east() == bitboards::FileD);
-static_assert(bitboards::FileD.east() == bitboards::FileE);
-static_assert(bitboards::FileE.east() == bitboards::FileF);
-static_assert(bitboards::FileF.east() == bitboards::FileG);
-static_assert(bitboards::FileG.east() == bitboards::Empty);
-static_assert(bitboards::FileA.west() == bitboards::Empty);
-static_assert(bitboards::FileB.west() == bitboards::FileA);
-static_assert(bitboards::FileC.west() == bitboards::FileB);
-static_assert(bitboards::FileD.west() == bitboards::FileC);
-static_assert(bitboards::FileE.west() == bitboards::FileD);
-static_assert(bitboards::FileF.west() == bitboards::FileE);
-static_assert(bitboards::FileG.west() == bitboards::FileF);
-static_assert(bitboards::Rank1.north() == bitboards::Rank2);
-static_assert(bitboards::Rank2.north() == bitboards::Rank3);
-static_assert(bitboards::Rank3.north() == bitboards::Rank4);
-static_assert(bitboards::Rank4.north() == bitboards::Rank5);
-static_assert(bitboards::Rank5.north() == bitboards::Rank6);
-static_assert(bitboards::Rank6.north() == bitboards::Rank7);
-static_assert(bitboards::Rank7.north() == bitboards::Empty);
-static_assert(bitboards::Rank1.south() == bitboards::Empty);
-static_assert(bitboards::Rank2.south() == bitboards::Rank1);
-static_assert(bitboards::Rank3.south() == bitboards::Rank2);
-static_assert(bitboards::Rank4.south() == bitboards::Rank3);
-static_assert(bitboards::Rank5.south() == bitboards::Rank4);
-static_assert(bitboards::Rank6.south() == bitboards::Rank5);
-static_assert(bitboards::Rank7.south() == bitboards::Rank6);
-static_assert((bitboards::Center | bitboards::Edge) == bitboards::All);
-static_assert((bitboards::Center & bitboards::Edge) == bitboards::Empty);
-static_assert(bitboards::Center.count() == 25);
-static_assert(bitboards::Edge.count() == 24);
-static_assert(Bitboard{squares::A1}.north() == Bitboard{squares::A2});
-static_assert(Bitboard{squares::A1}.south() == bitboards::Empty);
-static_assert(Bitboard{squares::A1}.east() == Bitboard{squares::B1});
-static_assert(Bitboard{squares::A1}.west() == bitboards::Empty);
-static_assert(Bitboard{squares::G1}.north() == Bitboard{squares::G2});
-static_assert(Bitboard{squares::G1}.south() == bitboards::Empty);
-static_assert(Bitboard{squares::G1}.east() == bitboards::Empty);
-static_assert(Bitboard{squares::G1}.west() == Bitboard{squares::F1});
-static_assert(Bitboard{squares::A1}.north().north() == Bitboard{squares::A3});
-static_assert(Bitboard{squares::A1}.north().east() == Bitboard{squares::B2});
-static_assert(Bitboard{squares::A1}.north().south() == Bitboard{squares::A1});
-static_assert(Bitboard{squares::D4}.singles().count() == 8);
-static_assert(Bitboard{squares::D4}.doubles().count() == 16);
-static_assert(Bitboard{squares::A1}.singles().count() == 3);
-static_assert(Bitboard{squares::A1}.doubles().count() == 5);
-static_assert(Bitboard{squares::G1}.singles().count() == 3);
-static_assert(Bitboard{squares::G1}.doubles().count() == 5);
-static_assert(Bitboard{squares::A7}.singles().count() == 3);
-static_assert(Bitboard{squares::A7}.doubles().count() == 5);
-static_assert(Bitboard{squares::G7}.singles().count() == 3);
-static_assert(Bitboard{squares::G7}.doubles().count() == 5);
-static_assert(bitboards::All.singles() == bitboards::All);
-static_assert(bitboards::All.doubles() == bitboards::All);
-static_assert(bitboards::Empty.singles() == bitboards::Empty);
-static_assert(bitboards::Empty.doubles() == bitboards::Empty);
-static_assert(~bitboards::Empty == bitboards::All);
-static_assert(~bitboards::All == bitboards::Empty);
+static_assert(Bitboard().data() == 0x0);
+static_assert(Bitboard(Bitmask::All).count() == 49);
+static_assert(Bitboard(Bitmask::Empty).count() == 0);
+static_assert(Bitboard(Bitmask::Corners).count() == 4);
+static_assert(Bitboard{SquareIndex::A1}.count() == 1);
+static_assert((Bitboard{SquareIndex::A1} | Bitboard{SquareIndex::B1}).count() == 2);
+static_assert(Bitboard(Bitmask::FileA).east() == Bitboard(Bitmask::FileB));
+static_assert(Bitboard(Bitmask::FileB).east() == Bitboard(Bitmask::FileC));
+static_assert(Bitboard(Bitmask::FileC).east() == Bitboard(Bitmask::FileD));
+static_assert(Bitboard(Bitmask::FileD).east() == Bitboard(Bitmask::FileE));
+static_assert(Bitboard(Bitmask::FileE).east() == Bitboard(Bitmask::FileF));
+static_assert(Bitboard(Bitmask::FileF).east() == Bitboard(Bitmask::FileG));
+static_assert(Bitboard(Bitmask::FileG).east() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard(Bitmask::FileA).west() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard(Bitmask::FileB).west() == Bitboard(Bitmask::FileA));
+static_assert(Bitboard(Bitmask::FileC).west() == Bitboard(Bitmask::FileB));
+static_assert(Bitboard(Bitmask::FileD).west() == Bitboard(Bitmask::FileC));
+static_assert(Bitboard(Bitmask::FileE).west() == Bitboard(Bitmask::FileD));
+static_assert(Bitboard(Bitmask::FileF).west() == Bitboard(Bitmask::FileE));
+static_assert(Bitboard(Bitmask::FileG).west() == Bitboard(Bitmask::FileF));
+static_assert(Bitboard(Bitmask::Rank1).north() == Bitboard(Bitmask::Rank2));
+static_assert(Bitboard(Bitmask::Rank2).north() == Bitboard(Bitmask::Rank3));
+static_assert(Bitboard(Bitmask::Rank3).north() == Bitboard(Bitmask::Rank4));
+static_assert(Bitboard(Bitmask::Rank4).north() == Bitboard(Bitmask::Rank5));
+static_assert(Bitboard(Bitmask::Rank5).north() == Bitboard(Bitmask::Rank6));
+static_assert(Bitboard(Bitmask::Rank6).north() == Bitboard(Bitmask::Rank7));
+static_assert(Bitboard(Bitmask::Rank7).north() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard(Bitmask::Rank1).south() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard(Bitmask::Rank2).south() == Bitboard(Bitmask::Rank1));
+static_assert(Bitboard(Bitmask::Rank3).south() == Bitboard(Bitmask::Rank2));
+static_assert(Bitboard(Bitmask::Rank4).south() == Bitboard(Bitmask::Rank3));
+static_assert(Bitboard(Bitmask::Rank5).south() == Bitboard(Bitmask::Rank4));
+static_assert(Bitboard(Bitmask::Rank6).south() == Bitboard(Bitmask::Rank5));
+static_assert(Bitboard(Bitmask::Rank7).south() == Bitboard(Bitmask::Rank6));
+static_assert((Bitboard(Bitmask::Center) | Bitboard(Bitmask::Edge)) == Bitboard(Bitmask::All));
+static_assert((Bitboard(Bitmask::Center) & Bitboard(Bitmask::Edge)) == Bitboard(Bitmask::Empty));
+static_assert(Bitboard(Bitmask::Center).count() == 25);
+static_assert(Bitboard(Bitmask::Edge).count() == 24);
+static_assert(Bitboard{SquareIndex::A1}.north() == Bitboard{SquareIndex::A2});
+static_assert(Bitboard{SquareIndex::A1}.south() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard{SquareIndex::A1}.east() == Bitboard{SquareIndex::B1});
+static_assert(Bitboard{SquareIndex::A1}.west() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard{SquareIndex::G1}.north() == Bitboard{SquareIndex::G2});
+static_assert(Bitboard{SquareIndex::G1}.south() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard{SquareIndex::G1}.east() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard{SquareIndex::G1}.west() == Bitboard{SquareIndex::F1});
+static_assert(Bitboard{SquareIndex::A1}.north().north() == Bitboard{SquareIndex::A3});
+static_assert(Bitboard{SquareIndex::A1}.north().east() == Bitboard{SquareIndex::B2});
+static_assert(Bitboard{SquareIndex::A1}.north().south() == Bitboard{SquareIndex::A1});
+static_assert(Bitboard{SquareIndex::D4}.singles().count() == 8);
+static_assert(Bitboard{SquareIndex::D4}.doubles().count() == 16);
+static_assert(Bitboard{SquareIndex::A1}.singles().count() == 3);
+static_assert(Bitboard{SquareIndex::A1}.doubles().count() == 5);
+static_assert(Bitboard{SquareIndex::G1}.singles().count() == 3);
+static_assert(Bitboard{SquareIndex::G1}.doubles().count() == 5);
+static_assert(Bitboard{SquareIndex::A7}.singles().count() == 3);
+static_assert(Bitboard{SquareIndex::A7}.doubles().count() == 5);
+static_assert(Bitboard{SquareIndex::G7}.singles().count() == 3);
+static_assert(Bitboard{SquareIndex::G7}.doubles().count() == 5);
+static_assert(Bitboard(Bitmask::All).singles() == Bitboard(Bitmask::All));
+static_assert(Bitboard(Bitmask::All).doubles() == Bitboard(Bitmask::All));
+static_assert(Bitboard(Bitmask::Empty).singles() == Bitboard(Bitmask::Empty));
+static_assert(Bitboard(Bitmask::Empty).doubles() == Bitboard(Bitmask::Empty));
+static_assert(~Bitboard(Bitmask::Empty) == Bitboard(Bitmask::All));
+static_assert(~Bitboard(Bitmask::All) == Bitboard(Bitmask::Empty));
 
 }  // namespace libataxx
 

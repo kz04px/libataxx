@@ -3,16 +3,16 @@
 
 TEST_CASE("flip_horizontal()") {
     const std::pair<libataxx::Bitboard, libataxx::Bitboard> bitboards[] = {
-        {libataxx::bitboards::Empty, libataxx::bitboards::Empty},
-        {libataxx::bitboards::All, libataxx::bitboards::All},
-        {libataxx::bitboards::FileA, libataxx::bitboards::FileG},
-        {libataxx::bitboards::FileB, libataxx::bitboards::FileF},
-        {libataxx::bitboards::FileC, libataxx::bitboards::FileE},
-        {libataxx::bitboards::FileD, libataxx::bitboards::FileD},
-        {libataxx::bitboards::FileE, libataxx::bitboards::FileC},
-        {libataxx::bitboards::FileF, libataxx::bitboards::FileB},
-        {libataxx::bitboards::FileG, libataxx::bitboards::FileA},
-        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F2}},
+        {libataxx::Bitboard(libataxx::Bitmask::Empty), libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {libataxx::Bitboard(libataxx::Bitmask::All), libataxx::Bitboard(libataxx::Bitmask::All)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileA), libataxx::Bitboard(libataxx::Bitmask::FileG)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileB), libataxx::Bitboard(libataxx::Bitmask::FileF)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileC), libataxx::Bitboard(libataxx::Bitmask::FileE)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileD), libataxx::Bitboard(libataxx::Bitmask::FileD)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileE), libataxx::Bitboard(libataxx::Bitmask::FileC)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileF), libataxx::Bitboard(libataxx::Bitmask::FileB)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileG), libataxx::Bitboard(libataxx::Bitmask::FileA)},
+        {libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::F2}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_horizontal() == bb2);
@@ -21,16 +21,16 @@ TEST_CASE("flip_horizontal()") {
 
 TEST_CASE("flip_vertical()") {
     const std::pair<libataxx::Bitboard, libataxx::Bitboard> bitboards[] = {
-        {libataxx::bitboards::Empty, libataxx::bitboards::Empty},
-        {libataxx::bitboards::All, libataxx::bitboards::All},
-        {libataxx::bitboards::FileA, libataxx::bitboards::FileA},
-        {libataxx::bitboards::FileB, libataxx::bitboards::FileB},
-        {libataxx::bitboards::FileC, libataxx::bitboards::FileC},
-        {libataxx::bitboards::FileD, libataxx::bitboards::FileD},
-        {libataxx::bitboards::FileE, libataxx::bitboards::FileE},
-        {libataxx::bitboards::FileF, libataxx::bitboards::FileF},
-        {libataxx::bitboards::FileG, libataxx::bitboards::FileG},
-        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::B6}},
+        {libataxx::Bitboard(libataxx::Bitmask::Empty), libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {libataxx::Bitboard(libataxx::Bitmask::All), libataxx::Bitboard(libataxx::Bitmask::All)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileA), libataxx::Bitboard(libataxx::Bitmask::FileA)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileB), libataxx::Bitboard(libataxx::Bitmask::FileB)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileC), libataxx::Bitboard(libataxx::Bitmask::FileC)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileD), libataxx::Bitboard(libataxx::Bitmask::FileD)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileE), libataxx::Bitboard(libataxx::Bitmask::FileE)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileF), libataxx::Bitboard(libataxx::Bitmask::FileF)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileG), libataxx::Bitboard(libataxx::Bitmask::FileG)},
+        {libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::B6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_vertical() == bb2);
@@ -39,16 +39,16 @@ TEST_CASE("flip_vertical()") {
 
 TEST_CASE("flip_diagA7G1()") {
     const std::pair<libataxx::Bitboard, libataxx::Bitboard> bitboards[] = {
-        {libataxx::bitboards::Empty, libataxx::bitboards::Empty},
-        {libataxx::bitboards::All, libataxx::bitboards::All},
-        {libataxx::bitboards::FileA, libataxx::bitboards::Rank7},
-        {libataxx::bitboards::FileB, libataxx::bitboards::Rank6},
-        {libataxx::bitboards::FileC, libataxx::bitboards::Rank5},
-        {libataxx::bitboards::FileD, libataxx::bitboards::Rank4},
-        {libataxx::bitboards::FileE, libataxx::bitboards::Rank3},
-        {libataxx::bitboards::FileF, libataxx::bitboards::Rank2},
-        {libataxx::bitboards::FileG, libataxx::bitboards::Rank1},
-        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F6}},
+        {libataxx::Bitboard(libataxx::Bitmask::Empty), libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {libataxx::Bitboard(libataxx::Bitmask::All), libataxx::Bitboard(libataxx::Bitmask::All)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileA), libataxx::Bitboard(libataxx::Bitmask::Rank7)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileB), libataxx::Bitboard(libataxx::Bitmask::Rank6)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileC), libataxx::Bitboard(libataxx::Bitmask::Rank5)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileD), libataxx::Bitboard(libataxx::Bitmask::Rank4)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileE), libataxx::Bitboard(libataxx::Bitmask::Rank3)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileF), libataxx::Bitboard(libataxx::Bitmask::Rank2)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileG), libataxx::Bitboard(libataxx::Bitmask::Rank1)},
+        {libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::F6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_diagA7G1() == bb2);
@@ -57,16 +57,16 @@ TEST_CASE("flip_diagA7G1()") {
 
 TEST_CASE("flip_diagA1G7()") {
     const std::pair<libataxx::Bitboard, libataxx::Bitboard> bitboards[] = {
-        {libataxx::bitboards::Empty, libataxx::bitboards::Empty},
-        {libataxx::bitboards::All, libataxx::bitboards::All},
-        {libataxx::bitboards::FileA, libataxx::bitboards::Rank1},
-        {libataxx::bitboards::FileB, libataxx::bitboards::Rank2},
-        {libataxx::bitboards::FileC, libataxx::bitboards::Rank3},
-        {libataxx::bitboards::FileD, libataxx::bitboards::Rank4},
-        {libataxx::bitboards::FileE, libataxx::bitboards::Rank5},
-        {libataxx::bitboards::FileF, libataxx::bitboards::Rank6},
-        {libataxx::bitboards::FileG, libataxx::bitboards::Rank7},
-        {libataxx::Bitboard{libataxx::squares::B6}, libataxx::Bitboard{libataxx::squares::F2}},
+        {libataxx::Bitboard(libataxx::Bitmask::Empty), libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {libataxx::Bitboard(libataxx::Bitmask::All), libataxx::Bitboard(libataxx::Bitmask::All)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileA), libataxx::Bitboard(libataxx::Bitmask::Rank1)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileB), libataxx::Bitboard(libataxx::Bitmask::Rank2)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileC), libataxx::Bitboard(libataxx::Bitmask::Rank3)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileD), libataxx::Bitboard(libataxx::Bitmask::Rank4)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileE), libataxx::Bitboard(libataxx::Bitmask::Rank5)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileF), libataxx::Bitboard(libataxx::Bitmask::Rank6)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileG), libataxx::Bitboard(libataxx::Bitmask::Rank7)},
+        {libataxx::Bitboard{libataxx::SquareIndex::B6}, libataxx::Bitboard{libataxx::SquareIndex::F2}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.flip_diagA1G7() == bb2);
@@ -75,16 +75,16 @@ TEST_CASE("flip_diagA1G7()") {
 
 TEST_CASE("rot90()") {
     const std::pair<libataxx::Bitboard, libataxx::Bitboard> bitboards[] = {
-        {libataxx::bitboards::Empty, libataxx::bitboards::Empty},
-        {libataxx::bitboards::All, libataxx::bitboards::All},
-        {libataxx::bitboards::FileA, libataxx::bitboards::Rank7},
-        {libataxx::bitboards::FileB, libataxx::bitboards::Rank6},
-        {libataxx::bitboards::FileC, libataxx::bitboards::Rank5},
-        {libataxx::bitboards::FileD, libataxx::bitboards::Rank4},
-        {libataxx::bitboards::FileE, libataxx::bitboards::Rank3},
-        {libataxx::bitboards::FileF, libataxx::bitboards::Rank2},
-        {libataxx::bitboards::FileG, libataxx::bitboards::Rank1},
-        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::B6}},
+        {libataxx::Bitboard(libataxx::Bitmask::Empty), libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {libataxx::Bitboard(libataxx::Bitmask::All), libataxx::Bitboard(libataxx::Bitmask::All)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileA), libataxx::Bitboard(libataxx::Bitmask::Rank7)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileB), libataxx::Bitboard(libataxx::Bitmask::Rank6)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileC), libataxx::Bitboard(libataxx::Bitmask::Rank5)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileD), libataxx::Bitboard(libataxx::Bitmask::Rank4)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileE), libataxx::Bitboard(libataxx::Bitmask::Rank3)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileF), libataxx::Bitboard(libataxx::Bitmask::Rank2)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileG), libataxx::Bitboard(libataxx::Bitmask::Rank1)},
+        {libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::B6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.rot90() == bb2);
@@ -93,16 +93,16 @@ TEST_CASE("rot90()") {
 
 TEST_CASE("rot180()") {
     const std::pair<libataxx::Bitboard, libataxx::Bitboard> bitboards[] = {
-        {libataxx::bitboards::Empty, libataxx::bitboards::Empty},
-        {libataxx::bitboards::All, libataxx::bitboards::All},
-        {libataxx::bitboards::FileA, libataxx::bitboards::FileG},
-        {libataxx::bitboards::FileB, libataxx::bitboards::FileF},
-        {libataxx::bitboards::FileC, libataxx::bitboards::FileE},
-        {libataxx::bitboards::FileD, libataxx::bitboards::FileD},
-        {libataxx::bitboards::FileE, libataxx::bitboards::FileC},
-        {libataxx::bitboards::FileF, libataxx::bitboards::FileB},
-        {libataxx::bitboards::FileG, libataxx::bitboards::FileA},
-        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F6}},
+        {libataxx::Bitboard(libataxx::Bitmask::Empty), libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {libataxx::Bitboard(libataxx::Bitmask::All), libataxx::Bitboard(libataxx::Bitmask::All)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileA), libataxx::Bitboard(libataxx::Bitmask::FileG)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileB), libataxx::Bitboard(libataxx::Bitmask::FileF)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileC), libataxx::Bitboard(libataxx::Bitmask::FileE)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileD), libataxx::Bitboard(libataxx::Bitmask::FileD)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileE), libataxx::Bitboard(libataxx::Bitmask::FileC)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileF), libataxx::Bitboard(libataxx::Bitmask::FileB)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileG), libataxx::Bitboard(libataxx::Bitmask::FileA)},
+        {libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::F6}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.rot180() == bb2);
@@ -111,16 +111,16 @@ TEST_CASE("rot180()") {
 
 TEST_CASE("rot270()") {
     const std::pair<libataxx::Bitboard, libataxx::Bitboard> bitboards[] = {
-        {libataxx::bitboards::Empty, libataxx::bitboards::Empty},
-        {libataxx::bitboards::All, libataxx::bitboards::All},
-        {libataxx::bitboards::FileA, libataxx::bitboards::Rank1},
-        {libataxx::bitboards::FileB, libataxx::bitboards::Rank2},
-        {libataxx::bitboards::FileC, libataxx::bitboards::Rank3},
-        {libataxx::bitboards::FileD, libataxx::bitboards::Rank4},
-        {libataxx::bitboards::FileE, libataxx::bitboards::Rank5},
-        {libataxx::bitboards::FileF, libataxx::bitboards::Rank6},
-        {libataxx::bitboards::FileG, libataxx::bitboards::Rank7},
-        {libataxx::Bitboard{libataxx::squares::B2}, libataxx::Bitboard{libataxx::squares::F2}},
+        {libataxx::Bitboard(libataxx::Bitmask::Empty), libataxx::Bitboard(libataxx::Bitmask::Empty)},
+        {libataxx::Bitboard(libataxx::Bitmask::All), libataxx::Bitboard(libataxx::Bitmask::All)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileA), libataxx::Bitboard(libataxx::Bitmask::Rank1)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileB), libataxx::Bitboard(libataxx::Bitmask::Rank2)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileC), libataxx::Bitboard(libataxx::Bitmask::Rank3)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileD), libataxx::Bitboard(libataxx::Bitmask::Rank4)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileE), libataxx::Bitboard(libataxx::Bitmask::Rank5)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileF), libataxx::Bitboard(libataxx::Bitmask::Rank6)},
+        {libataxx::Bitboard(libataxx::Bitmask::FileG), libataxx::Bitboard(libataxx::Bitmask::Rank7)},
+        {libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::F2}},
     };
     for (const auto& [bb1, bb2] : bitboards) {
         REQUIRE(bb1.rot270() == bb2);
@@ -129,28 +129,17 @@ TEST_CASE("rot270()") {
 
 TEST_CASE("identity") {
     const libataxx::Bitboard bitboards[] = {
-        libataxx::bitboards::Empty,
-        libataxx::bitboards::All,
-        libataxx::bitboards::Edge,
-        libataxx::bitboards::Center,
-        libataxx::bitboards::FileA,
-        libataxx::bitboards::FileB,
-        libataxx::bitboards::FileC,
-        libataxx::bitboards::FileD,
-        libataxx::bitboards::FileE,
-        libataxx::bitboards::FileF,
-        libataxx::bitboards::FileG,
-        libataxx::bitboards::Rank1,
-        libataxx::bitboards::Rank2,
-        libataxx::bitboards::Rank3,
-        libataxx::bitboards::Rank4,
-        libataxx::bitboards::Rank5,
-        libataxx::bitboards::Rank6,
-        libataxx::bitboards::Rank7,
-        libataxx::Bitboard{libataxx::squares::B2},
-        libataxx::Bitboard{libataxx::squares::B6},
-        libataxx::Bitboard{libataxx::squares::F2},
-        libataxx::Bitboard{libataxx::squares::B6},
+        libataxx::Bitboard(libataxx::Bitmask::Empty),  libataxx::Bitboard(libataxx::Bitmask::All),
+        libataxx::Bitboard(libataxx::Bitmask::Edge),   libataxx::Bitboard(libataxx::Bitmask::Center),
+        libataxx::Bitboard(libataxx::Bitmask::FileA),  libataxx::Bitboard(libataxx::Bitmask::FileB),
+        libataxx::Bitboard(libataxx::Bitmask::FileC),  libataxx::Bitboard(libataxx::Bitmask::FileD),
+        libataxx::Bitboard(libataxx::Bitmask::FileE),  libataxx::Bitboard(libataxx::Bitmask::FileF),
+        libataxx::Bitboard(libataxx::Bitmask::FileG),  libataxx::Bitboard(libataxx::Bitmask::Rank1),
+        libataxx::Bitboard(libataxx::Bitmask::Rank2),  libataxx::Bitboard(libataxx::Bitmask::Rank3),
+        libataxx::Bitboard(libataxx::Bitmask::Rank4),  libataxx::Bitboard(libataxx::Bitmask::Rank5),
+        libataxx::Bitboard(libataxx::Bitmask::Rank6),  libataxx::Bitboard(libataxx::Bitmask::Rank7),
+        libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::B6},
+        libataxx::Bitboard{libataxx::SquareIndex::F2}, libataxx::Bitboard{libataxx::SquareIndex::B6},
     };
     for (const auto& bb : bitboards) {
         REQUIRE(bb.flip_horizontal().flip_horizontal() == bb);
@@ -170,28 +159,17 @@ TEST_CASE("identity") {
 
 TEST_CASE("equivalency") {
     const libataxx::Bitboard bitboards[] = {
-        libataxx::bitboards::Empty,
-        libataxx::bitboards::All,
-        libataxx::bitboards::Edge,
-        libataxx::bitboards::Center,
-        libataxx::bitboards::FileA,
-        libataxx::bitboards::FileB,
-        libataxx::bitboards::FileC,
-        libataxx::bitboards::FileD,
-        libataxx::bitboards::FileE,
-        libataxx::bitboards::FileF,
-        libataxx::bitboards::FileG,
-        libataxx::bitboards::Rank1,
-        libataxx::bitboards::Rank2,
-        libataxx::bitboards::Rank3,
-        libataxx::bitboards::Rank4,
-        libataxx::bitboards::Rank5,
-        libataxx::bitboards::Rank6,
-        libataxx::bitboards::Rank7,
-        libataxx::Bitboard{libataxx::squares::B2},
-        libataxx::Bitboard{libataxx::squares::B6},
-        libataxx::Bitboard{libataxx::squares::F2},
-        libataxx::Bitboard{libataxx::squares::B6},
+        libataxx::Bitboard(libataxx::Bitmask::Empty),  libataxx::Bitboard(libataxx::Bitmask::All),
+        libataxx::Bitboard(libataxx::Bitmask::Edge),   libataxx::Bitboard(libataxx::Bitmask::Center),
+        libataxx::Bitboard(libataxx::Bitmask::FileA),  libataxx::Bitboard(libataxx::Bitmask::FileB),
+        libataxx::Bitboard(libataxx::Bitmask::FileC),  libataxx::Bitboard(libataxx::Bitmask::FileD),
+        libataxx::Bitboard(libataxx::Bitmask::FileE),  libataxx::Bitboard(libataxx::Bitmask::FileF),
+        libataxx::Bitboard(libataxx::Bitmask::FileG),  libataxx::Bitboard(libataxx::Bitmask::Rank1),
+        libataxx::Bitboard(libataxx::Bitmask::Rank2),  libataxx::Bitboard(libataxx::Bitmask::Rank3),
+        libataxx::Bitboard(libataxx::Bitmask::Rank4),  libataxx::Bitboard(libataxx::Bitmask::Rank5),
+        libataxx::Bitboard(libataxx::Bitmask::Rank6),  libataxx::Bitboard(libataxx::Bitmask::Rank7),
+        libataxx::Bitboard{libataxx::SquareIndex::B2}, libataxx::Bitboard{libataxx::SquareIndex::B6},
+        libataxx::Bitboard{libataxx::SquareIndex::F2}, libataxx::Bitboard{libataxx::SquareIndex::B6},
     };
     for (const auto& bb : bitboards) {
         REQUIRE(bb.rot90().rot90() == bb.rot180());

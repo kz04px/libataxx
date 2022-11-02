@@ -6,9 +6,23 @@
 
 namespace libataxx {
 
+enum class Files : int
+{
+    FileA = 0,
+    FileB,
+    FileC,
+    FileD,
+    FileE,
+    FileF,
+    FileG,
+};
+
 class File {
    public:
     constexpr explicit File(const int f) : data_(f) {
+    }
+
+    constexpr explicit File(const Files f) : data_(static_cast<int>(f)) {
     }
 
     [[nodiscard]] explicit constexpr operator char() const noexcept {
@@ -32,33 +46,21 @@ inline std::ostream &operator<<(std::ostream &os, const File &f) {
     return os;
 }
 
-namespace files {
+static_assert(static_cast<char>(File(Files::FileA)) == 'a');
+static_assert(static_cast<char>(File(Files::FileB)) == 'b');
+static_assert(static_cast<char>(File(Files::FileC)) == 'c');
+static_assert(static_cast<char>(File(Files::FileD)) == 'd');
+static_assert(static_cast<char>(File(Files::FileE)) == 'e');
+static_assert(static_cast<char>(File(Files::FileF)) == 'f');
+static_assert(static_cast<char>(File(Files::FileG)) == 'g');
 
-constexpr static File A = File{0};
-constexpr static File B = File{1};
-constexpr static File C = File{2};
-constexpr static File D = File{3};
-constexpr static File E = File{4};
-constexpr static File F = File{5};
-constexpr static File G = File{6};
-
-static_assert(static_cast<char>(A) == 'a');
-static_assert(static_cast<char>(B) == 'b');
-static_assert(static_cast<char>(C) == 'c');
-static_assert(static_cast<char>(D) == 'd');
-static_assert(static_cast<char>(E) == 'e');
-static_assert(static_cast<char>(F) == 'f');
-static_assert(static_cast<char>(G) == 'g');
-
-static_assert(static_cast<int>(A) == 0);
-static_assert(static_cast<int>(B) == 1);
-static_assert(static_cast<int>(C) == 2);
-static_assert(static_cast<int>(D) == 3);
-static_assert(static_cast<int>(E) == 4);
-static_assert(static_cast<int>(F) == 5);
-static_assert(static_cast<int>(G) == 6);
-
-}  // namespace files
+static_assert(static_cast<int>(File(Files::FileA)) == 0);
+static_assert(static_cast<int>(File(Files::FileB)) == 1);
+static_assert(static_cast<int>(File(Files::FileC)) == 2);
+static_assert(static_cast<int>(File(Files::FileD)) == 3);
+static_assert(static_cast<int>(File(Files::FileE)) == 4);
+static_assert(static_cast<int>(File(Files::FileF)) == 5);
+static_assert(static_cast<int>(File(Files::FileG)) == 6);
 
 }  // namespace libataxx
 
