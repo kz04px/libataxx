@@ -7,7 +7,7 @@ namespace libataxx {
 [[nodiscard]] int Position::legal_noncaptures(Move *movelist) const noexcept {
     assert(movelist);
 
-    if (gameover()) {
+    if (is_gameover()) {
         return 0;
     }
 

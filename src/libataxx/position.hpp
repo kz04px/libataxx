@@ -66,9 +66,9 @@ class Position {
 
     [[nodiscard]] int legal_noncaptures(Move *movelist) const noexcept;
 
-    [[nodiscard]] bool legal_move(const Move &move) const noexcept;
+    [[nodiscard]] bool is_legal_move(const Move &move) const noexcept;
 
-    [[nodiscard]] bool gameover() const noexcept;
+    [[nodiscard]] bool is_gameover() const noexcept;
 
     [[nodiscard]] constexpr Bitboard black() const noexcept {
         return pieces_[static_cast<int>(Side::Black)];
@@ -117,7 +117,7 @@ class Position {
     }
 
     [[nodiscard]] Result result() const noexcept {
-        if (!gameover()) {
+        if (!is_gameover()) {
             return Result::None;
         }
 

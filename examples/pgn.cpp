@@ -20,7 +20,7 @@ int main() {
     libataxx::Move moves[libataxx::max_moves];
 
     // Create game
-    while (!pos.gameover()) {
+    while (!pos.is_gameover()) {
         // Play random move
         const int num_moves = pos.legal_moves(moves);
         const int idx = std::rand() % num_moves;

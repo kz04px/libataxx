@@ -6,7 +6,7 @@ namespace libataxx {
 [[nodiscard]] int Position::legal_moves(Move *movelist) const noexcept {
     assert(movelist);
 
-    if (gameover()) {
+    if (is_gameover()) {
         return 0;
     }
 
@@ -37,7 +37,7 @@ namespace libataxx {
 }
 
 [[nodiscard]] std::vector<Move> Position::legal_moves() const noexcept {
-    if (gameover()) {
+    if (is_gameover()) {
         return {};
     }
 

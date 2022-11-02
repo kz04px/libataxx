@@ -25,11 +25,11 @@ add_executable(
     passing.cpp
     set_get.cpp
     from_uai.cpp
+    is_gameover.cpp
     legal_captures.cpp
     legal_noncaptures.cpp
     perft.cpp
     set_turn.cpp
-    gameover.cpp
     legal_move.cpp
     move.cpp
     reachable.cpp

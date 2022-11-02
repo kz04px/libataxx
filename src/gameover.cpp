@@ -2,7 +2,7 @@
 
 namespace libataxx {
 
-[[nodiscard]] bool Position::gameover() const noexcept {
+[[nodiscard]] bool Position::is_gameover() const noexcept {
     const Bitboard both = black() | white();
     const Bitboard moves = both.singles().singles();
 

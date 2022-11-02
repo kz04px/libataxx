@@ -23,8 +23,8 @@ add_library(
     gameover.cpp
     get_fen.cpp
     hash.cpp
+    is_legal_move.cpp
     legal_captures.cpp
-    legal_move.cpp
     legal_moves.cpp
     legal_noncaptures.cpp
     makemove.cpp

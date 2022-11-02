@@ -3,7 +3,7 @@
 #include <string>
 #include "catch.hpp"
 
-TEST_CASE("Position::gameover()") {
+TEST_CASE("Position::is_gameover()") {
     const std::pair<std::string, bool> positions[] = {
         {"x5o/7/7/7/7/7/o5x x 0 1", false},
         {"x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1", false},
@@ -22,7 +22,7 @@ TEST_CASE("Position::gameover()") {
 
     for (const auto& [fen, gameover] : positions) {
         libataxx::Position pos{fen};
-        REQUIRE(pos.gameover() == gameover);
+        REQUIRE(pos.is_gameover() == gameover);
 
         const int num_moves = pos.count_moves();
 

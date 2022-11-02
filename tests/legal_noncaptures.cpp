@@ -23,7 +23,7 @@ TEST_CASE("Position::legal_noncaptures()") {
         libataxx::Move moves[libataxx::max_moves];
         const int num_moves = pos.legal_noncaptures(moves);
 
-        if (pos.gameover()) {
+        if (pos.is_gameover()) {
             REQUIRE(num_moves == 0);
         } else if (pos.must_pass()) {
             REQUIRE(num_moves == 1);

@@ -3,7 +3,7 @@
 #include <string>
 #include "catch.hpp"
 
-TEST_CASE("Position::legal_move()") {
+TEST_CASE("Position::is_legal_move()") {
     const std::string fens[] = {
         "x5o/7/7/7/7/7/o5x x 0 1",
         "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1",
@@ -23,11 +23,11 @@ TEST_CASE("Position::legal_move()") {
         for (int i = 0; i < num_moves; ++i) {
             REQUIRE(moves[i]);
             REQUIRE(moves[i] != libataxx::Move::nomove());
-            REQUIRE(pos.legal_move(moves[i]) == true);
+            REQUIRE(pos.is_legal_move(moves[i]) == true);
         }
 
         if (!pos.must_pass()) {
-            REQUIRE(pos.legal_move(libataxx::Move::nullmove()) == false);
+            REQUIRE(pos.is_legal_move(libataxx::Move::nullmove()) == false);
         }
     }
 }

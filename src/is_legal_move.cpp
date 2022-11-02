@@ -4,11 +4,11 @@
 
 namespace libataxx {
 
-[[nodiscard]] bool Position::legal_move(const Move &move) const noexcept {
+[[nodiscard]] bool Position::is_legal_move(const Move &move) const noexcept {
     assert(move != Move::nomove());
 
     if (move == Move::nullmove()) {
-        return must_pass() && !gameover();
+        return must_pass() && !is_gameover();
     }
 
     const Square from = move.from();

@@ -3,7 +3,7 @@
 namespace libataxx {
 
 [[nodiscard]] int Position::count_moves() const noexcept {
-    if (gameover()) {
+    if (is_gameover()) {
         return 0;
     }
 
