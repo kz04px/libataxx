@@ -19,27 +19,27 @@ endif()
 add_executable(
     tests
     main.cpp
-    count_moves.cpp
     combined_moves.cpp
-    hash.cpp
-    passing.cpp
-    set_get.cpp
+    count_moves.cpp
+    counters.cpp
     from_uai.cpp
+    get_fen.cpp
+    hash.cpp
     is_gameover.cpp
     legal_captures.cpp
-    legal_noncaptures.cpp
-    perft.cpp
-    set_turn.cpp
     legal_move.cpp
+    legal_noncaptures.cpp
+    main.cpp
     move.cpp
+    passing.cpp
+    perft.cpp
+    pgn.cpp
     reachable.cpp
     result.cpp
-    square.cpp
-    get_fen.cpp
-    main.cpp
     score.cpp
-    pgn.cpp
-    counters.cpp
+    set_get.cpp
+    set_turn.cpp
+    square.cpp
     transformations.cpp
 )
 
