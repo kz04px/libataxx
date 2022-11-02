@@ -3,13 +3,7 @@
 
 namespace libataxx {
 
-[[nodiscard]] int Position::legal_moves(Move *movelist) const noexcept {
-    assert(movelist);
-
-    if (is_gameover()) {
-        return 0;
-    }
-
+[[nodiscard]] int Position::pseudolegal_moves(Move *movelist) const noexcept {
     int num_moves = 0;
 
     // Single moves
@@ -36,11 +30,7 @@ namespace libataxx {
     return num_moves;
 }
 
-[[nodiscard]] std::vector<Move> Position::legal_moves() const noexcept {
-    if (is_gameover()) {
-        return {};
-    }
-
+[[nodiscard]] std::vector<Move> Position::pseudolegal_moves() const noexcept {
     std::vector<Move> moves;
 
     // Single moves
@@ -62,6 +52,24 @@ namespace libataxx {
     }
 
     return moves;
+}
+
+[[nodiscard]] int Position::legal_moves(Move *movelist) const noexcept {
+    assert(movelist);
+
+    if (is_gameover()) {
+        return 0;
+    }
+
+    return pseudolegal_moves(movelist);
+}
+
+[[nodiscard]] std::vector<Move> Position::legal_moves() const noexcept {
+    if (is_gameover()) {
+        return {};
+    }
+
+    return pseudolegal_moves();
 }
 
 }  // namespace libataxx

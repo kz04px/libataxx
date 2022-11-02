@@ -20,7 +20,7 @@ add_executable(
     tests
     main.cpp
     combined_moves.cpp
-    count_moves.cpp
+    count_legal_moves.cpp
     counters.cpp
     from_uai.cpp
     get_fen.cpp

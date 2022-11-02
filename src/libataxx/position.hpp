@@ -56,7 +56,9 @@ class Position {
 
     [[nodiscard]] std::uint64_t perft(const int depth) const noexcept;
 
-    [[nodiscard]] int count_moves() const noexcept;
+    // "legal" functions take gameover into consideration
+
+    [[nodiscard]] int count_legal_moves() const noexcept;
 
     [[nodiscard]] int legal_moves(Move *movelist) const noexcept;
 
@@ -65,6 +67,16 @@ class Position {
     [[nodiscard]] int legal_captures(Move *movelist) const noexcept;
 
     [[nodiscard]] int legal_noncaptures(Move *movelist) const noexcept;
+
+    // "pseudolegal" functions ignore gameover status
+
+    [[nodiscard]] int count_pseudolegal_moves() const noexcept;
+
+    [[nodiscard]] int pseudolegal_moves(Move *movelist) const noexcept;
+
+    [[nodiscard]] std::vector<Move> pseudolegal_moves() const noexcept;
+
+    // -----
 
     [[nodiscard]] bool is_legal_move(const Move &move) const noexcept;
 

@@ -24,7 +24,7 @@ TEST_CASE("Position::is_gameover()") {
         libataxx::Position pos{fen};
         REQUIRE(pos.is_gameover() == gameover);
 
-        const int num_moves = pos.count_moves();
+        const int num_moves = pos.count_legal_moves();
 
         if (gameover) {
             REQUIRE(num_moves == 0);

@@ -16,7 +16,7 @@ struct TTEntry {
         return 1;
     }
     if (depth == 1) {
-        return pos.count_moves();
+        return pos.count_legal_moves();
     }
 
     // Poll TT

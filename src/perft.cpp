@@ -5,7 +5,7 @@ namespace libataxx {
 
 [[nodiscard]] std::uint64_t Position::perft(const int depth) const noexcept {
     if (depth == 1) {
-        return count_moves();
+        return count_legal_moves();
     }
     if (depth == 0) {
         return 1;

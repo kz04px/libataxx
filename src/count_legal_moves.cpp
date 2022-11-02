@@ -2,11 +2,7 @@
 
 namespace libataxx {
 
-[[nodiscard]] int Position::count_moves() const noexcept {
-    if (is_gameover()) {
-        return 0;
-    }
-
+[[nodiscard]] int Position::count_pseudolegal_moves() const noexcept {
     const Bitboard filled = get_black() | get_white() | get_gaps();
     const Bitboard empty = Bitboard(Bitmask::All) ^ filled;
     int num_moves = 0;
@@ -27,6 +23,14 @@ namespace libataxx {
     }
 
     return num_moves;
+}
+
+[[nodiscard]] int Position::count_legal_moves() const noexcept {
+    if (is_gameover()) {
+        return 0;
+    }
+
+    return count_pseudolegal_moves();
 }
 
 }  // namespace libataxx

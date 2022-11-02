@@ -3,7 +3,7 @@
 #include <string>
 #include "catch.hpp"
 
-TEST_CASE("Position::count_moves()") {
+TEST_CASE("Position::count_legal_moves()") {
     const std::string fens[] = {
         "x5o/7/7/7/7/7/o5x x 0 1",
         "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1",
@@ -18,6 +18,6 @@ TEST_CASE("Position::count_moves()") {
         libataxx::Position pos{fen};
         libataxx::Move moves[libataxx::max_moves];
         const int num_moves = pos.legal_moves(moves);
-        REQUIRE(pos.count_moves() == num_moves);
+        REQUIRE(pos.count_legal_moves() == num_moves);
     }
 }

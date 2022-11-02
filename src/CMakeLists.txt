@@ -20,7 +20,7 @@ add_library(
     objlib
     OBJECT
     calculate_hash.cpp
-    count_moves.cpp
+    count_legal_moves.cpp
     gameover.cpp
     get_fen.cpp
     is_legal_move.cpp
