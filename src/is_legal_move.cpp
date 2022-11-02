@@ -4,11 +4,11 @@
 
 namespace libataxx {
 
-[[nodiscard]] bool Position::is_legal_move(const Move &move) const noexcept {
+[[nodiscard]] bool Position::is_pseudolegal_move(const Move &move) const noexcept {
     assert(move != Move::nomove());
 
     if (move == Move::nullmove()) {
-        return must_pass() && !is_gameover();
+        return must_pass();
     }
 
     const Square from = move.from();
@@ -27,6 +27,16 @@ namespace libataxx {
 
     // Double moves
     return Bitboard{to}.doubles() & get_us() & Bitboard{from};
+}
+
+[[nodiscard]] bool Position::is_legal_move(const Move &move) const noexcept {
+    assert(move != Move::nomove());
+
+    if (is_gameover()) {
+        return false;
+    }
+
+    return is_pseudolegal_move(move);
 }
 
 }  // namespace libataxx

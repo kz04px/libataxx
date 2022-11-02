@@ -68,6 +68,8 @@ class Position {
 
     [[nodiscard]] int legal_noncaptures(Move *movelist) const noexcept;
 
+    [[nodiscard]] bool is_legal_move(const Move &move) const noexcept;
+
     // "pseudolegal" functions ignore gameover status
 
     [[nodiscard]] int count_pseudolegal_moves() const noexcept;
@@ -76,9 +78,9 @@ class Position {
 
     [[nodiscard]] std::vector<Move> pseudolegal_moves() const noexcept;
 
-    // -----
+    [[nodiscard]] bool is_pseudolegal_move(const Move &move) const noexcept;
 
-    [[nodiscard]] bool is_legal_move(const Move &move) const noexcept;
+    // -----
 
     [[nodiscard]] bool is_gameover() const noexcept;
 
