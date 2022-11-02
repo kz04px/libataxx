@@ -46,7 +46,7 @@ class Position {
 
     [[nodiscard]] std::string get_fen() const noexcept;
 
-    [[nodiscard]] constexpr Side turn() const noexcept {
+    [[nodiscard]] constexpr Side get_turn() const noexcept {
         return turn_;
     }
 
@@ -70,63 +70,63 @@ class Position {
 
     [[nodiscard]] bool is_gameover() const noexcept;
 
-    [[nodiscard]] constexpr Bitboard black() const noexcept {
+    [[nodiscard]] constexpr Bitboard get_black() const noexcept {
         return pieces_[static_cast<int>(Side::Black)];
     }
 
-    [[nodiscard]] constexpr Bitboard white() const noexcept {
+    [[nodiscard]] constexpr Bitboard get_white() const noexcept {
         return pieces_[static_cast<int>(Side::White)];
     }
 
-    [[nodiscard]] constexpr Bitboard gaps() const noexcept {
+    [[nodiscard]] constexpr Bitboard get_gaps() const noexcept {
         return gaps_;
     }
 
-    [[nodiscard]] constexpr Bitboard us() const noexcept {
+    [[nodiscard]] constexpr Bitboard get_us() const noexcept {
         return pieces_[static_cast<int>(turn_)];
     }
 
-    [[nodiscard]] constexpr Bitboard them() const noexcept {
+    [[nodiscard]] constexpr Bitboard get_them() const noexcept {
         return pieces_[static_cast<int>(!turn_)];
     }
 
-    [[nodiscard]] constexpr Bitboard both() const noexcept {
-        return black() | white();
+    [[nodiscard]] constexpr Bitboard get_both() const noexcept {
+        return get_black() | get_white();
     }
 
-    [[nodiscard]] constexpr Bitboard side(const Side s) const noexcept {
+    [[nodiscard]] constexpr Bitboard get_side(const Side s) const noexcept {
         return pieces_[static_cast<int>(s)];
     }
 
     [[nodiscard]] constexpr bool must_pass() const noexcept {
-        return !(empty() & (us().singles() | us().doubles()));
+        return !(get_empty() & (get_us().singles() | get_us().doubles()));
     }
 
-    [[nodiscard]] constexpr int score() const noexcept {
-        return black().count() - white().count();
+    [[nodiscard]] constexpr int get_score() const noexcept {
+        return get_black().count() - get_white().count();
     }
 
     [[nodiscard]] constexpr int count_captures(const Move &move) const noexcept {
-        const auto neighbours = Bitboard{move.to()}.singles() & them();
+        const auto neighbours = Bitboard{move.to()}.singles() & get_them();
         return neighbours.count();
     }
 
     [[nodiscard]] constexpr bool is_capture(const Move &move) const noexcept {
-        const auto neighbours = Bitboard{move.to()}.singles() & them();
-        return !neighbours.empty();
+        const auto neighbours = Bitboard{move.to()}.singles() & get_them();
+        return !neighbours.get_empty();
     }
 
-    [[nodiscard]] Result result() const noexcept {
+    [[nodiscard]] Result get_result() const noexcept {
         if (!is_gameover()) {
             return Result::None;
         }
 
-        const auto both = black() | white();
-        const auto moves = (both.singles() | both.doubles()) & empty();
+        const auto both = get_black() | get_white();
+        const auto moves = (both.singles() | both.doubles()) & get_empty();
 
         // No legal moves or no pieces left
-        if (!moves || !black() || !white()) {
-            const int s = score();
+        if (!moves || !get_black() || !get_white()) {
+            const int s = get_score();
             if (s > 0) {
                 return Result::BlackWin;
             }
@@ -148,13 +148,13 @@ class Position {
 
     [[nodiscard]] constexpr Piece get(const Square &sq) const noexcept {
         const Bitboard bb{sq};
-        if (black() & bb) {
+        if (get_black() & bb) {
             return Piece::Black;
         }
-        if (white() & bb) {
+        if (get_white() & bb) {
             return Piece::White;
         }
-        if (gaps() & bb) {
+        if (get_gaps() & bb) {
             return Piece::Gap;
         }
         return Piece::Empty;
@@ -188,23 +188,23 @@ class Position {
         }
     }
 
-    [[nodiscard]] constexpr Bitboard empty() const noexcept {
-        return ~(black() | white() | gaps());
+    [[nodiscard]] constexpr Bitboard get_empty() const noexcept {
+        return ~(get_black() | get_white() | get_gaps());
     }
 
-    [[nodiscard]] constexpr std::uint64_t hash() const noexcept {
+    [[nodiscard]] constexpr std::uint64_t get_hash() const noexcept {
         return hash_;
     }
 
-    [[nodiscard]] unsigned int halfmoves() const noexcept {
+    [[nodiscard]] unsigned int get_halfmoves() const noexcept {
         return halfmoves_;
     }
 
-    [[nodiscard]] unsigned int fullmoves() const noexcept {
+    [[nodiscard]] unsigned int get_fullmoves() const noexcept {
         return fullmoves_;
     }
 
-    [[nodiscard]] constexpr Bitboard reachable(Bitboard us, Bitboard available) const noexcept {
+    [[nodiscard]] constexpr Bitboard get_reachable(Bitboard us, Bitboard available) const noexcept {
         Bitboard moves;
         do {
             moves = (us | us.singles() | us.doubles()) & available;
@@ -214,15 +214,15 @@ class Position {
         return us;
     }
 
-    [[nodiscard]] constexpr Bitboard reachable() const noexcept {
-        return reachable(both(), empty());
+    [[nodiscard]] constexpr Bitboard get_reachable() const noexcept {
+        return get_reachable(get_both(), get_empty());
     }
 
-    [[nodiscard]] constexpr Bitboard reachable(const Side s) const noexcept {
-        return reachable(side(s), empty());
+    [[nodiscard]] constexpr Bitboard get_reachable(const Side s) const noexcept {
+        return get_reachable(get_side(s), get_empty());
     }
 
-    [[nodiscard]] constexpr std::uint64_t minimal_hash() const noexcept {
+    [[nodiscard]] constexpr std::uint64_t get_minimal_hash() const noexcept {
         enum Transform
         {
             None = 0,
@@ -377,7 +377,7 @@ inline std::ostream &operator<<(std::ostream &os, const Position &pos) {
         }
         os << '\n';
     }
-    os << "Turn: " << pos.turn();
+    os << "Turn: " << pos.get_turn();
     return os;
 }
 

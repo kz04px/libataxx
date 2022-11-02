@@ -119,7 +119,7 @@ class Bitboard {
         data_ = 0;
     }
 
-    [[nodiscard]] constexpr bool empty() const noexcept {
+    [[nodiscard]] constexpr bool get_empty() const noexcept {
         return data_ == 0ULL;
     }
 
@@ -175,7 +175,7 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr operator bool() const noexcept {
-        return !empty();
+        return !get_empty();
     }
 
     [[nodiscard]] constexpr std::uint64_t data() const noexcept {

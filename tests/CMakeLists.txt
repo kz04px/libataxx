@@ -24,10 +24,10 @@ add_executable(
     counters.cpp
     from_uai.cpp
     get_fen.cpp
-    hash.cpp
+    get_hash.cpp
     is_gameover.cpp
+    is_legal_move.cpp
     legal_captures.cpp
-    legal_move.cpp
     legal_noncaptures.cpp
     main.cpp
     move.cpp

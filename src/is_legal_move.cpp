@@ -13,7 +13,7 @@ namespace libataxx {
 
     const Square from = move.from();
     const Square to = move.to();
-    const Bitboard filled = black() | white() | gaps();
+    const Bitboard filled = get_black() | get_white() | get_gaps();
 
     // Make sure the destination square is empty
     if (Bitboard{to} & filled) {
@@ -22,11 +22,11 @@ namespace libataxx {
 
     // Single moves
     if (move.type() == Move::Type::Single) {
-        return Bitboard{to}.singles() & us();
+        return Bitboard{to}.singles() & get_us();
     }
 
     // Double moves
-    return Bitboard{to}.doubles() & us() & Bitboard{from};
+    return Bitboard{to}.doubles() & get_us() & Bitboard{from};
 }
 
 }  // namespace libataxx

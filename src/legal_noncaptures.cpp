@@ -18,17 +18,17 @@ namespace libataxx {
 
     int num_moves = 0;
 
-    const Bitboard allowed = ~(them().singles()) & empty();
+    const Bitboard allowed = ~(get_them().singles()) & get_empty();
 
     // Single moves
-    const auto singles = us().singles() & allowed;
+    const auto singles = get_us().singles() & allowed;
     for (const auto &to : singles) {
         movelist[num_moves] = Move(to);
         num_moves++;
     }
 
     // Double moves
-    for (const auto &from : us()) {
+    for (const auto &from : get_us()) {
         const auto destinations = Bitboard{from}.doubles() & allowed;
         for (const auto &to : destinations) {
             movelist[num_moves] = Move(from, to);

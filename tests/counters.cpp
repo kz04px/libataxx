@@ -25,8 +25,8 @@ TEST_CASE("counters") {
             try {
                 const libataxx::Move move = libataxx::Move::from_uai(movestr);
                 pos.makemove(move);
-                REQUIRE(pos.halfmoves() == half);
-                REQUIRE(pos.fullmoves() == full);
+                REQUIRE(pos.get_halfmoves() == half);
+                REQUIRE(pos.get_fullmoves() == full);
             } catch (...) {
                 FAIL();
             }
@@ -36,22 +36,22 @@ TEST_CASE("counters") {
     {
         libataxx::Position pos("7/7/7/7/4ooo/4ooo/4oox x 0 1");
         pos.makemove(libataxx::Move::nullmove());
-        REQUIRE(pos.halfmoves() == 1);
-        REQUIRE(pos.fullmoves() == 1);
+        REQUIRE(pos.get_halfmoves() == 1);
+        REQUIRE(pos.get_fullmoves() == 1);
         pos.makemove(libataxx::Move::from_uai("d1"));
-        REQUIRE(pos.halfmoves() == 0);
-        REQUIRE(pos.fullmoves() == 2);
+        REQUIRE(pos.get_halfmoves() == 0);
+        REQUIRE(pos.get_fullmoves() == 2);
         pos.makemove(libataxx::Move::nullmove());
-        REQUIRE(pos.halfmoves() == 1);
-        REQUIRE(pos.fullmoves() == 2);
+        REQUIRE(pos.get_halfmoves() == 1);
+        REQUIRE(pos.get_fullmoves() == 2);
         pos.makemove(libataxx::Move::from_uai("d1b1"));
-        REQUIRE(pos.halfmoves() == 2);
-        REQUIRE(pos.fullmoves() == 3);
+        REQUIRE(pos.get_halfmoves() == 2);
+        REQUIRE(pos.get_fullmoves() == 3);
         pos.makemove(libataxx::Move::nullmove());
-        REQUIRE(pos.halfmoves() == 3);
-        REQUIRE(pos.fullmoves() == 3);
+        REQUIRE(pos.get_halfmoves() == 3);
+        REQUIRE(pos.get_fullmoves() == 3);
         pos.makemove(libataxx::Move::from_uai("a1"));
-        REQUIRE(pos.halfmoves() == 0);
-        REQUIRE(pos.fullmoves() == 4);
+        REQUIRE(pos.get_halfmoves() == 0);
+        REQUIRE(pos.get_fullmoves() == 4);
     }
 }

@@ -21,7 +21,7 @@ TEST_CASE("Position::reachable()") {
 
     for (const auto& [fen, bb] : tests) {
         const libataxx::Position pos{fen};
-        REQUIRE(pos.reachable() == bb);
+        REQUIRE(pos.get_reachable() == bb);
     }
 }
 
@@ -43,8 +43,8 @@ TEST_CASE("Position::reachable(Side)") {
 
     for (const auto& [fen, bb] : tests) {
         const libataxx::Position pos{fen};
-        REQUIRE(pos.reachable(pos.turn()) == bb);
-        REQUIRE((pos.reachable() | pos.reachable(libataxx::Side::Black)) == pos.reachable());
-        REQUIRE((pos.reachable() | pos.reachable(libataxx::Side::White)) == pos.reachable());
+        REQUIRE(pos.get_reachable(pos.get_turn()) == bb);
+        REQUIRE((pos.get_reachable() | pos.get_reachable(libataxx::Side::Black)) == pos.get_reachable());
+        REQUIRE((pos.get_reachable() | pos.get_reachable(libataxx::Side::White)) == pos.get_reachable());
     }
 }

@@ -17,7 +17,7 @@ struct TTEntry {
         return pos.count_moves();
     }
 
-    const auto hash = pos.minimal_hash();
+    const auto hash = pos.get_minimal_hash();
 
     // Poll TT
     const auto &entry = tt.poll(hash);

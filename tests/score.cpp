@@ -18,6 +18,6 @@ TEST_CASE("Position::score()") {
 
     for (const auto& [fen, score] : positions) {
         libataxx::Position pos{fen};
-        REQUIRE(pos.score() == score);
+        REQUIRE(pos.get_score() == score);
     }
 }

@@ -20,8 +20,8 @@ struct TTEntry {
     }
 
     // Poll TT
-    const auto &entry = tt.poll(pos.hash());
-    if (pos.hash() == entry.hash && entry.depth == depth) {
+    const auto &entry = tt.poll(pos.get_hash());
+    if (pos.get_hash() == entry.hash && entry.depth == depth) {
         return entry.nodes;
     }
 
@@ -35,7 +35,7 @@ struct TTEntry {
     }
 
     // Create TT entry
-    tt.add(pos.hash(), {pos.hash(), nodes, depth});
+    tt.add(pos.get_hash(), {pos.get_hash(), nodes, depth});
 
     return nodes;
 }

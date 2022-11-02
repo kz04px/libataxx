@@ -30,7 +30,7 @@ int main() {
         node = node->add_mainline(moves[idx]);
     }
 
-    switch (pos.result()) {
+    switch (pos.get_result()) {
         case libataxx::Result::WhiteWin:
             pgn.header().add("Result", "1-0");
             break;

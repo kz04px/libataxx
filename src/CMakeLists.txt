@@ -19,10 +19,10 @@ endif()
 add_library(
     objlib
     OBJECT
+    calculate_hash.cpp
     count_moves.cpp
     gameover.cpp
     get_fen.cpp
-    hash.cpp
     is_legal_move.cpp
     legal_captures.cpp
     legal_moves.cpp

@@ -7,16 +7,16 @@ namespace libataxx {
         return 0;
     }
 
-    const Bitboard filled = black() | white() | gaps();
+    const Bitboard filled = get_black() | get_white() | get_gaps();
     const Bitboard empty = Bitboard(Bitmask::All) ^ filled;
     int num_moves = 0;
 
     // Single moves
-    const Bitboard singles = us().singles() & empty;
+    const Bitboard singles = get_us().singles() & empty;
     num_moves += singles.count();
 
     // Double moves
-    for (const auto &sq : us()) {
+    for (const auto &sq : get_us()) {
         const Bitboard destinations = Bitboard{sq}.doubles() & empty;
         num_moves += destinations.count();
     }

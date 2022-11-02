@@ -7,13 +7,13 @@ std::uint64_t nodes = 0;
 std::uint64_t chunks[8][256] = {};
 
 void test(const libataxx::Position &pos, const int depth) {
-    REQUIRE(pos.hash());
-    REQUIRE(pos.hash() == pos.calculate_hash());
+    REQUIRE(pos.get_hash());
+    REQUIRE(pos.get_hash() == pos.calculate_hash());
 
     // Track hash distribution
     nodes++;
     for (int i = 0; i < 8; ++i) {
-        chunks[i][(pos.hash() >> (64 - (8 * i + 8))) & 0xFF]++;
+        chunks[i][(pos.get_hash() >> (64 - (8 * i + 8))) & 0xFF]++;
     }
 
     if (depth == 0) {
@@ -25,13 +25,13 @@ void test(const libataxx::Position &pos, const int depth) {
 
     for (int i = 0; i < num_moves; ++i) {
         const auto npos = pos.after_move(moves[i]);
-        REQUIRE(npos.hash() != pos.hash());
-        REQUIRE(npos.hash() == pos.predict_hash(moves[i]));
+        REQUIRE(npos.get_hash() != pos.get_hash());
+        REQUIRE(npos.get_hash() == pos.predict_hash(moves[i]));
         test(npos, depth - 1);
     }
 }
 
-TEST_CASE("Move::hash()") {
+TEST_CASE("Move::get_hash()") {
     const std::string fens[] = {
         "x5o/7/7/7/7/7/o5x x 0 1",
         "x5o/7/2-1-2/7/2-1-2/7/o5x x 0 1",

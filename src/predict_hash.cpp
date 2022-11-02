@@ -22,9 +22,9 @@ std::uint64_t Position::predict_hash(const Move &move) const noexcept {
     const Bitboard to_bb = Bitboard(to);
     const Bitboard from_bb = Bitboard(from);
     const Bitboard neighbours = to_bb.singles();
-    const Bitboard captured = neighbours & them();
-    const Piece our_piece = turn() == Side::Black ? Piece::Black : Piece::White;
-    const Piece their_piece = turn() == Side::Black ? Piece::White : Piece::Black;
+    const Bitboard captured = neighbours & get_them();
+    const Piece our_piece = get_turn() == Side::Black ? Piece::Black : Piece::White;
+    const Piece their_piece = get_turn() == Side::Black ? Piece::White : Piece::Black;
 
     // Update hash -- our pieces
     for (const auto &sq : from_bb | to_bb) {

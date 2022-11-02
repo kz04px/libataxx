@@ -13,15 +13,15 @@ namespace libataxx {
     int num_moves = 0;
 
     // Single moves
-    const Bitboard singles = us().singles() & empty();
+    const Bitboard singles = get_us().singles() & get_empty();
     for (const auto &to : singles) {
         movelist[num_moves] = Move(to);
         num_moves++;
     }
 
     // Double moves
-    for (const auto &from : us()) {
-        const Bitboard destinations = Bitboard{from}.doubles() & empty();
+    for (const auto &from : get_us()) {
+        const Bitboard destinations = Bitboard{from}.doubles() & get_empty();
         for (const auto &to : destinations) {
             movelist[num_moves] = Move(from, to);
             num_moves++;
@@ -44,14 +44,14 @@ namespace libataxx {
     std::vector<Move> moves;
 
     // Single moves
-    const Bitboard singles = us().singles() & empty();
+    const Bitboard singles = get_us().singles() & get_empty();
     for (const auto &to : singles) {
         moves.emplace_back(to);
     }
 
     // Double moves
-    for (const auto &from : us()) {
-        const Bitboard destinations = Bitboard{from}.doubles() & empty();
+    for (const auto &from : get_us()) {
+        const Bitboard destinations = Bitboard{from}.doubles() & get_empty();
         for (const auto &to : destinations) {
             moves.emplace_back(from, to);
         }

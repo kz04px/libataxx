@@ -2,7 +2,7 @@
 #include <string>
 #include "catch.hpp"
 
-TEST_CASE("Position::result()") {
+TEST_CASE("Position::get_result()") {
     const std::pair<std::string, libataxx::Result> positions[] = {
         {"x5o/7/7/7/7/7/o5x x 0 1", libataxx::Result::None},
         {"7/7/7/7/7/7/7 x 0 1", libataxx::Result::Draw},
@@ -46,6 +46,6 @@ TEST_CASE("Position::result()") {
 
     for (const auto& [fen, result] : positions) {
         libataxx::Position pos{fen};
-        REQUIRE(pos.result() == result);
+        REQUIRE(pos.get_result() == result);
     }
 }
