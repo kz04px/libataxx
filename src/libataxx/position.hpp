@@ -36,9 +36,10 @@ class Position {
         : pieces_{b, w}, gaps_{g}, halfmoves_{hm}, fullmoves_{fm}, turn_{t} {
     }
 
+    template <bool HashUpdate = true>
     [[nodiscard]] Position after_move(const Move &move) const noexcept {
         auto npos = *this;
-        npos.makemove(move);
+        npos.makemove<HashUpdate>(move);
         return npos;
     }
 
@@ -158,6 +159,7 @@ class Position {
         return Result::None;
     }
 
+    template <bool HashUpdate = true>
     void makemove(const Move &move) noexcept;
 
     [[nodiscard]] constexpr Piece get(const Square &sq) const noexcept {

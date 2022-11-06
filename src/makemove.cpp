@@ -4,6 +4,7 @@
 
 namespace libataxx {
 
+template <bool HashUpdate>
 void Position::makemove(const Move &move) noexcept {
     assert(move != Move::nomove());
 
@@ -14,7 +15,9 @@ void Position::makemove(const Move &move) noexcept {
     fullmoves_ += (get_turn() == Side::White);
 
     // Update hash -- turn
-    hash_ ^= zobrist::turn_key();
+    if constexpr (HashUpdate) {
+        hash_ ^= zobrist::turn_key();
+    }
 
     // Handle nullmove
     if (move == Move::nullmove()) {
@@ -38,15 +41,17 @@ void Position::makemove(const Move &move) noexcept {
     pieces_[static_cast<int>(!get_turn())] ^= captured;
     pieces_[static_cast<int>(get_turn())] ^= captured;
 
-    // Update hash -- our pieces
-    for (const auto &sq : from_bb | to_bb) {
-        hash_ ^= zobrist::get_key(our_piece, sq);
-    }
+    if constexpr (HashUpdate) {
+        // Update hash -- our pieces
+        for (const auto &sq : from_bb | to_bb) {
+            hash_ ^= zobrist::get_key(our_piece, sq);
+        }
 
-    // Update hash -- captured pieces
-    for (const auto &sq : captured) {
-        hash_ ^= zobrist::get_key(their_piece, sq);
-        hash_ ^= zobrist::get_key(our_piece, sq);
+        // Update hash -- captured pieces
+        for (const auto &sq : captured) {
+            hash_ ^= zobrist::get_key(their_piece, sq);
+            hash_ ^= zobrist::get_key(our_piece, sq);
+        }
     }
 
     // Reset halfmove clock on single moves
@@ -56,5 +61,8 @@ void Position::makemove(const Move &move) noexcept {
 
     turn_ = !get_turn();
 }
+
+template void Position::makemove<true>(const Move &move) noexcept;
+template void Position::makemove<false>(const Move &move) noexcept;
 
 }  // namespace libataxx

@@ -16,7 +16,7 @@ namespace libataxx {
     const int num_moves = legal_moves(moves);
 
     for (int i = 0; i < num_moves; ++i) {
-        const auto npos = after_move(moves[i]);
+        const auto npos = after_move<false>(moves[i]);
         nodes += npos.perft(depth - 1);
     }
 

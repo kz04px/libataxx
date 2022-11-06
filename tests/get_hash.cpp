@@ -7,7 +7,7 @@ std::uint64_t nodes = 0;
 std::uint64_t chunks[8][256] = {};
 
 void test(const libataxx::Position &pos, const int depth) {
-    REQUIRE(pos.get_hash());
+    CHECK(pos.get_hash());
     REQUIRE(pos.get_hash() == pos.calculate_hash());
 
     // Track hash distribution
@@ -28,6 +28,12 @@ void test(const libataxx::Position &pos, const int depth) {
         REQUIRE(npos.get_hash() != pos.get_hash());
         REQUIRE(npos.get_hash() == pos.predict_hash(moves[i]));
         test(npos, depth - 1);
+
+        // makemove without incremental hash updates
+        {
+            const auto npos_noinc = pos.after_move<false>(moves[i]);
+            REQUIRE(pos.get_hash() == npos_noinc.get_hash());
+        }
     }
 }
 
