@@ -1,3 +1,4 @@
+#include "libataxx/lookup.hpp"
 #include "libataxx/move.hpp"
 #include "libataxx/position.hpp"
 #include "libataxx/zobrist.hpp"
@@ -29,7 +30,7 @@ void Position::makemove(const Move &move) noexcept {
     const Square from = move.from();
     const Bitboard to_bb = Bitboard(to);
     const Bitboard from_bb = Bitboard(from);
-    const Bitboard neighbours = to_bb.singles();
+    const Bitboard neighbours = lut::get_singles(to);
     const Bitboard captured = neighbours & get_them();
     const Piece our_piece = get_turn() == Side::Black ? Piece::Black : Piece::White;
     const Piece their_piece = get_turn() == Side::Black ? Piece::White : Piece::Black;

@@ -1,4 +1,5 @@
 #include "libataxx/libataxx.hpp"
+#include "libataxx/lookup.hpp"
 #include "libataxx/move.hpp"
 
 namespace libataxx {
@@ -15,7 +16,7 @@ namespace libataxx {
 
     // Double moves
     for (const auto &from : get_us()) {
-        const Bitboard destinations = Bitboard{from}.doubles() & get_empty();
+        const Bitboard destinations = lut::get_doubles(from) & get_empty();
         for (const auto &to : destinations) {
             movelist[num_moves] = Move(from, to);
             num_moves++;
@@ -41,7 +42,7 @@ namespace libataxx {
 
     // Double moves
     for (const auto &from : get_us()) {
-        const Bitboard destinations = Bitboard{from}.doubles() & get_empty();
+        const Bitboard destinations = lut::get_doubles(from) & get_empty();
         for (const auto &to : destinations) {
             moves.emplace_back(from, to);
         }

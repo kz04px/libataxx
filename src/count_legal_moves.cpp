@@ -1,3 +1,4 @@
+#include "libataxx/lookup.hpp"
 #include "libataxx/position.hpp"
 
 namespace libataxx {
@@ -13,8 +14,7 @@ namespace libataxx {
 
     // Double moves
     for (const auto &sq : get_us()) {
-        const Bitboard destinations = Bitboard{sq}.doubles() & empty;
-        num_moves += destinations.count();
+        num_moves += (lut::get_doubles(sq) & empty).count();
     }
 
     // Nullmove
