@@ -27,6 +27,7 @@ add_library(
     legal_captures.cpp
     legal_moves.cpp
     legal_noncaptures.cpp
+    lookup.cpp
     makemove.cpp
     perft.cpp
     predict_hash.cpp
