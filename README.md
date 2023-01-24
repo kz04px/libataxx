@@ -7,7 +7,7 @@ git clone https://github.com/kz04px/libataxx
 mkdir libataxx/build
 cd libataxx/build
 cmake ..
-make
+cmake --build .
 ```
 Specific make targets exist:
 ```bash
