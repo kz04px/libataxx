@@ -23,7 +23,7 @@ class Position {
    public:
     [[nodiscard]] constexpr Position() noexcept = default;
 
-    [[nodiscard]] constexpr explicit Position(const std::string &fen) noexcept {
+    [[nodiscard]] explicit Position(const std::string &fen) noexcept {
         set_fen(fen);
     }
 
