@@ -5,7 +5,7 @@ project(Libataxx VERSION 1.0 LANGUAGES CXX)
 
 # Flags
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wshadow")
+set(CMAKE_CXX_FLAGS "-fPIC -Wall -Wextra -Wshadow")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native -DNDEBUG")
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
