@@ -128,7 +128,7 @@ class Position {
 
     [[nodiscard]] constexpr bool is_capture(const Move &move) const noexcept {
         const auto neighbours = Bitboard{move.to()}.singles() & get_them();
-        return !neighbours.get_empty();
+        return !neighbours.is_empty();
     }
 
     [[nodiscard]] Result get_result() const noexcept {

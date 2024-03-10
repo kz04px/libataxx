@@ -119,8 +119,12 @@ class Bitboard {
         data_ = 0;
     }
 
-    [[nodiscard]] constexpr bool get_empty() const noexcept {
+    [[nodiscard]] constexpr bool is_empty() const noexcept {
         return data_ == 0ULL;
+    }
+
+    [[nodiscard]] constexpr bool is_occupied() const noexcept {
+        return data_ != 0ULL;
     }
 
     [[nodiscard]] constexpr Bitboard operator&(const Bitboard &rhs) const noexcept {
@@ -175,7 +179,7 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr operator bool() const noexcept {
-        return !get_empty();
+        return !is_empty();
     }
 
     [[nodiscard]] constexpr std::uint64_t data() const noexcept {
@@ -344,6 +348,12 @@ static_assert(Bitboard(Bitmask::Empty).singles() == Bitboard(Bitmask::Empty));
 static_assert(Bitboard(Bitmask::Empty).doubles() == Bitboard(Bitmask::Empty));
 static_assert(~Bitboard(Bitmask::Empty) == Bitboard(Bitmask::All));
 static_assert(~Bitboard(Bitmask::All) == Bitboard(Bitmask::Empty));
+static_assert(Bitboard(Bitmask::Empty).is_empty());
+static_assert(!Bitboard(0x1ULL).is_empty());
+static_assert(!Bitboard(Bitmask::All).is_empty());
+static_assert(!Bitboard(Bitmask::Empty).is_occupied());
+static_assert(Bitboard(0x1ULL).is_occupied());
+static_assert(Bitboard(Bitmask::All).is_occupied());
 
 }  // namespace libataxx
 
