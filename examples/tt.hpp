@@ -42,7 +42,9 @@ class TT {
 
     void prefetch(const std::uint64_t hash) const noexcept {
         const auto idx = index(hash);
+#ifndef __GNUC__
         __builtin_prefetch(&entries_[idx]);
+#endif
     }
 
    private:
