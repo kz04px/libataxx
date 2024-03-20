@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cstdint>
+#include <bit>
 #include "square.hpp"
 
 namespace libataxx {
@@ -38,7 +39,7 @@ class BitboardIterator {
     }
 
     [[nodiscard]] constexpr Square operator*() const noexcept {
-        const int n = __builtin_ctzll(data_);
+        const int n = std::countr_zero(data_);
         return Square{File{n % 8}, Rank{n / 8}};
     }
 
@@ -69,7 +70,7 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr int count() const noexcept {
-        return __builtin_popcountll(data_);
+        return std::popcount(data_);
     }
 
     constexpr void set(const Square &sq) noexcept {
@@ -195,7 +196,7 @@ class Bitboard {
     }
 
     [[nodiscard]] constexpr int lsbll() const noexcept {
-        return __builtin_ctzll(data_);
+        return std::countr_zero(data_);
     }
 
     [[nodiscard]] constexpr Bitboard flip_vertical() const noexcept {
