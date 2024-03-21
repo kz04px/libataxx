@@ -3,14 +3,18 @@ cmake_minimum_required(VERSION 3.12)
 # Project
 project(Libataxx VERSION 1.0 LANGUAGES CXX)
 
-# Flags
-set(CMAKE_CXX_STANDARD 20)
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(CMAKE_CXX_FLAGS "-fPIC -Wall -Wextra -Wshadow")
-    set(CMAKE_CXX_FLAGS_DEBUG "-g")
-    set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native -DNDEBUG")
-    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
-endif ()
+target_compile_features(Foo PUBLIC cxx_std_20)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    # MSVC doesn't need -fPIC as it's the default behavior
+    # Equivalent of -Wall -Wextra
+    add_compile_options(/W3)
+    # There's no direct equivalent for -Wshadow in MSVC
+elif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-fPIC -Wall -Wextra -Wshadow)
+else()
+    message(FATAL_ERROR "Compiler not explicitly supported: ${CMAKE_CXX_COMPILER_ID}" )
+endif()
 
 # Default build type
 if(NOT CMAKE_BUILD_TYPE)
