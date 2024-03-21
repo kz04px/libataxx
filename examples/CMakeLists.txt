@@ -16,7 +16,6 @@ else()
     message(FATAL_ERROR "Compiler not explicitly supported: ${CMAKE_CXX_COMPILER_ID}" )
 endif()
 
-# TODO not all all applications would want to use libataxx with these flags
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Ob0 /Od /RTC1")
     set(CMAKE_CXX_FLAGS_RELEASE "/O2 /DNDEBUG")
