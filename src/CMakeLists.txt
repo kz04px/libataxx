@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.12)
 # Project
 project(Libataxx VERSION 1.0 LANGUAGES CXX)
 
-target_compile_features(objlib PUBLIC cxx_std_20)
-
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # MSVC doesn't need -fPIC as it's the default behavior
     # Equivalent of -Wall -Wextra
@@ -39,6 +37,8 @@ add_library(
     predict_hash.cpp
     set_fen.cpp
 )
+
+target_compile_features(objlib PUBLIC cxx_std_20)
 
 # Add the static library
 add_library(
