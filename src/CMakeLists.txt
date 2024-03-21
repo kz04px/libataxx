@@ -7,14 +7,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     # MSVC doesn't need -fPIC as it's the default behavior
     # Equivalent of -Wall -Wextra
     add_compile_options(/W3)
-    # There's no direct equivalent for -Wshadow in MSVC
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-fPIC -Wall -Wextra -Wshadow)
 else()
     message(FATAL_ERROR "Compiler not explicitly supported: ${CMAKE_CXX_COMPILER_ID}" )
 endif()
 
-# Compiler flags
 # TODO not all all applications would want to use libataxx with these flags
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     set(CMAKE_CXX_FLAGS_DEBUG "/Zi /Ob0 /Od /RTC1")
